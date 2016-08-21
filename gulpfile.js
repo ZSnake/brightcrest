@@ -22,10 +22,3 @@ gulp.task('inject-main-files', function() {
 		.pipe(gulp.dest('./app'));
 });
 
-gulp.task('compile-js', function() {
-    var bundler = browserify({basedir: 'app/*.js'}).transform(debowerify);
-
-    return bundler.bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('app'));
-}); 
