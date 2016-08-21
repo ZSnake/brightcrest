@@ -2,6 +2,7 @@ var VueRouter = require('vue-router');
 var addOrg = require('./src/components/addOrganization.vue');
 var Vue = require('vue'); 
 var App = require('./App.vue');
+var VueResource = require('vue-resource');
 
 $(document).ready(function() {
     $('select').material_select();
@@ -16,15 +17,14 @@ $(document).ready(function() {
     })
 });
 
-
-
+Vue.use(VueResource);
 Vue.use(VueRouter);
 
 new Vue({
   el: 'body',
   components: {
     app: App
-  }
+  },
 })
 
 var router = new VueRouter();
