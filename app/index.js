@@ -1,5 +1,5 @@
 var VueRouter = require('vue-router');
-var view2Component = require('./src/components/view2Component.vue');
+var addOrg = require('./src/components/addOrganization.vue');
 var Vue = require('vue'); 
 
 var App = require('./App.vue')
@@ -15,9 +15,9 @@ new Vue({
 var router = new VueRouter();
 
 router.map({
-    '/view2': {
-        name: 'view2',
-        component: view2Component
+    '/': {
+        name: 'addOrganization',
+        component: addOrg
     }
 })  
 
