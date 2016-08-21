@@ -4,9 +4,9 @@
   "description": "frontend for DINAF app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "watch": "watchify -t vueify app/index.js -o app/bundle.js --debug"
+    "watch": "watchify -t vueify app/index.js -o app/bundle.js --debug",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
 var VueRouter = require('vue-router');
-var view1Component = require('./src/components/view1Component.vue');
 var view2Component = require('./src/components/view2Component.vue');
 var Vue = require('vue'); 
 
@@ -16,10 +15,6 @@ new Vue({
 var router = new VueRouter();
 
 router.map({
-    '/view1': {
-        name: 'view1',
-        component: view1Component
-    },
     '/view2': {
         name: 'view2',
         component: view2Component
