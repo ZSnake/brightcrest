@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Brightcrest</title>
+        <!-- inject:css -->
+        <link rel="stylesheet" href="styles/style.css">
+        <!-- endinject -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="/materialize/bin/materialize.css">
+        <!-- endinject -->
+    </head>
+    <body>
+        <p>
+            <!-- use v-link directive for navigation. -->
+            <a v-link="{ path: '/foo' }">Go to Foo</a>
+            <a v-link="{ path: '/bar' }">Go to Bar</a>
+
+            <router-view></router-view>
+        </p>
+    </body>
+    <!-- bower:js -->
+    
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/vue/dist/vue.js"></script>
+    <script src="/vue-router/dist/vue-router.js"></script>
+    <script src="/vue-resource/dist/vue-resource.js"></script>
+    <script src="/materialize/bin/materialize.js"></script>
+    <!-- endinject -->
+    
+    <script src="bundle.js"></script>
+</html>

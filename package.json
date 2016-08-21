@@ -1,0 +1,38 @@
+{
+  "name": "brightcrest",
+  "version": "1.0.0",
+  "description": "frontend for DINAF app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "postinstall": "bower-requirejs -c /app/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZSnake/brightcrest.git"
+  },
+  "keywords": [
+    "dinaf",
+    "brightcrest"
+  ],
+  "author": "Viktor Zavala <zavala.viktor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZSnake/brightcrest/issues"
+  },
+  "homepage": "https://github.com/ZSnake/brightcrest#readme",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "browserify": "^13.1.0",
+    "debowerify": "^1.5.0",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2",
+    "gulp-inject": "^4.1.0",
+    "gulp-load-plugins": "^1.2.4",
+    "hapi": "^14.2.0",
+    "inert": "^4.0.1",
+    "main-bower-files": "^2.13.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
