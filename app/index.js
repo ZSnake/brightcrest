@@ -6,16 +6,6 @@ var App = require('./App.vue');
 var VueResource = require('vue-resource');
 
 $(document).ready(function() {
-    $('select').material_select();
-
-    var d = new Date();
-    d.setFullYear( d.getFullYear() - 100 );
-    $('.datepicker').pickadate(
-    {
-        selectMonths: true,
-        selectYears: d,
-        max: new Date()
-    })
 });
 
 Vue.use(VueResource);

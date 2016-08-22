@@ -214,6 +214,18 @@
     var swal = require('sweetalert');
     var config = require('../../config.js');
     module.exports = {
+        ready: function(){
+            $('select').material_select();
+
+            var d = new Date();
+            d.setFullYear( d.getFullYear() - 100 );
+            $('.datepicker').pickadate(
+            {
+                selectMonths: true,
+                selectYears: d,
+                max: new Date()
+            });
+        },
         name: 'addOrganization',
         methods: {
             createOrganization: function(event){
