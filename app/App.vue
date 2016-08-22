@@ -8,11 +8,6 @@
 <script>
     var nav = require('./src/components/navbar.vue');
     module.exports = {
-        data () {
-            return {
-                var: "hi",
-            }
-        },
         components: {
             'navbar': nav
         }
