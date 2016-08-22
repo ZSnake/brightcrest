@@ -212,6 +212,7 @@
 
 <script>
     var swal = require('sweetalert');
+    var config = require('../../config.js');
     module.exports = {
         name: 'addOrganization',
         methods: {
@@ -251,7 +252,7 @@
                     observations: $('#observations').val("")
                 }
                 console.log(organization);
-                this.$http.post('http://localhost:8000/v1/organization', organization).then(function(response){
+                this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
                     Materialize.toast('Exito', 'Organización agregada exitosamente', 'success');
                     console.log(response.body.message);
                 }, function(error){

@@ -1,5 +1,5 @@
-module.exports.config = {
+module.exports = {
     baseUrl: function(){
-        return ~~process.env.baseurl ? ~~provess.env.baseurl : "http://localhost:8001/"
+        return ~~process.env.baseurl ? ~~provess.env.baseurl : "http://localhost:8000"
     }
 }
