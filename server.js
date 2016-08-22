@@ -14,7 +14,7 @@ server.register(inert, function(err){
       config: {
       handler: {
 				directory: {
-					path: ['app', 'bower_components']
+					path: ['app', 'bower_components', 'node_modules']
 				}
 		   }
     }}]);

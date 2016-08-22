@@ -28,7 +28,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <select>
+                                    <select id="department">
                                         <option value="1">Atlántida</option>
                                         <option value="2">Colón</option>
                                         <option value="3">Comayagua</option>
@@ -106,7 +106,7 @@
                                     <label for="orgSocialNetwork">Redes Sociales</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="orgEmail" type="text" class="validate">
+                                    <input id="orgEmail" type="email" class="validate">
                                     <label for="orgEmail">Email</label>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                 <div class="card-content">     
                 <div class="card-action">
                     <a class="waves-effect waves-light btn blue darken-4" v-on:click="createOrganization">Guardar</a>
-                    <a class="waves-effect waves-light btn red darken-4">Limpiar</a>
+                    <a class="waves-effect waves-light btn red darken-4" v-on:click="clear">Limpiar</a>
                 </div>
             </div>
         </div>
@@ -211,12 +211,87 @@
 </template>
 
 <script>
+    var swal = require('sweetalert');
     module.exports = {
         name: 'addOrganization',
         methods: {
             createOrganization: function(event){
-                event.preventDefault();
-                alert("0");
+                var organization = {
+                    orgNumber: $('#orgNumber').val(""),
+                    orgName: $('#orgName').val(""),
+                    acronym: $('#acronym').val(""),
+                    postal: $('#postal').val(""),
+                    department: $('#department').find(":selected").text(),
+                    municipality: $('#municipality').val(""),
+                    village: $('#village').val(""),
+                    community: $('#community').val(""),
+                    sector: $('#sector').val(""),
+                    mission: $('#mission').val(""),
+                    vision: $('#vision').val(""),
+                    market: $('#market').val(""),
+                    webPage: $('#webPage').val(""),
+                    orgPhone: $('#orgPhone').val(""),
+                    orgCelPhone: $('#orgCelPhone').val(""),
+                    orgSocialNetwork: $('#orgSocialNetwork').val(""),
+                    orgEmail: $('#orgEmail').val(""),
+                    directorName: $('#directorName').val(""),
+                    directorPhone: $('#directorPhone').val(""),
+                    directorCelPhone: $('#directorCelPhone').val(""),
+                    directorEmail: $('#directorEmail').val(""),
+                    orgResolutionNumber: $('#orgResolutionNumber').val(""),
+                    orgResolutionDate: $('#orgResolutionDate').val(""),
+                    legalRepresentativeName: $('#legalRepresentativeName').val(""),
+                    ursacRegistrationNumber: $('#ursacRegistrationNumber').val(""),
+                    latitude: $('#latitude').val(""),
+                    longitude: $('#longitude').val(""),
+                    intervieweeName: $('#intervieweeName').val(""),
+                    interviewDate: $('#interviewDate').val(""),
+                    interviewTime: $('#interviewTime').val(""),
+                    otherOrgsInRegion: $('#otherOrgsInRegion').val(""),
+                    observations: $('#observations').val("")
+                }
+                console.log(organization);
+                this.$http.post('http://localhost:8000/v1/organization', organization).then(function(response){
+                    Materialize.toast('Exito', 'Organización agregada exitosamente', 'success');
+                    console.log(response.body.message);
+                }, function(error){
+                    swal('Error', 'Error agregando organización', 'error');
+                    console.log(error.body.message);
+                })
+            },
+            clear: function(event){
+                $('#orgNumber').val(""),
+                $('#orgName').val(""),
+                $('#acronym').val(""),
+                $('#postal').val(""),
+                $('#department').find(":selected").text(),
+                $('#municipality').val(""),
+                $('#village').val(""),
+                $('#community').val(""),
+                $('#sector').val(""),
+                $('#mission').val(""),
+                $('#vision').val(""),
+                $('#market').val(""),
+                $('#webPage').val(""),
+                $('#orgPhone').val(""),
+                $('#orgCelPhone').val(""),
+                $('#orgSocialNetwork').val(""),
+                $('#orgEmail').val(""),
+                $('#directorName').val(""),
+                $('#directorPhone').val(""),
+                $('#directorCelPhone').val(""),
+                $('#directorEmail').val(""),
+                $('#orgResolutionNumber').val(""),
+                $('#orgResolutionDate').val(""),
+                $('#legalRepresentativeName').val(""),
+                $('#ursacRegistrationNumber').val(""),
+                $('#latitude').val(""),
+                $('#longitude').val(""),
+                $('#intervieweeName').val(""),
+                $('#interviewDate').val(""),
+                $('#interviewTime').val(""),
+                $('#otherOrgsInRegion').val(""),
+                $('#observations').val("")
             }
         }
     };
