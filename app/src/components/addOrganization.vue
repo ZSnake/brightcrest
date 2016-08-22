@@ -265,7 +265,7 @@
                 }
                 console.log(organization);
                 this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
-                    Materialize.toast('Exito', 'Organización agregada exitosamente', 'success');
+                    swal('Exito', 'Organización agregada exitosamente', 'success');
                     console.log(response.body.message);
                 }, function(error){
                     swal('Error', 'Error agregando organización', 'error');
