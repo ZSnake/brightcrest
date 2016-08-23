@@ -29,24 +29,24 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <select id="department">
-                                        <option value="1">Atlántida</option>
-                                        <option value="2">Colón</option>
-                                        <option value="3">Comayagua</option>
-                                        <option value="1">Copán</option>
-                                        <option value="2">Cortes</option>
-                                        <option value="3">Choluteca</option>
-                                        <option value="1">El Paraíso</option>
-                                        <option value="2">Francisco Morazán</option>
-                                        <option value="3">Gracias a Dios</option>
-                                        <option value="1">Intibucá</option>
-                                        <option value="2">Islas de la Bahía</option>
-                                        <option value="3">La Paz</option>
-                                        <option value="1">Lempira</option>
-                                        <option value="2">Ocotepeque</option>
-                                        <option value="3">Olancho</option>
-                                        <option value="1">Santa Bárbara</option>
-                                        <option value="2">Valle</option>
-                                        <option value="3">Yoro</option>
+                                        <option>Atlántida</option>
+                                        <option>Colón</option>
+                                        <option>Comayagua</option>
+                                        <option>Copán</option>
+                                        <option>Cortes</option>
+                                        <option>Choluteca</option>
+                                        <option>El Paraíso</option>
+                                        <option>Francisco Morazán</option>
+                                        <option>Gracias a Dios</option>
+                                        <option>Intibucá</option>
+                                        <option>Islas de la Bahía</option>
+                                        <option>La Paz</option>
+                                        <option>Lempira</option>
+                                        <option>Ocotepeque</option>
+                                        <option>Olancho</option>
+                                        <option>Santa Bárbara</option>
+                                        <option>Valle</option>
+                                        <option>Yoro</option>
                                     </select>
                                     <label>Departamento</label>
                                 </div>
@@ -197,8 +197,9 @@
                                     <textarea id="observations" type="text" class="materialize-textarea"></textarea>
                                     <label for="observations">Observaciones</label>
                                 </div>
-                            </div>
+                            </div>                  
                         </form>
+                        <list-project></list-project>
                     </div>        
                 <div class="card-content">     
                 <div class="card-action">
@@ -213,6 +214,7 @@
 <script>
     var swal = require('sweetalert');
     var config = require('../../config.js');
+    var listProjects = require('./listProjects.vue')
     module.exports = {
         ready: function(){
             $('select').material_select();
@@ -225,6 +227,11 @@
                 selectYears: d,
                 max: new Date()
             });
+
+              $(document).ready(function(){
+                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+                    $('.modal-trigger').leanModal();
+                });
         },
         name: 'addOrganization',
         methods: {
@@ -261,11 +268,14 @@
                     interviewDate: $('#interviewDate').val(),
                     interviewTime: $('#interviewTime').val(),
                     otherOrgsInRegion: $('#otherOrgsInRegion').val(),
-                    observations: $('#observations').val()
+                    observations: $('#observations').val(),
+                    projects: this.$children[0].projects
                 }
-                console.log(organization);
+                
+                console.log(this.$children[0].projects);
                 this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
                     swal('Exito', 'Organización agregada exitosamente', 'success');
+                    this.clear();
                     console.log(response.body.message);
                 }, function(error){
                     swal('Error', 'Error agregando organización', 'error');
@@ -273,39 +283,43 @@
                 })
             },
             clear: function(event){
-                $('#orgNumber').val(""),
-                $('#orgName').val(""),
-                $('#acronym').val(""),
-                $('#postal').val(""),
-                $('#department').find(":selected").text(),
-                $('#municipality').val(""),
-                $('#village').val(""),
-                $('#community').val(""),
-                $('#sector').val(""),
-                $('#mission').val(""),
-                $('#vision').val(""),
-                $('#market').val(""),
-                $('#webPage').val(""),
-                $('#orgPhone').val(""),
-                $('#orgCelPhone').val(""),
-                $('#orgSocialNetwork').val(""),
-                $('#orgEmail').val(""),
-                $('#directorName').val(""),
-                $('#directorPhone').val(""),
-                $('#directorCelPhone').val(""),
-                $('#directorEmail').val(""),
-                $('#orgResolutionNumber').val(""),
-                $('#orgResolutionDate').val(""),
-                $('#legalRepresentativeName').val(""),
-                $('#ursacRegistrationNumber').val(""),
-                $('#latitude').val(""),
-                $('#longitude').val(""),
-                $('#intervieweeName').val(""),
-                $('#interviewDate').val(""),
-                $('#interviewTime').val(""),
-                $('#otherOrgsInRegion').val(""),
-                $('#observations').val("")
+                $('#orgNumber').val("");
+                $('#orgName').val("");
+                $('#acronym').val("");
+                $('#postal').val("");
+                $('#department').find(":selected").text();
+                $('#municipality').val("");
+                $('#village').val("");
+                $('#community').val("");
+                $('#sector').val("");
+                $('#mission').val("");
+                $('#vision').val("");
+                $('#market').val("");
+                $('#webPage').val("");
+                $('#orgPhone').val("");
+                $('#orgCelPhone').val("");
+                $('#orgSocialNetwork').val("");
+                $('#orgEmail').val("");
+                $('#directorName').val("");
+                $('#directorPhone').val("");
+                $('#directorCelPhone').val("");
+                $('#directorEmail').val("");
+                $('#orgResolutionNumber').val("");
+                $('#orgResolutionDate').val("");
+                $('#legalRepresentativeName').val("");
+                $('#ursacRegistrationNumber').val("");
+                $('#latitude').val("");
+                $('#longitude').val("");
+                $('#intervieweeName').val("");
+                $('#interviewDate').val("");
+                $('#interviewTime').val("");
+                $('#otherOrgsInRegion').val("");
+                $('#observations').val("");
+                this.$children[0].clear();
             }
+        },
+        components: {
+            'list-project': listProjects
         }
     };
 </script>

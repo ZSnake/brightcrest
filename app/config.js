@@ -1,5 +1,5 @@
 module.exports = {
     baseUrl: function(){
-        return "https://ladyluck-backend.herokuapp.com"
+        return "http://localhost:8000"
     }
 }
