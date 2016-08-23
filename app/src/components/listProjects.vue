@@ -314,6 +314,7 @@
                 this.projects.splice(index, 1);
             },
             clear: function(){
+                this.projects = [];
                 this.project = {};
             }
         }
