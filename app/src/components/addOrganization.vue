@@ -217,7 +217,6 @@
     var listProjects = require('./listProjects.vue')
     module.exports = {
         ready: function(){
-            console.log('add organization ready');
             $('select').material_select();
 
              var d = new Date();
@@ -232,7 +231,6 @@
               $(document).ready(function(){
                     $('.modal-trigger').leanModal();
                 });
-            console.log('finishing this crap');
         },
         name: 'addOrganization',
         methods: {
