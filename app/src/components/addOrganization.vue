@@ -217,21 +217,22 @@
     var listProjects = require('./listProjects.vue')
     module.exports = {
         ready: function(){
+            console.log('add organization ready');
             $('select').material_select();
 
-            var d = new Date();
-            d.setFullYear( d.getFullYear() - 100 );
+             var d = new Date();
+             d.setFullYear( d.getFullYear() - 100 );
             $('.datepicker').pickadate(
             {
                 selectMonths: true,
-                selectYears: d,
+                selectYears: 100,
                 max: new Date()
             });
 
               $(document).ready(function(){
-                    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
                     $('.modal-trigger').leanModal();
                 });
+            console.log('finishing this crap');
         },
         name: 'addOrganization',
         methods: {

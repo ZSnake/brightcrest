@@ -7,7 +7,7 @@
                     <a v-link="'/'">Ver organizaciones</a>
                 </li>
                 <li>
-                    <a v-link="'/organization/new'">Agregar organización</a>
+                    <a v-link="{path: '/organization/new'}">Agregar organización</a>
                 </li>
             </ul>
         </div>

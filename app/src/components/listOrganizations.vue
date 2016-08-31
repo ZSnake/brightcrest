@@ -33,6 +33,7 @@
     module.exports = {
         name: 'listOrganizations',
         ready: function(){
+            console.log('list organizations ready');
             this.getOrganizations();
         },
         data: function(){

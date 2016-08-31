@@ -294,6 +294,7 @@
     module.exports = {
         name: 'listProjects',
         ready: function(){
+            console.log('list projects ready')
             $('select').material_select();
         },
         data: function(){
