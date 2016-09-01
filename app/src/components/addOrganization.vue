@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <input id="postal" type="text" class="validate">
-                                    <label for="postal">Código postal</label>
+                                    <label for="postal">Dirección postal</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -71,11 +71,13 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input id="mission" type="text" class="validate">
+                                <textarea id="mission" type="text" class="materialize-textarea"></textarea>
+                                    
                                     <label for="mission">Misión</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="vision" type="text" class="validate">
+                                <textarea id="vision" type="text" class="materialize-textarea"></textarea>
+                                   
                                     <label for="vision">Visión</label>
                                 </div>
                             </div>
