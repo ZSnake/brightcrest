@@ -33,7 +33,7 @@
                     <h5 class="condensed light">Datos generales del programa</h5>
                     <div class="row">
                         <div class="input-field col s2">
-                            <input id="projectNumber" type="number" class="validate" v-model="project.projectNumber">
+                            <input id="projectNumber" type="text" class="validate" v-model="project.projectNumber">
                             <label for="projectNumber">Número de proyecto</label>
                         </div>
                         <div class="input-field col s10">
