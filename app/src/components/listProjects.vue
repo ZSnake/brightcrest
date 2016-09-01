@@ -47,7 +47,7 @@
                             <label for="description">Descripción del programa</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="duration" type="number" class="validate" v-model="project.duration">
+                            <input id="duration" type="text" class="validate" v-model="project.duration">
                             <label for="duration">Duración (en años)</label>
                         </div>
                     </div>
@@ -70,11 +70,11 @@
                     <h5 class="condensed light">Capacidad de atención</h5>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="totalSpace" type="number" class="validate" v-model="project.totalSpace">
+                            <input id="totalSpace" type="text" class="validate" v-model="project.totalSpace">
                             <label for="totalSpace">Cupos totales</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="availableSpace" type="number" class="validate" v-model="project.availableSpace">
+                            <input id="availableSpace" type="text" class="validate" v-model="project.availableSpace">
                             <label for="availableSpace">Cupos disponibles</label>
                         </div>
                     </div>
