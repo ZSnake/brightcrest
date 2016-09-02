@@ -4,7 +4,6 @@ module.exports = {
             return 'https://ladyluck-dev.herokuapp.com'
         if(process.env.environment === 'production')
             return 'https://ladyluck-backend.herokuapp.com'
-
-        return 'localhost:8000'
+        return 'localhost:8000';
     }
 }
