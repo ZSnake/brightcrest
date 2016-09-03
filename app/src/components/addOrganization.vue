@@ -71,13 +71,13 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
-                                <textarea id="mission" type="text" class="materialize-textarea"></textarea>
+                                    <textarea id="mission" type="text" class="materialize-textarea"></textarea>
                                     
                                     <label for="mission">Misión</label>
                                 </div>
                                 <div class="input-field col s6">
-                                <textarea id="vision" type="text" class="materialize-textarea"></textarea>
-                                   
+                                    <textarea id="vision" type="text" class="materialize-textarea"></textarea>
+                                    
                                     <label for="vision">Visión</label>
                                 </div>
                             </div>
@@ -203,124 +203,124 @@
                         </form>
                         <list-project></list-project>
                     </div>        
-                <div class="card-content">     
-                <div class="card-action">
-                    <a class="waves-effect waves-light btn blue darken-4" v-on:click="createOrganization">Guardar</a>
-                    <a class="waves-effect waves-light btn red darken-4" v-on:click="clear">Limpiar</a>
+                    <div class="card-content">     
+                        <div class="card-action">
+                            <a class="waves-effect waves-light btn blue darken-4" v-on:click="createOrganization">Guardar</a>
+                            <a class="waves-effect waves-light btn red darken-4" v-on:click="clear">Limpiar</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</template>
+           
+        </template>
 
-<script>
-    var swal = require('sweetalert');
-    var config = require('../../config.js');
-    var listProjects = require('./listProjects.vue')
-    module.exports = {
-        ready: function(){
-            $('select').material_select();
+        <script>
+            var swal = require('sweetalert');
+            var config = require('../../config.js');
+            var listProjects = require('./listProjects.vue')
+            module.exports = {
+                ready: function(){
+                    $('select').material_select();
 
-             var d = new Date();
-             d.setFullYear( d.getFullYear() - 100 );
-            $('.datepicker').pickadate(
-            {
-                selectMonths: true,
-                selectYears: 100,
-                max: new Date()
-            });
+                    var d = new Date();
+                    d.setFullYear( d.getFullYear() - 100 );
+                    $('.datepicker').pickadate(
+                    {
+                        selectMonths: true,
+                        selectYears: 100,
+                        max: new Date()
+                    });
 
-              $(document).ready(function(){
-                    $('.modal-trigger').leanModal();
-                });
-        },
-        name: 'addOrganization',
-        methods: {
-            createOrganization: function(event){
-                var organization = {
-                    orgNumber: $('#orgNumber').val(),
-                    orgName: $('#orgName').val(),
-                    acronym: $('#acronym').val(),
-                    postal: $('#postal').val(),
-                    department: $('#department').find(":selected").text(),
-                    municipality: $('#municipality').val(),
-                    village: $('#village').val(),
-                    community: $('#community').val(),
-                    sector: $('#sector').val(),
-                    mission: $('#mission').val(),
-                    vision: $('#vision').val(),
-                    market: $('#market').val(),
-                    webPage: $('#webPage').val(),
-                    orgPhone: $('#orgPhone').val(),
-                    orgCelPhone: $('#orgCelPhone').val(),
-                    orgSocialNetwork: $('#orgSocialNetwork').val(),
-                    orgEmail: $('#orgEmail').val(),
-                    directorName: $('#directorName').val(),
-                    directorPhone: $('#directorPhone').val(),
-                    directorCelPhone: $('#directorCelPhone').val(),
-                    directorEmail: $('#directorEmail').val(),
-                    orgResolutionNumber: $('#orgResolutionNumber').val(),
-                    orgResolutionDate: $('#orgResolutionDate').val(),
-                    legalRepresentativeName: $('#legalRepresentativeName').val(),
-                    ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
-                    latitude: $('#latitude').val(),
-                    longitude: $('#longitude').val(),
-                    intervieweeName: $('#intervieweeName').val(),
-                    interviewDate: $('#interviewDate').val(),
-                    interviewTime: $('#interviewTime').val(),
-                    otherOrgsInRegion: $('#otherOrgsInRegion').val(),
-                    observations: $('#observations').val(),
-                    projects: this.$children[0].projects
+                    $(document).ready(function(){
+                        $('.modal-trigger').leanModal();
+                    });
+                },
+                name: 'addOrganization',
+                methods: {
+                    createOrganization: function(event){
+                        var organization = {
+                            orgNumber: $('#orgNumber').val(),
+                            orgName: $('#orgName').val(),
+                            acronym: $('#acronym').val(),
+                            postal: $('#postal').val(),
+                            department: $('#department').find(":selected").text(),
+                            municipality: $('#municipality').val(),
+                            village: $('#village').val(),
+                            community: $('#community').val(),
+                            sector: $('#sector').val(),
+                            mission: $('#mission').val(),
+                            vision: $('#vision').val(),
+                            market: $('#market').val(),
+                            webPage: $('#webPage').val(),
+                            orgPhone: $('#orgPhone').val(),
+                            orgCelPhone: $('#orgCelPhone').val(),
+                            orgSocialNetwork: $('#orgSocialNetwork').val(),
+                            orgEmail: $('#orgEmail').val(),
+                            directorName: $('#directorName').val(),
+                            directorPhone: $('#directorPhone').val(),
+                            directorCelPhone: $('#directorCelPhone').val(),
+                            directorEmail: $('#directorEmail').val(),
+                            orgResolutionNumber: $('#orgResolutionNumber').val(),
+                            orgResolutionDate: $('#orgResolutionDate').val(),
+                            legalRepresentativeName: $('#legalRepresentativeName').val(),
+                            ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
+                            latitude: $('#latitude').val(),
+                            longitude: $('#longitude').val(),
+                            intervieweeName: $('#intervieweeName').val(),
+                            interviewDate: $('#interviewDate').val(),
+                            interviewTime: $('#interviewTime').val(),
+                            otherOrgsInRegion: $('#otherOrgsInRegion').val(),
+                            observations: $('#observations').val(),
+                            projects: this.$children[0].projects
+                        }
+
+                        console.log(this.$children[0].projects);
+                        this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
+                            swal('Exito', 'Organización agregada exitosamente', 'success');
+                            this.clear();
+                            console.log(response.body.message);
+                        }, function(error){
+                            swal('Error', 'Error agregando organización', 'error');
+                            console.log(error.body.message);
+                        })
+                    },
+                    clear: function(event){
+                        $('#orgNumber').val("");
+                        $('#orgName').val("");
+                        $('#acronym').val("");
+                        $('#postal').val("");
+                        $('#department').find(":selected").text();
+                        $('#municipality').val("");
+                        $('#village').val("");
+                        $('#community').val("");
+                        $('#sector').val("");
+                        $('#mission').val("");
+                        $('#vision').val("");
+                        $('#market').val("");
+                        $('#webPage').val("");
+                        $('#orgPhone').val("");
+                        $('#orgCelPhone').val("");
+                        $('#orgSocialNetwork').val("");
+                        $('#orgEmail').val("");
+                        $('#directorName').val("");
+                        $('#directorPhone').val("");
+                        $('#directorCelPhone').val("");
+                        $('#directorEmail').val("");
+                        $('#orgResolutionNumber').val("");
+                        $('#orgResolutionDate').val("");
+                        $('#legalRepresentativeName').val("");
+                        $('#ursacRegistrationNumber').val("");
+                        $('#latitude').val("");
+                        $('#longitude').val("");
+                        $('#intervieweeName').val("");
+                        $('#interviewDate').val("");
+                        $('#interviewTime').val("");
+                        $('#otherOrgsInRegion').val("");
+                        $('#observations').val("");
+                        this.$children[0].clear();
+                    }
+                },
+                components: {
+                    'list-project': listProjects
                 }
-                
-                console.log(this.$children[0].projects);
-                this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
-                    swal('Exito', 'Organización agregada exitosamente', 'success');
-                    this.clear();
-                    console.log(response.body.message);
-                }, function(error){
-                    swal('Error', 'Error agregando organización', 'error');
-                    console.log(error.body.message);
-                })
-            },
-            clear: function(event){
-                $('#orgNumber').val("");
-                $('#orgName').val("");
-                $('#acronym').val("");
-                $('#postal').val("");
-                $('#department').find(":selected").text();
-                $('#municipality').val("");
-                $('#village').val("");
-                $('#community').val("");
-                $('#sector').val("");
-                $('#mission').val("");
-                $('#vision').val("");
-                $('#market').val("");
-                $('#webPage').val("");
-                $('#orgPhone').val("");
-                $('#orgCelPhone').val("");
-                $('#orgSocialNetwork').val("");
-                $('#orgEmail').val("");
-                $('#directorName').val("");
-                $('#directorPhone').val("");
-                $('#directorCelPhone').val("");
-                $('#directorEmail').val("");
-                $('#orgResolutionNumber').val("");
-                $('#orgResolutionDate').val("");
-                $('#legalRepresentativeName').val("");
-                $('#ursacRegistrationNumber').val("");
-                $('#latitude').val("");
-                $('#longitude').val("");
-                $('#intervieweeName').val("");
-                $('#interviewDate').val("");
-                $('#interviewTime').val("");
-                $('#otherOrgsInRegion').val("");
-                $('#observations').val("");
-                this.$children[0].clear();
-            }
-        },
-        components: {
-            'list-project': listProjects
-        }
-    };
-</script>
+            };
+        </script>
