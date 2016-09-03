@@ -1,4 +1,6 @@
 <template>
+
+
     <div class="row">
         <div class="card-content">
             <table> 
@@ -26,6 +28,7 @@
     <div class="row">
         <a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar projecto</a>
     </div>
+
     <div id="addProjectModal" class="modal modal-fixed-footer">
         <div class="row">
             <div class="modal-content">
