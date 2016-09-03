@@ -37,7 +37,7 @@
 
 
         <div id="editModal" class="modal modal-fixed-footer">
-            <div class="editOrganization">
+            <div class="editOrg">
                 <div class="row">
                     <div class="card blue lighten-5 col m10 s12 offset-m1">
                         <div class="card-content">
@@ -241,11 +241,11 @@
                                 </form>
 
                             </div>        
-                            <div class="card-content">     
-                                <div class="card-action">
-                                    <a class="waves-effect waves-light btn blue darken-4" v-on:click="createOrganization">Guardar</a>
-                                    <a class="waves-effect waves-light btn red darken-4" v-on:click="clear">Limpiar</a>
-                                </div>
+                            <div class="modal-footer">     
+                               
+                                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="createOrganization">Guardar</a>
+                                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Limpiar</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -268,18 +268,18 @@
                     $('select').material_select();
                     this.getOrganizations();
 
-                                 var d = new Date();
-             d.setFullYear( d.getFullYear() - 100 );
-            $('.datepicker').pickadate(
-            {
-                selectMonths: true,
-                selectYears: 100,
-                max: new Date()
-            });
+                    var d = new Date();
+                    d.setFullYear( d.getFullYear() - 100 );
+                    $('.datepicker').pickadate(
+                    {
+                        selectMonths: true,
+                        selectYears: 100,
+                        max: new Date()
+                    });
 
-              $('.datepicker').click(function(){
-                    $('.modal-trigger').leanModal();
-                });
+                    $('.datepicker').click(function(){
+                        $('.modal-trigger').leanModal();
+                    });
 
 
 
@@ -287,7 +287,8 @@
                 },
                 data: function(){
                     return {
-                        organizations: []
+                        organizations: [],
+                        index1: {}
                     }
                 },
                 methods: {
@@ -306,8 +307,11 @@
                     editOrganization: function(index){
                         $('#editModal').openModal();
                         var orgs = this.organizations;
-                        $("table tr").click(function(){
-
+                        
+                        Materialize.updateTextFields();
+                        $("table tr").click(this.index = function(){
+                           index1 = (this.rowIndex-1);
+                           console.log(index1);
                             $("#orgNumber").val(orgs[this.rowIndex-1].orgNumber);
                             $("#orgName").val(orgs[this.rowIndex-1].orgName);
                             $("#acronym").val(orgs[this.rowIndex-1].acronym);
@@ -331,23 +335,21 @@
                             $("#directorEmail").val(orgs[this.rowIndex-1].directorEmail);
                             $("#orgResolutionNumber").val(orgs[this.rowIndex-1].orgResolutionNumber);
                             $("#orgResolutionDate").val(orgs[this.rowIndex-1].orgResolutionDate);
-                           // 
                             $("#legalRepresentativeName").val(orgs[this.rowIndex-1].legalRepresentativeName);
                             $("#ursacRegistrationNumber").val(orgs[this.rowIndex-1].ursacRegistrationNumber);
                             $("#ursacRegistrationDate").val(orgs[this.rowIndex-1].ursacRegistrationDate);
-                          //  
                             $("#latitude").val(orgs[this.rowIndex-1].latitude);
                             $("#longitude").val(orgs[this.rowIndex-1].longitude);
                             $("#intervieweeName").val(orgs[this.rowIndex-1].intervieweeName);
                             $("#interviewDate").val(orgs[this.rowIndex-1].interviewDate);
-                            
                             $("#interviewTime").val(orgs[this.rowIndex-1].interviewTime);
                             $("#otherOrgsInRegion").val(orgs[this.rowIndex-1].otherOrgsInRegion);
                             $("#observations").val(orgs[this.rowIndex-1].observations);
                             Materialize.updateTextFields();
-
-
                         });
+                        
+
+
 
                     },
 
@@ -423,7 +425,7 @@
                         $('#interviewTime').val("");
                         $('#otherOrgsInRegion').val("");
                         $('#observations').val("");
-                      
+
                     }
 
 
