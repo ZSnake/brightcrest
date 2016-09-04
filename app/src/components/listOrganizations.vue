@@ -22,6 +22,7 @@
                                 <td>{{organization.directorName}}</td>
                                 <td>
                                     <a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" v-on:click="editOrganization(index)"><i class="material-icons">edit</i></a>
+
                                 </td>
 
 
@@ -242,9 +243,9 @@
 
                             </div>        
                             <div class="modal-footer">     
-                               
-                                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="createOrganization">Guardar</a>
-                                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Limpiar</a>
+
+                                <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="createOrganization">Guardar</a>
+                                <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Limpiar</a>
                                 
                             </div>
                         </div>
@@ -300,54 +301,28 @@
                         });
                     },
 
-                    myFunction: function(x) {
+/*
+                    showindex: function(){
+                        $("table tr").click(function(){
+                            console.log(this.rowIndex-1);
+                            var k = this.rowIndex-1;
+                            index1 = k;
+                            return(k);
+                        });
 
-                    },
+                    }, */
 
-                    editOrganization: function(index){
+
+
+
+                    editOrganization: function(organization){
+                        console.log(organization._id);
                         $('#editModal').openModal();
                         var orgs = this.organizations;
-                        
-                        Materialize.updateTextFields();
-                        $("table tr").click(this.index = function(){
-                           index1 = (this.rowIndex-1);
-                           console.log(index1);
-                            $("#orgNumber").val(orgs[this.rowIndex-1].orgNumber);
-                            $("#orgName").val(orgs[this.rowIndex-1].orgName);
-                            $("#acronym").val(orgs[this.rowIndex-1].acronym);
-                            $("#postal").val(orgs[this.rowIndex-1].postal);
-                            $("#department").val(orgs[this.rowIndex-1].department);
-                            $("#municipality").val(orgs[this.rowIndex-1].municipality);
-                            $("#village").val(orgs[this.rowIndex-1].village);
-                            $("#community").val(orgs[this.rowIndex-1].community);
-                            $("#sector").val(orgs[this.rowIndex-1].sector);
-                            $("#mission").val(orgs[this.rowIndex-1].mission);
-                            $("#vision").val(orgs[this.rowIndex-1].vision);
-                            $("#market").val(orgs[this.rowIndex-1].market);
-                            $("#webPage").val(orgs[this.rowIndex-1].webPage);
-                            $("#orgPhone").val(orgs[this.rowIndex-1].orgPhone);
-                            $("#orgCelPhone").val(orgs[this.rowIndex-1].orgCelPhone);
-                            $("#orgSocialNetwork").val(orgs[this.rowIndex-1].orgSocialNetwork);
-                            $("#orgEmail").val(orgs[this.rowIndex-1].orgEmail);
-                            $("#directorName").val(orgs[this.rowIndex-1].directorName);
-                            $("#directorPhone").val(orgs[this.rowIndex-1].directorPhone);
-                            $("#directorCelPhone").val(orgs[this.rowIndex-1].directorCelPhone);
-                            $("#directorEmail").val(orgs[this.rowIndex-1].directorEmail);
-                            $("#orgResolutionNumber").val(orgs[this.rowIndex-1].orgResolutionNumber);
-                            $("#orgResolutionDate").val(orgs[this.rowIndex-1].orgResolutionDate);
-                            $("#legalRepresentativeName").val(orgs[this.rowIndex-1].legalRepresentativeName);
-                            $("#ursacRegistrationNumber").val(orgs[this.rowIndex-1].ursacRegistrationNumber);
-                            $("#ursacRegistrationDate").val(orgs[this.rowIndex-1].ursacRegistrationDate);
-                            $("#latitude").val(orgs[this.rowIndex-1].latitude);
-                            $("#longitude").val(orgs[this.rowIndex-1].longitude);
-                            $("#intervieweeName").val(orgs[this.rowIndex-1].intervieweeName);
-                            $("#interviewDate").val(orgs[this.rowIndex-1].interviewDate);
-                            $("#interviewTime").val(orgs[this.rowIndex-1].interviewTime);
-                            $("#otherOrgsInRegion").val(orgs[this.rowIndex-1].otherOrgsInRegion);
-                            $("#observations").val(orgs[this.rowIndex-1].observations);
-                            Materialize.updateTextFields();
-                        });
-                        
+
+                       
+
+
 
 
 
@@ -392,6 +367,7 @@
                         }
 
                     },
+
                     clear: function(event){
                         $('#orgNumber').val("");
                         $('#orgName').val("");
