@@ -29,24 +29,24 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <select id="department">
-                                        <option>Atlántida</option>
-                                        <option>Colón</option>
-                                        <option>Comayagua</option>
-                                        <option>Copán</option>
-                                        <option>Cortes</option>
-                                        <option>Choluteca</option>
-                                        <option>El Paraíso</option>
-                                        <option>Francisco Morazán</option>
-                                        <option>Gracias a Dios</option>
-                                        <option>Intibucá</option>
-                                        <option>Islas de la Bahía</option>
-                                        <option>La Paz</option>
-                                        <option>Lempira</option>
-                                        <option>Ocotepeque</option>
-                                        <option>Olancho</option>
-                                        <option>Santa Bárbara</option>
-                                        <option>Valle</option>
-                                        <option>Yoro</option>
+                                        <option value="Atlántida">Atlántida</option>
+                                        <option value="Colón">Colón</option>
+                                        <option value="Comayagua">Comayagua</option>
+                                        <option value="Copán">Copán</option>
+                                        <option value="Cortes">Cortes</option>
+                                        <option value="Choluteca">Choluteca</option>
+                                        <option value="Paraíso">El Paraíso</option>
+                                        <option value="Francisco Morazán">Francisco Morazán</option>
+                                        <option value="Gracias a Dios">Gracias a Dios</option>
+                                        <option value="Intibucá">Intibucá</option>
+                                        <option value="Islas de la Bahía">Islas de la Bahía</option>
+                                        <option value="La Paz">La Paz</option>
+                                        <option value="Lempira">Lempira</option>
+                                        <option value="Ocotepeque">Ocotepeque</option>
+                                        <option value="Olancho">Olancho</option>
+                                        <option value="Santa Bárbara">Santa Bárbara</option>
+                                        <option value="Valle">Valle</option>
+                                        <option value="Yoro">Yoro</option>
                                     </select>
                                     <label>Departamento</label>
                                 </div>
