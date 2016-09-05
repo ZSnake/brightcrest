@@ -40,7 +40,6 @@ router.map({
       name: 'editProject',
       component: editPro 
     }
-    
 
 })  
 
