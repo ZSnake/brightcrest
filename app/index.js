@@ -4,6 +4,8 @@ var listOrg = require('./src/components/listOrganizations.vue');
 var Vue = require('vue'); 
 var App = require('./App.vue');
 var VueResource = require('vue-resource');
+var editOrg = require('./src/components/editOrganizations.vue');
+var editPro = require('./src/components/editProject.vue')
 
 $(document).ready(function() {
 });
@@ -28,7 +30,19 @@ router.map({
     '/organization/new': {
         name: 'addOrganization',
         component: addOrg
-    }
+    },
+    '/organization/edit/:organizationId': {
+      name: 'editOrganization',
+      component: editOrg 
+    },
+
+    '/organization/edit/:organizationId/project/edit/:projectId' : {
+      name: 'editProject',
+      component: editPro 
+    },
+
+    
+
 })  
 
 router.start(App, '#brightcrest');

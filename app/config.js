@@ -1,6 +1,10 @@
 module.exports = {
     baseUrl: function(){
-        var isRemote = true; 
-        return isRemote ? "https://ladyluck-backend.herokuapp.com" : "http://localhost:8000";
+        var environment = 'dev';
+        if(environment === 'dev')
+            return 'https://ladyluck-dev.herokuapp.com'
+        if(environment === 'production')
+            return 'https://ladyluck-backend.herokuapp.com'
+        return 'http://localhost:8000';
     }
 }
