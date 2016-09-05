@@ -223,7 +223,7 @@
 												<td>{{project.name}}</td>
 												<td>{{project.duration}}</td>
 												<td>{{project.department}}</td>
-												<td><a class="waves-effect waves-light btn red darken-4" v-on:click="editProject(index)"><i class="material-icons">edit</i></a></td>
+												<td><a v-link="{name: 'editProject', params: {organizationId: organization._id}}">go to</a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -243,6 +243,7 @@
 			</div>
 		</div>
 	</div>
+	<edit-projects project=""></edit-projects>
 </template>
 
 <script>
@@ -272,9 +273,10 @@
 
 			this.getOrganization();
 			this.getProjects();
-			
+
 		},
 		methods: {
+
 			updateOrganization: function(){
 				this.organization.department = $('#department').find(":selected").text();
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
@@ -304,6 +306,10 @@
 				}, function(error){
 					swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
 				});
+			},
+
+			editProject: function(){
+				
 			}
 		},
 		data: function(){
@@ -312,6 +318,7 @@
 				projects: []
 			}
 		},
+
 		components: {
 			'edit-projects': editProjects
 		}
