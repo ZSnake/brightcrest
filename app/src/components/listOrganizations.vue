@@ -51,7 +51,7 @@
             data: function(){
                 return {
                     organizations: [],
-                    act_Organization: {}
+                  
                 }
             },
 
@@ -63,16 +63,7 @@
                         swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
                     });
                 },
-                returnOrganization: function(organization){
 
-                    
-                         act_Organization = organization;
-
-                         return act_Organization;
-                     
-                    
-                    
-                }
             }
 
         }
