@@ -5,7 +5,6 @@ var Vue = require('vue');
 var App = require('./App.vue');
 var VueResource = require('vue-resource');
 var editOrg = require('./src/components/editOrganizations.vue');
-var editPro = require('./src/components/editProject.vue')
 
 $(document).ready(function() {
 });
@@ -34,11 +33,6 @@ router.map({
     '/organization/edit/:organizationId': {
       name: 'editOrganization',
       component: editOrg 
-    },
-
-     '/organization/projects/:organizationId': {
-      name: 'editProject',
-      component: editPro 
     }
     
 
