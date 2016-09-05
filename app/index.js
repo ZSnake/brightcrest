@@ -34,7 +34,6 @@ router.map({
       name: 'editOrganization',
       component: editOrg 
     }
-    
 
 })  
 
