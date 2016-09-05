@@ -21,8 +21,7 @@
                                 <td>{{organization.department}}</td>
                                 <td>{{organization.directorName}}</td>
                                 <td>
-                                <a v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">go to</a>
-                                   
+                                    <a v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">go to</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -36,13 +35,10 @@
     </template>
 
     <script>
-
         var swal = require('sweetalert');
         var config = require('../../config.js');
         
         module.exports = {
-
-
             name: 'listOrganizations',
             ready: function(){
                 this.getOrganizations();
@@ -51,10 +47,9 @@
             data: function(){
                 return {
                     organizations: [],
-                  
+                    
                 }
             },
-
             methods: {
                 getOrganizations: function(){
                     this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
@@ -63,9 +58,7 @@
                         swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
                     });
                 },
-
             }
-
         }
     </script>
 

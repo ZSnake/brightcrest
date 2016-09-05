@@ -223,7 +223,7 @@
 												<td>{{project.name}}</td>
 												<td>{{project.duration}}</td>
 												<td>{{project.department}}</td>
-												<td><a v-link="{name: 'editProject', params: {organizationId: organization._id}}">go to</a></td>
+												<td><a v-link="{name: 'editProject', params: {projectId: project._id}}">go to</a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -243,22 +243,18 @@
 			</div>
 		</div>
 	</div>
-	<edit-projects project=""></edit-projects>
 </template>
 
 <script>
-
 	var swal = require('sweetalert');
 	var config = require('../../config.js');
-	var editProjects = require('./editProjects.vue')
+	var editProject = require('./editProject.vue')
 	module.exports = {
-
 		name: 'editOrganization',
 		ready: function(){
 			console.log(this.$route.params);
 			
 			$('select').material_select();
-
 			var d = new Date();
 			d.setFullYear( d.getFullYear() - 100 );
 			$('.datepicker').pickadate(
@@ -270,26 +266,21 @@
 			$(document).ready(function(){
 				$('.modal-trigger').leanModal();
 			});
-
 			this.getOrganization();
 			this.getProjects();
-
+			
 		},
 		methods: {
-
 			updateOrganization: function(){
 				this.organization.department = $('#department').find(":selected").text();
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
 					this.$route.router.go('/');
-
 				}, function(error){
 					swal('Error', 'Error modificando organización', 'error');
 				});
 			},
-
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
-
 					this.organization=response.json()[0];
 					console.log(this.organization);
 					$('#department').val(this.organization.department);
@@ -297,19 +288,13 @@
 					console.log(error);
 				});
 			},
-
 			getProjects: function(){
-
-				this.$http.get(config.baseUrl() + '/v1/organization/projects/'+this.$route.params.organizationId).then(function(response){
+				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/projects/').then(function(response){
 					this.projects = response.json();
 					console.log(this.projects);
 				}, function(error){
 					swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
 				});
-			},
-
-			editProject: function(){
-				
 			}
 		},
 		data: function(){
@@ -317,15 +302,8 @@
 				organization: {},
 				projects: []
 			}
-		},
-
-		components: {
-			'edit-projects': editProjects
-		}
-
-
+		}//quite una comma de aca
 
 	}
-
 	
 </script>

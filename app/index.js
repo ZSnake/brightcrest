@@ -36,10 +36,11 @@ router.map({
       component: editOrg 
     },
 
-     '/organization/projects/:organizationId': {
+    '/organization/edit/:organizationId/project/edit/:projectId' : {
       name: 'editProject',
       component: editPro 
-    }
+    },
+
     
 
 })  

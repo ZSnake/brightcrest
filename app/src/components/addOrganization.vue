@@ -220,7 +220,6 @@
             module.exports = {
                 ready: function(){
                     $('select').material_select();
-
                     var d = new Date();
                     d.setFullYear( d.getFullYear() - 100 );
                     $('.datepicker').pickadate(
@@ -229,7 +228,6 @@
                         selectYears: 100,
                         max: new Date()
                     });
-
                     $(document).ready(function(){
                         $('.modal-trigger').leanModal();
                     });
@@ -272,7 +270,6 @@
                             observations: $('#observations').val(),
                             projects: this.$children[0].projects
                         }
-
                         console.log(this.$children[0].projects);
                         this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
                             swal('Exito', 'Organización agregada exitosamente', 'success');

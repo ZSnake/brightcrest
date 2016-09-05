@@ -293,7 +293,6 @@
 </template>
 
 <script>
-
     module.exports = {
         name: 'listProjects',
         ready: function(){
@@ -311,7 +310,6 @@
                 console.log(this.project);
                 this.projects.push(this.project);
                 this.project = {};
-
             },
             removeProject: function(index){
                 this.projects.splice(index, 1);
