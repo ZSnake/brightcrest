@@ -204,7 +204,6 @@
 								</div>                  
 							</form>
 <<<<<<< HEAD
-<<<<<<< HEAD
 
 
 							<div class="row">
@@ -232,9 +231,6 @@
 								</div>
 							</div>
 
-=======
-							<edit-projects></edit-projects>
->>>>>>> parent of 6bfca1d... showsProjects
 =======
 							<edit-projects></edit-projects>
 >>>>>>> parent of 6bfca1d... showsProjects
@@ -280,13 +276,9 @@
                     });
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 			this.getOrganization();
 			this.getProjects();
 
-=======
-            this.getOrganization();
->>>>>>> parent of 6bfca1d... showsProjects
 =======
             this.getOrganization();
 >>>>>>> parent of 6bfca1d... showsProjects
@@ -313,7 +305,6 @@
 					console.log(error);
 				});
 <<<<<<< HEAD
-<<<<<<< HEAD
 			},
 
 			getProjects: function(){
@@ -328,8 +319,6 @@
 
 			editProject: function(){
 				
-=======
->>>>>>> parent of 6bfca1d... showsProjects
 =======
 >>>>>>> parent of 6bfca1d... showsProjects
 			}
