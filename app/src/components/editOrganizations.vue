@@ -31,24 +31,24 @@
 								<div class="row">
 									<div class="input-field col s6">
 										<select id="department" v-model="organization.department">
-                                        <option value="Atlántida">Atlántida</option>
-                                        <option value="Colón">Colón</option>
-                                        <option value="Comayagua">Comayagua</option>
-                                        <option value="Copán">Copán</option>
-                                        <option value="Cortes">Cortes</option>
-                                        <option value="Choluteca">Choluteca</option>
-                                        <option value="Paraíso">El Paraíso</option>
-                                        <option value="Francisco Morazán">Francisco Morazán</option>
-                                        <option value="Gracias a Dios">Gracias a Dios</option>
-                                        <option value="Intibucá">Intibucá</option>
-                                        <option value="Islas de la Bahía">Islas de la Bahía</option>
-                                        <option value="La Paz">La Paz</option>
-                                        <option value="Lempira">Lempira</option>
-                                        <option value="Ocotepeque">Ocotepeque</option>
-                                        <option value="Olancho">Olancho</option>
-                                        <option value="Santa Bárbara">Santa Bárbara</option>
-                                        <option value="Valle">Valle</option>
-                                        <option value="Yoro">Yoro</option>
+											<option value="Atlántida">Atlántida</option>
+											<option value="Colón">Colón</option>
+											<option value="Comayagua">Comayagua</option>
+											<option value="Copán">Copán</option>
+											<option value="Cortes">Cortes</option>
+											<option value="Choluteca">Choluteca</option>
+											<option value="Paraíso">El Paraíso</option>
+											<option value="Francisco Morazán">Francisco Morazán</option>
+											<option value="Gracias a Dios">Gracias a Dios</option>
+											<option value="Intibucá">Intibucá</option>
+											<option value="Islas de la Bahía">Islas de la Bahía</option>
+											<option value="La Paz">La Paz</option>
+											<option value="Lempira">Lempira</option>
+											<option value="Ocotepeque">Ocotepeque</option>
+											<option value="Olancho">Olancho</option>
+											<option value="Santa Bárbara">Santa Bárbara</option>
+											<option value="Valle">Valle</option>
+											<option value="Yoro">Yoro</option>
 										</select>
 										<label>Departamento</label>
 									</div>
@@ -203,13 +203,39 @@
 									</div>
 								</div>                  
 							</form>
-							<edit-projects></edit-projects>
+
+
+							<div class="row">
+								<div class="card-content">
+									<table> 
+										<thead>
+											<tr>
+												<th data-field="projectNumber">Número de proyecto</th>
+												<th data-field="name">Nombre del proyecto</th>
+												<th data-field="duration">Duración (años)</th>
+												<th data-field="department">Departamento</th>
+												<th data-field="action">Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="project in projects">
+												<td>{{project.projectNumber}}</td>
+												<td>{{project.name}}</td>
+												<td>{{project.duration}}</td>
+												<td>{{project.department}}</td>
+												<td><a class="waves-effect waves-light btn red darken-4" v-on:click="editProject(index)"><i class="material-icons">edit</i></a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
 
 						</div>        
 						<div >     
 
 							<a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="updateOrganization">Actualizar</a>
-						
+
 
 						</div>
 					</div>
@@ -240,11 +266,13 @@
 				selectYears: 100,
 				max: new Date()
 			});
-                    $(document).ready(function(){
-                        $('.modal-trigger').leanModal();
-                    });
+			$(document).ready(function(){
+				$('.modal-trigger').leanModal();
+			});
 
-            this.getOrganization();
+			this.getOrganization();
+			this.getProjects();
+			
 		},
 		methods: {
 			updateOrganization: function(){
@@ -261,21 +289,32 @@
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
 
 					this.organization=response.json()[0];
-					console.log(organization);
+					console.log(this.organization);
 					$('#department').val(this.organization.department);
 				},function(error){
 					console.log(error);
+				});
+			},
+
+			getProjects: function(){
+
+				this.$http.get(config.baseUrl() + '/v1/organization/projects/'+this.$route.params.organizationId).then(function(response){
+					this.projects = response.json();
+					console.log(this.projects);
+				}, function(error){
+					swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
 				});
 			}
 		},
 		data: function(){
 			return {
-				organization: {}
+				organization: {},
+				projects: []
 			}
 		},
 		components: {
-            'edit-projects': editProjects
-        }
+			'edit-projects': editProjects
+		}
 
 
 
