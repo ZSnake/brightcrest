@@ -1,5 +1,4 @@
 <template>
-
     <div class="row">
         <div class="row">
             <div class="card blue lighten-5 col m10 s12 offset-m1">
@@ -21,7 +20,7 @@
                                 <td>{{organization.department}}</td>
                                 <td>{{organization.directorName}}</td>
                                 <td>
-                                    <a v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">go to</a>
+                                    <a class="waves-effect waves-light btn green darken-4" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -29,9 +28,6 @@
                 </div>
             </div>
         </div>
-
-
-        
     </template>
 
     <script>
