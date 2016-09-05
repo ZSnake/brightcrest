@@ -1,7 +1,7 @@
 <template>
     <nav>
         <div class="nav-wrapper blue darken-4">
-            <a href="#" class="brand-logo">Regioplan</a>
+            <a href="#" class="brand-logo logo">DINAF</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
                     <a v-link="'/'">Ver organizaciones</a>
@@ -21,3 +21,8 @@
         name: 'navbar'
     });
 </script>
+<style>
+    .logo{
+        margin-left: 20px;
+    }
+</style>
