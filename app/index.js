@@ -6,6 +6,8 @@ var App = require('./App.vue');
 var VueResource = require('vue-resource');
 var editOrg = require('./src/components/editOrganizations.vue');
 var editPro = require('./src/components/editProject.vue')
+var mapOrg = require('./src/components/mapOrganization.vue')
+
 
 $(document).ready(function() {
 });
@@ -40,6 +42,11 @@ router.map({
       name: 'editProject',
       component: editPro 
     },
+    '/organization/map': {
+        name: 'mapOrganization',
+        component: mapOrg
+    }
+
 
     
 
