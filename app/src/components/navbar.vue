@@ -4,7 +4,10 @@
             <a href="#" class="brand-logo logo">DINAF</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
-                    <a v-link="'/'">Ver organizaciones</a>
+                    <a v-link="'/organization/map'">Mapa de organizaciones</a>
+                </li>
+                <li>
+                    <a v-link="'/'">Listar organizaciones</a>
                 </li>
                 <li>
                     <a v-link="{path: '/organization/new'}">Agregar organización</a>
