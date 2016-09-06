@@ -64,13 +64,13 @@
               }
           },
           methods: {
-            getOrganizations: function(){
+                getOrganizations: function(){
                 this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
                     this.organizations = response.json();
                 }, function(error){
                     swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
                 });
-            },
+            }
         }
     }
 </script>
