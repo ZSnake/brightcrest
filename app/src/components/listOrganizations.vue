@@ -38,12 +38,14 @@
   <script>
 
 
-var VuePaginate = require('vue-paginate')
-
 
     var swal = require('sweetalert');
     var config = require('../../config.js');
-    var InfiniteLoading = require('vue-infinite-loading');
+    var Vue = require('vue');
+
+    
+
+
     var list;
     module.exports = {
 
@@ -54,6 +56,7 @@ var VuePaginate = require('vue-paginate')
         
         
       },
+  
       data: function(){
         return {
           order : 1, //Control de sortBy
@@ -77,7 +80,7 @@ var VuePaginate = require('vue-paginate')
       },
 
       components: {
-        'InfiniteLoading' : InfiniteLoading
+
       }
     };
 

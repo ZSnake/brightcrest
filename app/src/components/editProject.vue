@@ -298,7 +298,12 @@
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
 					console.log(this.project);
-					$('#department').val(this.project.department);
+					
+					$('#projectDepartment').val(this.project.department);
+					$('#projectDepartment').selectedIndex = this.project.department;  
+					
+					$('#projectDepartment').change();
+					$('#projectDepartment').material_select();
 				},function(error){
 					console.log(error);
 				});

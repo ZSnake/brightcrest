@@ -155,8 +155,8 @@
                                     <label for="ursacRegistrationNumber">Número de registro</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="ursacRegistrationDate" type="date" class="datepicker">
-                                    <label for="ursacRegistrationDate">Fecha de resolución</label>
+                                    <input id="ursacrRegistrationDate" type="date" class="datepicker">
+                                    <label for="ursacrRegistrationDate">Fecha de resolución</label>
                                 </div>
                             </div>
                             <span class="card-title">Ubicación Geográfica</span>
@@ -235,6 +235,7 @@
                 name: 'addOrganization',
                 methods: {
                     createOrganization: function(event){
+                            
                         var organization = {
                             orgNumber: $('#orgNumber').val(),
                             orgName: $('#orgName').val(),
@@ -261,6 +262,7 @@
                             orgResolutionDate: $('#orgResolutionDate').val(),
                             legalRepresentativeName: $('#legalRepresentativeName').val(),
                             ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
+                            ursacrRegistrationDate: $('#ursacrRegistrationDate').val(),
                             latitude: $('#latitude').val(),
                             longitude: $('#longitude').val(),
                             intervieweeName: $('#intervieweeName').val(),
@@ -270,11 +272,13 @@
                             observations: $('#observations').val(),
                             projects: this.$children[0].projects
                         }
-                        console.log(this.$children[0].projects);
+                        
                         this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
-                            swal('Exito', 'Organización agregada exitosamente', 'success');
+                            swal('Éxito', 'Organización agregada exitosamente', 'success');
                             this.clear();
-                            console.log(response.body.message);
+
+                            console.log(response.body);
+                            
                         }, function(error){
                             swal('Error', 'Error agregando organización', 'error');
                             console.log(error.body.message);
@@ -306,6 +310,7 @@
                         $('#orgResolutionDate').val("");
                         $('#legalRepresentativeName').val("");
                         $('#ursacRegistrationNumber').val("");
+                        $('#ursacrRegistrationDate').val("");
                         $('#latitude').val("");
                         $('#longitude').val("");
                         $('#intervieweeName').val("");

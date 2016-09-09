@@ -141,8 +141,9 @@
 										<input id="orgResolutionNumber" v-model="organization.orgResolutionNumber" type="text" class="validate">
 										<label class="active" for="orgResolutionNumber">Número de resolución</label>
 									</div>
+
 									<div class="input-field col s4">
-										<input id="orgResolutionDate" v-model="organization.orgResolutionDate"type="date" class="datepicker">
+										<input id="orgResolutionDate" v-model="organization.orgResolutionDate" type="date" class="datepicker">
 										<label class="active" for="orgResolutionDate">Fecha de resolución</label>
 									</div>
 									<div class="input-field col s4">
@@ -156,7 +157,7 @@
 										<input id="ursacRegistrationNumber" v-model="organization.ursacRegistrationNumber" type="text" class="validate">
 										<label class="active" for="ursacRegistrationNumber">Número de registro</label>
 									</div>
-									<div class="input-field col s6">
+									<div class="input-field col s4">
 										<input id="ursacrRegistrationDate" v-model="organization.ursacrRegistrationDate" type="date" class="datepicker">
 										<label class="active" for="ursacrRegistrationDate">Fecha de resolución</label>
 									</div>
@@ -273,8 +274,13 @@
 		methods: {
 			updateOrganization: function(){
 				this.organization.department = $('#department').find(":selected").text();
+				
+					
+				this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
+				console.log($('#ursacrRegistrationDate').text());
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
 					this.$route.router.go('/');
+				
 				}, function(error){
 					swal('Error', 'Error modificando organización', 'error');
 				});
@@ -282,8 +288,18 @@
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
 					this.organization=response.json()[0];
-					console.log(this.organization);
+					
 					$('#department').val(this.organization.department);
+					$('#department').selectedIndex = this.organization.department;  
+					
+					$('#department').change();
+					$('#department').material_select();
+
+
+
+
+					$('#ursacrRegistrationDate').text = this.organization.ursacrRegistrationDate;
+					console.log(this.organization.orgResolutionDate)
 				},function(error){
 					console.log(error);
 				});
