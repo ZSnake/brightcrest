@@ -216,7 +216,7 @@
         <script>
             var swal = require('sweetalert');
             var config = require('../../config.js');
-            var listProjects = require('./listProjects.vue')
+            var listProjects = require('./listProjects.vue');
             module.exports = {
                 ready: function(){
                     $('select').material_select();
