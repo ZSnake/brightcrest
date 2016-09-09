@@ -1,5 +1,5 @@
 <template>
-	<div id="map"></div>
+	<div id="map" class="map"></div>
 
 </template>
 
@@ -9,7 +9,7 @@
 	module.exports = {
 		name: 'mapOrganization',
 		ready: function(){
-			var L = require('../../../node_modules/vue-leaflet/leaflet.js')
+			var L = require('../../lib/leaflet/leaflet.js')
 			this.initMap();
 		},
 		data: function () {
@@ -38,5 +38,7 @@
 </script>
 
 <style>
-	#map{ height: 80% }
+	.map{ 
+		height: 100% 
+	}
 </style>
