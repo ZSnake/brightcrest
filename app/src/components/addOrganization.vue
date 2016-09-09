@@ -155,8 +155,8 @@
                                     <label for="ursacRegistrationNumber">Número de registro</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="ursacrRegistrationDate" type="date" class="datepicker">
-                                    <label for="ursacrRegistrationDate">Fecha de resolución</label>
+                                    <input id="ursacRegistrationDate" type="date" class="datepicker">
+                                    <label for="ursacRegistrationDate">Fecha de resolución</label>
                                 </div>
                             </div>
                             <span class="card-title">Ubicación Geográfica</span>
@@ -262,7 +262,7 @@
                             orgResolutionDate: $('#orgResolutionDate').val(),
                             legalRepresentativeName: $('#legalRepresentativeName').val(),
                             ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
-                            ursacrRegistrationDate: $('#ursacrRegistrationDate').val(),
+                            ursacRegistrationDate: $('#ursacRegistrationDate').val(),
                             latitude: $('#latitude').val(),
                             longitude: $('#longitude').val(),
                             intervieweeName: $('#intervieweeName').val(),
@@ -310,7 +310,7 @@
                         $('#orgResolutionDate').val("");
                         $('#legalRepresentativeName').val("");
                         $('#ursacRegistrationNumber').val("");
-                        $('#ursacrRegistrationDate').val("");
+                        $('#ursacRegistrationDate').val("");
                         $('#latitude').val("");
                         $('#longitude').val("");
                         $('#intervieweeName').val("");

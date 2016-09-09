@@ -158,8 +158,8 @@
 										<label class="active" for="ursacRegistrationNumber">Número de registro</label>
 									</div>
 									<div class="input-field col s4">
-										<input id="ursacrRegistrationDate" v-model="organization.ursacrRegistrationDate" type="date" class="datepicker">
-										<label class="active" for="ursacrRegistrationDate">Fecha de resolución</label>
+										<input id="ursacRegistrationDate" v-model="organization.ursacRegistrationDate" type="date" class="datepicker">
+										<label class="active" for="ursacRegistrationDate">Fecha de resolución</label>
 									</div>
 								</div>
 								<span class="card-title">Ubicación Geográfica</span>
