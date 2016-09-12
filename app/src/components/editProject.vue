@@ -285,6 +285,7 @@
 		},
 		methods: {
 			updateProject: function() {
+				console.log(this.$route.params.organizationId);
 				this.project.department = $('#projectDepartment').find(":selected").text();
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId,this.project).then(function(response){
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId);
