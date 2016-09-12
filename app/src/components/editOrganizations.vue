@@ -590,6 +590,7 @@
 				newprojects: [],
 				organization: {},
 				projects: [],
+				newprojects: [],
 				project: {}
 			}
 		}
