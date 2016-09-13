@@ -36,76 +36,76 @@
                     <h5 class="condensed light">Datos generales del programa</h5>
                     <div class="row">
                         <div class="input-field col s2">
-                            <input id="projectNumber" type="text" class="validate" v-model="project.projectNumber">
+                            <input disabled value id="projectNumber" type="text" class="validate" v-model="project.projectNumber">
                             <label for="projectNumber">Número de proyecto</label>
                         </div>
                         <div class="input-field col s10">
-                            <input id="name" type="text" class="validate" v-model="project.name">
+                            <input disabled value id="name" type="text" class="validate" v-model="project.name">
                             <label for="name">Nombre del programa</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s8">
-                            <input id="description" type="text" class="validate" v-model="project.description">
+                            <input disabled value id="description" type="text" class="validate" v-model="project.description">
                             <label for="description">Descripción del programa</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="duration" type="text" class="validate" v-model="project.duration">
+                            <input disabled value id="duration" type="text" class="validate" v-model="project.duration">
                             <label for="duration">Duración (en años)</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="scope" type="text" class="validate" v-model="project.scope">
+                            <input disabled value id="scope" type="text" class="validate" v-model="project.scope">
                             <label for="scope">Ámbito de actuación</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s8">
-                            <input id="childrenProfile" type="text" class="validate" v-model="project.childrenProfile">
+                            <input disabled value id="childrenProfile" type="text" class="validate" v-model="project.childrenProfile">
                             <label for="childrenProfile">Perfil de los niños y niñas</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="ages" type="text" class="validate" v-model="project.ages">
+                            <input disabled value id="ages" type="text" class="validate" v-model="project.ages">
                             <label for="ages">Edades</label>
                         </div>
                     </div>
                     <h5 class="condensed light">Capacidad de atención</h5>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="totalSpace" type="text" class="validate" v-model="project.totalSpace">
+                            <input disabled value id="totalSpace" type="text" class="validate" v-model="project.totalSpace">
                             <label for="totalSpace">Cupos totales</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="availableSpace" type="text" class="validate" v-model="project.availableSpace">
+                            <input disabled value id="availableSpace" type="text" class="validate" v-model="project.availableSpace">
                             <label for="availableSpace">Cupos disponibles</label>
                         </div>
                     </div>
                     <h5 class="condensed light">Contacto del coordinador(a)</h5>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="coordinatorName" type="text" class="validate" v-model="project.coordinatorName">
+                            <input disabled value id="coordinatorName" type="text" class="validate" v-model="project.coordinatorName">
                             <label for="coordinatorName">Nombre completo</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="coordinatorPhone" type="text" class="validate" v-model="project.coordinatorPhone">
+                            <input disabled value id="coordinatorPhone" type="text" class="validate" v-model="project.coordinatorPhone">
                             <label for="coordinatorPhone">Teléfono fijo</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input id="coordinatorEmail" type="email" class="validate" v-model="project.coordinatorEmail">
+                            <input disabled value id="coordinatorEmail" type="email" class="validate" v-model="project.coordinatorEmail">
                             <label for="coordinatorEmail">Email</label>
                         </div>
                         <div class="input-field col s6">
-                            <input id="coordinatorCelPhone" type="text" class="validate" v-model="project.coordinatorCelPhone">
+                            <input disabled value id="coordinatorCelPhone" type="text" class="validate" v-model="project.coordinatorCelPhone">
                             <label for="coordinatorCelPhone">Teléfono celular</label>
                         </div>
                     </div>
                     <h5 class="condensed light">Ubicación</h5>
                     <div class="row">
                         <div class="input-field col s8">
-                            <input id="postalCode" type="text" class="validate" v-model="project.postalCode">
+                            <input disabled value id="postalCode" type="text" class="validate" v-model="project.postalCode">
                             <label for="postalCode">Dirección Postal</label>
                         </div>
                         <div class="input-field col s4">
@@ -142,137 +142,137 @@
                     <h6 class="condensed light">Centro de la niñez y la adolescencia</h6>
                     <div class="row valign-wrapper">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="abandonment" v-model="project.abandonment"/>
+                            <input disabled value type="checkbox" id="abandonment" v-model="project.abandonment"/>
                             <label for="abandonment">1.- Abandono</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="sexualFreedomVictims" v-model="project.sexualFreedomVictims"/>
+                            <input disabled value type="checkbox" id="sexualFreedomVictims" v-model="project.sexualFreedomVictims"/>
                             <label for="sexualFreedomVictims">7.1.- Víctima de delitos contra la libertad sexual</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="legalRepresentativeAbsence"  v-model="project.legalRepresentativeAbsence"/>
+                            <input disabled value type="checkbox" id="legalRepresentativeAbsence"  v-model="project.legalRepresentativeAbsence"/>
                             <label for="legalRepresentativeAbsence">2.- Ausencia de representante legal</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="sexualHarassmentVictims" v-model="project.sexualHarassmentVictims" />
+                            <input disabled value type="checkbox" id="sexualHarassmentVictims" v-model="project.sexualHarassmentVictims" />
                             <label for="sexualHarassmentVictims">7.2.- Víctima de hostigamiento sexual</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="abuseByOmission" v-model="project.abuseByOmission"/>
+                            <input disabled value type="checkbox" id="abuseByOmission" v-model="project.abuseByOmission"/>
                             <label for="abuseByOmission">3.1.- Abuso por Omisión</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="procuring" v-model="project.procuring"/>
+                            <input disabled value type="checkbox" id="procuring" v-model="project.procuring"/>
                             <label for="procuring">7.3.- Proxenetismo</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="abuseBySupression" v-model="project.abuseBySupression"/>
+                            <input disabled value type="checkbox" id="abuseBySupression" v-model="project.abuseBySupression"/>
                             <label for="abuseBySupression">3.2.- Maltrato por supresión</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="traficking" v-model="project.trafficking"/>
+                            <input disabled value type="checkbox" id="traficking" v-model="project.trafficking"/>
                             <label for="traficking">7.4.- Trata de personas</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="abuseByTransgression" v-model="project.abuseByTransgression"/>
+                            <input disabled value type="checkbox" id="abuseByTransgression" v-model="project.abuseByTransgression"/>
                             <label for="abuseByTransgression">3.3.- Maltrato por transgresión</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="publicSexualExposure" v-model="project.publicSexualExposure"/>
+                            <input disabled value type="checkbox" id="publicSexualExposure" v-model="project.publicSexualExposure"/>
                             <label for="publicSexualExposure">7.5.- Espectáculos públicos de naturaleza sexual</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="lackOfBasicNeeds" v-model="project.lackOfBasicNeeds"/>
+                            <input disabled value type="checkbox" id="lackOfBasicNeeds" v-model="project.lackOfBasicNeeds"/>
                             <label for="lackOfBasicNeeds">4.- Carencia de atención suficiente para satisfacer sus necesidades básicas</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="pornography" v-model="project.pornography"/>
+                            <input disabled value type="checkbox" id="pornography" v-model="project.pornography"/>
                             <label for="pornography">7.6.- Pornografía</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="threatToHeritage" v-model="project.threatToHeritage"/>
+                            <input disabled value type="checkbox" id="threatToHeritage" v-model="project.threatToHeritage"/>
                             <label for="threatToHeritage">5.- Amenazas a su patrimonio</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="sexualTurism" v-model="project.sexualTurism"/>
+                            <input disabled value type="checkbox" id="sexualTurism" v-model="project.sexualTurism"/>
                             <label for="sexualTurism">7.7.- Turismo sexual</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="addiction" v-model="project.addiction"/>
+                            <input disabled value type="checkbox" id="addiction" v-model="project.addiction"/>
                             <label for="addiction">6.- Adicción a sustancias que producen dependencia</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="criminalRecruitmentRisk" v-model="project.criminalRecruitmentRisk"/>
+                            <input disabled value type="checkbox" id="criminalRecruitmentRisk" v-model="project.criminalRecruitmentRisk"/>
                             <label for="criminalRecruitmentRisk">7.8.- Riesgo de reclutamiento por organizaciones criminales</label>
                         </div>
                     </div>
                     <h6 class="condensed light">Código Penal</h6>
                     <div class="row">
                         <div class="input-field col s4">
-                            <input type="checkbox" id="begging" v-model="project.begging"/>
+                            <input disabled value type="checkbox" id="begging" v-model="project.begging"/>
                             <label for="begging">1.- Víctimas de mendicidad</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="checkbox" id="economicExploitation" v-model="project.economicExploitation"/>
+                            <input disabled value type="checkbox" id="economicExploitation" v-model="project.economicExploitation"/>
                             <label for="economicExploitation">2.- Explotación económica</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="checkbox" id="childAbduction" v-model="project.childAbduction"/>
+                            <input disabled value type="checkbox" id="childAbduction" v-model="project.childAbduction"/>
                             <label for="childAbduction">3.- Sustracción de menores</label>
                         </div>
                     </div>
                     <h5 class="condensed light">Tipología de servicios de atención diurna (sólo centros no residenciales)</h5>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="childrenDinning" v-model="project.childrenDinning"/>
+                            <input disabled value type="checkbox" id="childrenDinning" v-model="project.childrenDinning"/>
                             <label for="childrenDinning">Comedores infantiles</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="initialEducationAndEarlyEstimulationCenter" v-model="project.initialEducationAndEarlyEstimulationCenter"/>
+                            <input disabled value type="checkbox" id="initialEducationAndEarlyEstimulationCenter" v-model="project.initialEducationAndEarlyEstimulationCenter"/>
                             <label for="initialEducationAndEarlyEstimulationCenter">Centro de educación inicial y/o estimulación temprana</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="preBasicEducationCenter" v-model="project.preBasicEducationCenter"/>
+                            <input disabled value type="checkbox" id="preBasicEducationCenter" v-model="project.preBasicEducationCenter"/>
                             <label for="preBasicEducationCenter">Centro de educación prebásica</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="artisticFormationCenter" v-model="project.artisticFormationCenter"/>
+                            <input disabled value type="checkbox" id="artisticFormationCenter" v-model="project.artisticFormationCenter"/>
                             <label for="artisticFormationCenter">Centro de formación artística</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="sportEducationCenter" v-model="project.sportEducationCenter"/>
+                            <input disabled value type="checkbox" id="sportEducationCenter" v-model="project.sportEducationCenter"/>
                             <label for="sportEducationCenter">Centro de formación deportiva</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="vocationalEducationCenter" v-model="project.vocationalEducationCenter"/>
+                            <input disabled value type="checkbox" id="vocationalEducationCenter" v-model="project.vocationalEducationCenter"/>
                             <label for="vocationalEducationCenter">Centro de educación vocacional</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <input type="checkbox" id="alternativeEducationCenter" v-model="project.alternativeEducationCenter"/>
+                            <input disabled value type="checkbox" id="alternativeEducationCenter" v-model="project.alternativeEducationCenter"/>
                             <label for="alternativeEducationCenter">Centro de educación alternativa no formal</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="checkbox" id="others" v-model="project.others"/>
+                            <input disabled value type="checkbox" id="others" v-model="project.others"/>
                             <label for="others">Otros</label>
                         </div>
                     </div>

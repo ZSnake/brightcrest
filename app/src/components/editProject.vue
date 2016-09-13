@@ -9,8 +9,8 @@
 								<h5 class="condensed light">Datos generales del programa</h5>
 								<div class="row">
 									<div class="input-field col s2">
-										<input id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
-										<label class="active" for="projectNumber">Número de proyecto</label>
+										<input disabled value id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
+										<label class="active" for="projectNumber" v-bind:class="{'active': organization.orgNumber}">Número de proyecto</label>
 									</div>
 									<div class="input-field col s10">
 										<input id="name" type="text" class="validate" v-model="project.name">

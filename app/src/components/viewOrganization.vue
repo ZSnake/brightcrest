@@ -10,27 +10,27 @@
                                 <span class="card-title">Información General</span>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="orgNumber" v-model="organization.orgNumber" type="number" class="validate">
+                                        <input disabled value id="orgNumber" v-model="organization.orgNumber" type="number" class="active" >
                                         <label class="active" for="orgNumber" v-bind:class="{'active': organization.orgNumber}">Número de boleta</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="orgName" v-model="organization.orgName" type="text" class="validate">
-                                        <label class="active" for="orgName">Nombre de la organización</label>
+                                        <input disabled value disabled value id="orgName" v-model="organization.orgName" type="text" class="validate" >
+                                        <label class="active" for="orgName" v-bind:class="{'active': organization.orgNumber}">Nombre de la organización</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="acronym" v-model="organization.acronym" type="text" class="validate">
-                                        <label class="active" for="acronym">Siglas de la organización</label>
+                                        <input disabled value disabled value id="acronym" v-model="organization.acronym" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="acronym">Siglas de la organización</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="postal" v-model="organization.postal" type="text" class="validate">
-                                        <label class="active" for="postal">Dirección postal</label>
+                                        <input disabled value disabled value id="postal" v-model="organization.postal" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="postal">Dirección postal</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <select id="department" v-model="organization.department">
+                                        <select disabled selected id="department" v-model="organization.department">
                                             <option value="Atlántida">Atlántida</option>
                                             <option value="Colón">Colón</option>
                                             <option value="Comayagua">Comayagua</option>
@@ -50,157 +50,157 @@
                                             <option value="Valle">Valle</option>
                                             <option value="Yoro">Yoro</option>
                                         </select>
-                                        <label class="active">Departamento</label>
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active">Departamento</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="municipality" v-model="organization.municipality" type="text" class="validate">
-                                        <label class="active" for="municipality">Municipalidad</label>
+                                        <input disabled value id="municipality" v-model="organization.municipality" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="municipality">Municipalidad</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <input id="village" v-model="organization.village" type="text" class="validate">
-                                        <label class="active" for="village">Aldea</label>
+                                        <input disabled value id="village" v-model="organization.village" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="village">Aldea</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="community" v-model="organization.community" type="text" class="validate">
-                                        <label class="active" for="community">Comunidad</label>
+                                        <input disabled value id="community" v-model="organization.community" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="community">Comunidad</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="sector" v-model="organization.sector" type="text" class="validate">
-                                        <label class="active" for="sector">Sector</label>
+                                        <input disabled value id="sector" v-model="organization.sector" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="sector">Sector</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <textarea id="mission" v-model="organization.mission" type="text" class="materialize-textarea"></textarea>
+                                        <textarea disabled value id="mission" v-model="organization.mission" type="text" class="materialize-textarea"></textarea>
 
-                                        <label class="active" for="mission">Misión</label>
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="mission">Misión</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <textarea id="vision" v-model="organization.vision" type="text" class="materialize-textarea"></textarea>
+                                        <textarea disabled value id="vision" v-model="organization.vision" type="text" class="materialize-textarea"></textarea>
 
-                                        <label class="active" for="vision">Visión</label>
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="vision">Visión</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="market" v-model="organization.market" type="text" class="validate">
-                                        <label class="active" for="market">Orientación principal de atención (rubro)</label>
+                                        <input disabled value id="market" v-model="organization.market" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="market">Orientación principal de atención (rubro)</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Contacto de la ONG</span>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <input id="webPage" v-model="organization.webPage" type="text" class="validate">
-                                        <label class="active" for="webPage">Página web</label>
+                                        <input disabled value id="webPage" v-model="organization.webPage" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="webPage">Página web</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="orgPhone" v-model="organization.orgPhone" type="text" class="validate">
-                                        <label class="active" for="orgPhone">Número de teléfono fijo</label>
+                                        <input disabled value id="orgPhone" v-model="organization.orgPhone" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgPhone">Número de teléfono fijo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="orgCelPhone" v-model="organization.orgCelPhone" type="text" class="validate">
-                                        <label class="active" for="orgCelPhone">Número de celular</label>
+                                        <input disabled value id="orgCelPhone" v-model="organization.orgCelPhone" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgCelPhone">Número de celular</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="orgSocialNetwork" v-model="organization.orgSocialNetwork" type="text" class="validate">
-                                        <label class="active" for="orgSocialNetwork">Redes Sociales</label>
+                                        <input disabled value id="orgSocialNetwork" v-model="organization.orgSocialNetwork" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgSocialNetwork">Redes Sociales</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="orgEmail" v-model="organization.orgEmail" type="email" class="validate">
-                                        <label class="active" for="orgEmail">Email</label>
+                                        <input disabled value id="orgEmail" v-model="organization.orgEmail" type="email" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgEmail">Email</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Contacto del director</span>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="directorName" v-model="organization.directorName" type="text" class="validate">
-                                        <label class="active" for="directorName">Nombre</label>
+                                        <input disabled value id="directorName" v-model="organization.directorName" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorName">Nombre</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="directorEmail" v-model="organization.directorEmail" type="text" class="validate">
-                                        <label class="active" for="directorEmail">Email</label>
+                                        <input disabled value id="directorEmail" v-model="organization.directorEmail" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorEmail">Email</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="directorPhone" v-model="organization.directorPhone" type="text" class="validate">
-                                        <label class="active" for="directorPhone">Teléfono fijo</label>
+                                        <input disabled value id="directorPhone" v-model="organization.directorPhone" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorPhone">Teléfono fijo</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="directorCelPhone" v-model="organization.directorCelPhone" type="text" class="validate">
-                                        <label class="active" for="directorCelPhone">Teléfono celular</label>
+                                        <input disabled value id="directorCelPhone" v-model="organization.directorCelPhone" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorCelPhone">Teléfono celular</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Personería Jurídica</span>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <input id="orgResolutionNumber" v-model="organization.orgResolutionNumber" type="text" class="validate">
-                                        <label class="active" for="orgResolutionNumber">Número de resolución</label>
+                                        <input disabled value id="orgResolutionNumber" v-model="organization.orgResolutionNumber" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgResolutionNumber">Número de resolución</label>
                                     </div>
 
                                     <div class="input-field col s4">
-                                        <input id="orgResolutionDate" v-model="organization.orgResolutionDate" type="date" class="datepicker">
-                                        <label class="active" for="orgResolutionDate">Fecha de resolución</label>
+                                        <input disabled value id="orgResolutionDate" v-model="organization.orgResolutionDate" type="date" class="datepicker">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgResolutionDate">Fecha de resolución</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="legalRepresentativeName" v-model="organization.legalRepresentativeName" type="text" class="validate">
-                                        <label class="active" for="legalRepresentativeName">Nombre de representante legal</label>
+                                        <input disabled value id="legalRepresentativeName" v-model="organization.legalRepresentativeName" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="legalRepresentativeName">Nombre de representante legal</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Registro en URSAC</span>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="ursacRegistrationNumber" v-model="organization.ursacRegistrationNumber" type="text" class="validate">
-                                        <label class="active" for="ursacRegistrationNumber">Número de registro</label>
+                                        <input disabled value id="ursacRegistrationNumber" v-model="organization.ursacRegistrationNumber" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="ursacRegistrationNumber">Número de registro</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="ursacRegistrationDate" v-model="organization.ursacRegistrationDate" type="date" class="datepicker">
-                                        <label class="active" for="ursacRegistrationDate">Fecha de resolución</label>
+                                        <input disabled value id="ursacRegistrationDate" v-model="organization.ursacRegistrationDate" type="date" class="datepicker">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="ursacRegistrationDate">Fecha de resolución</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Ubicación Geográfica</span>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="latitude" v-model="organization.latitude" type="text" class="validate">
-                                        <label class="active" for="latitude">Latitud</label>
+                                        <input disabled value id="latitude" v-model="organization.latitude" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="latitude">Latitud</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="longitude" v-model="organization.longitude" type="text" class="validate">
-                                        <label class="active" for="longitude">Longitud</label>
+                                        <input disabled value id="longitude" v-model="organization.longitude" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="longitude">Longitud</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Verificación de la entrevista</span>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="intervieweeName" v-model="organization.intervieweeName" type="text" class="validate">
-                                        <label class="active" for="intervieweeName">Nombre de la persona entrevistada</label>
+                                        <input disabled value id="intervieweeName" v-model="organization.intervieweeName" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="intervieweeName">Nombre de la persona entrevistada</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input id="interviewDate" v-model="organization.interviewDate" type="date" class="datepicker">
-                                        <label class="active" for="interviewDate">Fecha de la entrevista</label>
+                                        <input disabled value id="interviewDate" v-model="organization.interviewDate" type="date" class="datepicker">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="interviewDate">Fecha de la entrevista</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input id="interviewTime" v-model="organization.interviewTime" type="text" class="validate">
-                                        <label class="active" for="interviewTime">Hora de la entrevista</label>
+                                        <input disabled value id="interviewTime" v-model="organization.interviewTime" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="interviewTime">Hora de la entrevista</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Información adicional/Otras informaciones</span>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="otherOrgsInRegion" v-model="organization.otherOrgsInRegion" type="text" class="validate">
-                                        <label class="active" for="otherOrgsInRegion">Conoce otra(s) ONG del sector que trabaja en esta región?</label>
+                                        <input disabled value id="otherOrgsInRegion" v-model="organization.otherOrgsInRegion" type="text" class="validate">
+                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="otherOrgsInRegion">Conoce otra(s) ONG del sector que trabaja en esta región?</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="observations" v-model="organization.observations" type="text" class="materialize-textarea"></textarea>
-                                        <label class="active" for="observations">Observaciones</label>
+                                        <textarea  disabled value id="observations" v-model="organization.observations" type="text" class="materialize-textarea"></textarea>
+                                        <label  v-bind:class="{'active': organization.orgNumber}" class="active" for="observations">Observaciones</label>
                                     </div>
                                 </div>                  
                             </form>
@@ -254,6 +254,9 @@
     module.exports = {
         name: 'viewOrganization',
         ready: function(){
+            $(document).ready(function() {
+                Materialize.updateTextFields();
+            });
             console.log(this.$route.params);
             
             $('select').material_select();
@@ -286,6 +289,11 @@
                 },function(error){
                     console.log(error);
                 });
+
+                $(document).ready(function() {
+                    Materialize.updateTextFields();
+                });
+
             },
             getProjects: function(){
                 this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/projects/').then(function(response){
@@ -309,3 +317,10 @@
     }
     
 </script>
+
+<style>
+ .input-field input[type=text].invalid {
+    border-bottom: 1px solid #F0F8FF;
+   box-shadow: 0 1px 0 0 #F0F8FF;
+}
+</style>
