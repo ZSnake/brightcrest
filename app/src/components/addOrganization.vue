@@ -216,7 +216,7 @@
         <script>
             var swal = require('sweetalert');
             var config = require('../../config.js');
-            var listProjects = require('./listProjects.vue')
+            var listProjects = require('./listProjects.vue');
             module.exports = {
                 ready: function(){
                     $('select').material_select();
@@ -235,6 +235,7 @@
                 name: 'addOrganization',
                 methods: {
                     createOrganization: function(event){
+                            
                         var organization = {
                             orgNumber: $('#orgNumber').val(),
                             orgName: $('#orgName').val(),
@@ -261,6 +262,7 @@
                             orgResolutionDate: $('#orgResolutionDate').val(),
                             legalRepresentativeName: $('#legalRepresentativeName').val(),
                             ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
+                            ursacRegistrationDate: $('#ursacRegistrationDate').val(),
                             latitude: $('#latitude').val(),
                             longitude: $('#longitude').val(),
                             intervieweeName: $('#intervieweeName').val(),
@@ -270,11 +272,13 @@
                             observations: $('#observations').val(),
                             projects: this.$children[0].projects
                         }
-                        console.log(this.$children[0].projects);
+                        
                         this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
-                            swal('Exito', 'Organización agregada exitosamente', 'success');
+                            swal('Éxito', 'Organización agregada exitosamente', 'success');
                             this.clear();
-                            console.log(response.body.message);
+
+                            console.log(response.body);
+                            
                         }, function(error){
                             swal('Error', 'Error agregando organización', 'error');
                             console.log(error.body.message);
@@ -306,6 +310,7 @@
                         $('#orgResolutionDate').val("");
                         $('#legalRepresentativeName').val("");
                         $('#ursacRegistrationNumber').val("");
+                        $('#ursacRegistrationDate').val("");
                         $('#latitude').val("");
                         $('#longitude').val("");
                         $('#intervieweeName').val("");

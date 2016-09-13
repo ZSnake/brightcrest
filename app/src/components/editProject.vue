@@ -9,8 +9,8 @@
 								<h5 class="condensed light">Datos generales del programa</h5>
 								<div class="row">
 									<div class="input-field col s2">
-										<input id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
-										<label class="active" for="projectNumber">Número de proyecto</label>
+										<input disabled value id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
+										<label class="active" for="projectNumber" v-bind:class="{'active': organization.orgNumber}">Número de proyecto</label>
 									</div>
 									<div class="input-field col s10">
 										<input id="name" type="text" class="validate" v-model="project.name">
@@ -285,6 +285,7 @@
 		},
 		methods: {
 			updateProject: function() {
+				console.log(this.$route.params.organizationId);
 				this.project.department = $('#projectDepartment').find(":selected").text();
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId,this.project).then(function(response){
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId);
@@ -298,7 +299,12 @@
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
 					console.log(this.project);
-					$('#department').val(this.project.department);
+					
+					$('#projectDepartment').val(this.project.department);
+					$('#projectDepartment').selectedIndex = this.project.department;  
+					
+					$('#projectDepartment').change();
+					$('#projectDepartment').material_select();
 				},function(error){
 					console.log(error);
 				});
