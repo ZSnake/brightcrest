@@ -25,7 +25,6 @@
                     <a class="waves-effect waves-light btn blue darken-4 col s4" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}"><i class="material-icons">mode_edit</i></a>
                     <a class="waves-effect waves-light btn red darken-4 col s4" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization._id)"><i class="material-icons">delete</i></a>
                   </div>
-                  <a class="waves-effect waves-light btn blue darken-4 col m11" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
                 </td>
               </tr>
             </tbody>
@@ -40,7 +39,7 @@
     var swal = require('sweetalert');
     var config = require('../../config.js');
     var Vue = require('vue');
-    var viewOrganization = require('./viewOrganization.vue');
+
     var list;
     module.exports = {
 
@@ -48,21 +47,16 @@
       props: ['currentUser'],
       ready: function(){
           this.getOrganizations();
-        $(document).ready(function(){
-          $('.modal-trigger').leanModal();
-        });
-      },
-      data: function(){
-        return {
-          organizationId: {},
+
+        },
+        data: function(){
+          return {
             order : 1, //Control de sortBy
             organizations: [],
             list: []
           }
       },
       methods: {
-
-
         getOrganizations: function(){
           this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
             this.organizations = response.json();
@@ -92,8 +86,6 @@
                   
           });
         }
-        'view-organization': viewOrganization
-        
       }
     };
 
