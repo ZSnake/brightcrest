@@ -21,10 +21,9 @@
                 <td>{{organization.directorName}}</td>
                 <td>
 
-                  <a class="waves-effect waves-light btn blue darken-4" v-link="{name: 'viewOrganization', params: {organizationId: organization._id}}">Ver</a>
+                  <view-organization :organization-id="organization._id"></view-organization>
 
-                  <a class="waves-effect waves-light btn blue darken-4" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
-
+                  <a class="waves-effect waves-light btn blue darken-4 col m11" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
                 </td>
               </tr>
             </tbody>
@@ -46,7 +45,7 @@
     var swal = require('sweetalert');
     var config = require('../../config.js');
     var Vue = require('vue');
-
+    var viewOrganization = require('./viewOrganization.vue');
     
 
 
@@ -56,19 +55,24 @@
       name: 'listOrganizations',
       ready: function(){
         this.getOrganizations();
-
+        $(document).ready(function(){
+          $('.modal-trigger').leanModal();
+        });
         
 
-        },
+      },
 
-        data: function(){
-          return {
+      data: function(){
+        return {
+          organizationId: {},
           order : 1, //Control de sortBy
           organizations: [],
           list: [],
         }
       },
       methods: {
+
+
         getOrganizations: function(){
           this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
             this.organizations = response.json();
@@ -84,6 +88,8 @@
       },
 
       components: {
+        'view-organization': viewOrganization
+        
 
       }
     };
