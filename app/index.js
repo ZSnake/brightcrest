@@ -10,6 +10,7 @@ var mapOrg = require('./src/components/mapOrganization.vue');
 var viewOrg = require('./src/components/viewOrganization.vue');
 var viewPro = require('./src/components/viewProject.vue');
 var login = require('./src/components/loginComponent.vue');
+var usersManagement = require('./src/components/userManagement.vue')
 var config = require('./config.js');
 
 
@@ -41,22 +42,26 @@ new Vue({
 var router = new VueRouter();
 
 router.beforeEach(function(transition){
-  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' ||  transition.to.name === 'login' || transition.to.name === 'viewProject')
+  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' ||  transition.to.name === 'login' || transition.to.name === 'viewProject' || transition.to.name === 'mapOrganization')
     transition.next();
   else{
-    var userPermissions = window.sessionStorage.getKey('scope');
-    if(transition.to.name === 'editOrganization' || transition.to.name === 'editProject'){
-      if(userPermissions[0] === 'admin')
-        transition.next();
-      else
-        router.go('/');
-    }else{
-      if(transition.to.name === 'addOrganization'){
-        if(userPermissions[0] === 'admin' || userPermissions[0] === 'orgUser')
+    var userPermissions = window.sessionStorage.getItem('scope');
+    if(userPermissions && userPermissions != ''){
+      if(transition.to.name === 'editOrganization' || transition.to.name === 'editProject'){
+        if(userPermissions === 'admin')
           transition.next();
         else
           router.go('/');
+      }else{
+        if(transition.to.name === 'addOrganization'){
+          if(userPermissions === 'admin' || userPermissions[0] === 'orgUser')
+            transition.next();
+          else
+            router.go('/');
+        }
       }
+    }else{
+      router.go('/');
     }
   }
 });
@@ -95,6 +100,10 @@ router.map({
     '/login' : {
       name: 'login',
       component: login
+    },
+    '/users': {
+      name: 'usersManagement',
+      component: usersManagement
     }  
 })  
 

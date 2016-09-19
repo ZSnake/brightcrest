@@ -23,7 +23,7 @@
 
                   <a class="waves-effect waves-light btn blue darken-4" v-link="{name: 'viewOrganization', params: {organizationId: organization._id}}">Ver</a>
 
-                  <a class="waves-effect waves-light btn blue darken-4" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
+                  <a class="waves-effect waves-light btn blue darken-4" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
 
                 </td>
               </tr>
@@ -54,37 +54,26 @@
     module.exports = {
 
       name: 'listOrganizations',
+      props: ['currentUser'],
       ready: function(){
-        this.getOrganizations();
-
-        
-
+          this.getOrganizations();
         },
-
         data: function(){
           return {
-          order : 1, //Control de sortBy
-          organizations: [],
-          list: [],
-        }
+            order : 1, //Control de sortBy
+            organizations: [],
+            list: []
+          }
       },
       methods: {
         getOrganizations: function(){
           this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
             this.organizations = response.json();
             this.list = this.organizations;
-
-
           }, function(error){
             swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
           });
-
-        },
-
-      },
-
-      components: {
-
+        }
       }
     };
 

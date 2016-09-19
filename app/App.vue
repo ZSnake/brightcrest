@@ -12,7 +12,7 @@
                             <a v-link="'/'">Listar organizaciones</a>
                         </li>
                         <li >
-                            <a  v-link="{path: '/organization/new'}">Agregar organización</a>
+                            <a  v-link="{path: '/organization/new'}" v-if="currentUser.scope === 'admin' || currentUser.scope === 'orgUser'">Agregar organización</a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>

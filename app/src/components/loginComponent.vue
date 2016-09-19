@@ -1,12 +1,12 @@
 <template >  
     <div class="loginContainer">  
         <div class="row">
-            <div class="col s6 offset-s3 ">
-                <div class="card blue-grey darken-2 white-text">
+            <div class="col s4 offset-s4 ">
+                <div class="card blue lighten-4 ">
                     <div class="card-content">
                         <div class="row">
                             <div class="input-field col s12">
-                                <i class="material-icons prefix">email</i>
+                                <i class="material-icons prefix">perm_identity</i>
                                 <input id="username" type="text" v-model="user.username" data-error="Ingrese su nombre de usuario" class="validate">
                                 <label for="username">Username</label>
                             </div>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a type="submit" id="loginButton" class="waves-effect waves-light btn blue-grey darken-4" v-on:click="logIn">Iniciar Sesión</a>
+                        <a type="submit" id="loginButton" class="waves-effect waves-light btn blue darken-4" v-on:click="logIn">Iniciar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -61,3 +61,8 @@
 		}
 	}
 </script>
+<style>
+    .loginContainer{
+        margin-top: 200px;
+    }
+</style>
