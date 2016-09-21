@@ -19,7 +19,7 @@
                         <td>{{user.scope}}</td>
                         <td>
                             <a class="waves-effect waves-light btn blue darken-4">Editar</a>
-                            <a class="waves-effect waves-light btn blue darken-4" v-if="currentUser.scope === 'admin'">Borrar</a>
+                            <a class="waves-effect waves-light btn blue darken-4" v-if="currentUser && currentUser.scope === 'admin'">Borrar</a>
                         </td>
                     </tr>
                     </tbody>
@@ -36,11 +36,11 @@
 
 	module.exports = {
 		name: 'userManagement',
-
 		ready: function() {
-
+            
 			$('select').material_select();
 			this.getUsers();
+            console.log("users")
 
 		},
 		methods: {

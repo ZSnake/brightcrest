@@ -53,7 +53,7 @@ router.beforeEach(function(transition){
         else
           router.go('/');
       }else{
-        if(transition.to.name === 'addOrganization'){
+        if(transition.to.name === 'addOrganization' || transition.to.name === 'usersManagement'){
           if(userPermissions === 'admin' || userPermissions[0] === 'orgUser')
             transition.next();
           else
