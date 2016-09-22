@@ -226,7 +226,10 @@
 												<td>{{project.department}}</td>
 												<td> 
 													
-													<a class="waves-effect waves-light btn green darken-4" v-on:click="editHandler(project)">Editar</a></td>
+													<a class="waves-effect waves-light btn green darken-4" v-on:click="editHandler(project)">Editar</a>
+													<a class="waves-effect waves-light btn red darken-4" v-on:click="deleteProject(project)">Eliminar</a>
+													</td>
+
 												</tr>
 											</tbody>
 										</table>
@@ -568,14 +571,8 @@
 				},
 				updateOrganization: function(){
 					this.organization.department = $('#department').find(":selected").text();
-
-
 					this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
-
 					this.organization.projects = this.newprojects;
-					
-					
-					
 					this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
 						swal('Éxito', 'Organización se edito exitosamente', 'success');
 						this.$route.router.go('/');
@@ -583,6 +580,9 @@
 					}, function(error){
 						swal('Error', 'Error modificando organización', 'error');
 					});
+				},
+				deleteProject: function (pro) {
+					// body...
 				},
 				getOrganization: function(){
 					this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){

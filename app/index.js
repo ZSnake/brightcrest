@@ -14,6 +14,7 @@ var usersManagement = require('./src/components/userManagement.vue')
 var config = require('./config.js');
 
 
+
 $(document).ready(function() {
 });
 
