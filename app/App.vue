@@ -1,6 +1,20 @@
 <template>  
     <div id="application">
         <div id="navbar">
+            <ul id="usersDropdown" class="dropdown-content">
+                <li>
+                    <a v-link="'/users'">Listar usuarios</a>
+                </li>
+                <li><a href="#!">Agregar Usuario</a></li>
+            </ul>
+            <ul id="organizationsDropdown" class="dropdown-content">
+                <li>
+                    <a v-link="'/'">Listar organizaciones</a>
+                </li>
+                <li v-if="currentUser.scope === 'admin' || currentUser.scope === 'orgUser'">
+                    <a  v-link="{path: '/organization/new'}" >Agregar organización</a>
+                </li>
+            </ul>
             <nav>
                 <div class="nav-wrapper blue darken-4">
                     <a href="#" class="brand-logo logo">DINAF</a>
@@ -9,16 +23,20 @@
                             <a v-link="'/organization/map'">Mapa de organizaciones</a>
                         </li>
                         <li>
-                            <a v-link="'/'">Listar organizaciones</a>
+                             <a class="dropdown-button" href="#!" data-activates="organizationsDropdown">
+                                 Organizaciones<i class="material-icons right">arrow_drop_down</i>
+                             </a>
                         </li>
-                        <li >
-                            <a  v-link="{path: '/organization/new'}" v-if="currentUser.scope === 'admin' || currentUser.scope === 'orgUser'">Agregar organización</a>
+                        <li v-if="currentUser.scope === 'admin'">
+                             <a class="dropdown-button" href="#!" data-activates="usersDropdown">
+                                 Usuarios<i class="material-icons right">arrow_drop_down</i>
+                             </a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>
                         </li>
                         <li v-else>
-                            <span>Welcome {{currentUser.username}} </span><a v-on:click="logout()" class="waves-effect waves-light btn blue darken-1">Logout</a>
+                            <a v-on:click="logout()" class="waves-effect waves-light btn blue darken-1">Logout</a>
                         </li>
                     </ul>
                 </div>

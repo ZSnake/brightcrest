@@ -19,7 +19,7 @@
                         <td>{{user.scope}}</td>
                         <td>
                             <a class="waves-effect waves-light btn blue darken-4">Editar</a>
-                            <a class="waves-effect waves-light btn blue darken-4" v-if="currentUser && currentUser.scope === 'admin'">Borrar</a>
+                            <a class="waves-effect waves-light btn red darken-4" v-on:click="deleteUser(user._id)">Borrar</a>
                         </td>
                     </tr>
                     </tbody>
@@ -51,7 +51,14 @@
 				},function(error){
 					console.log(error);
 				});
-			}			
+			},
+            deleteUser: function(id){
+                this.$http.delete(config.baseUrl() + '/v1/user/' + id).then(function(response){
+					console.log('user removed');
+				},function(error){
+					console.log(error);
+				});
+            }		
 
 		},
 		data: function(){

@@ -47,13 +47,13 @@ router.beforeEach(function(transition){
   else{
     var userPermissions = window.sessionStorage.getItem('scope');
     if(userPermissions && userPermissions != ''){
-      if(transition.to.name === 'editOrganization' || transition.to.name === 'editProject'){
+      if(transition.to.name === 'editOrganization' || transition.to.name === 'editProject' || transition.to.name === 'usersManagement'){
         if(userPermissions === 'admin')
           transition.next();
         else
           router.go('/');
       }else{
-        if(transition.to.name === 'addOrganization' || transition.to.name === 'usersManagement'){
+        if(transition.to.name === 'addOrganization'){
           if(userPermissions === 'admin' || userPermissions[0] === 'orgUser')
             transition.next();
           else
