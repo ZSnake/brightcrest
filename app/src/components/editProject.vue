@@ -285,17 +285,34 @@
 		},
 		methods: {
 			updateProject: function() {
+				console.log($('#projectNumber').val());
+				if ($('#projectNumber').val()!=="" && $('#name').val()!=="" ) {
 				console.log(this.$route.params.organizationId);
+
 				this.project.department = $('#projectDepartment').find(":selected").text();
+				
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId,this.project).then(function(response){
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId);
 				}, function(error){
 					swal('Error', 'Error modificando projecto', 'error');
 				});
+				}else{
+                    var errstr= "Error agregando organización, falta:\n";
+                    if ($('#projectNumber').val()==="") {
+                        errstr = errstr.concat("Numero de projecto\n");
+
+                    }
+                    if ($('#name').val()==="") {
+                     errstr =  errstr.concat("Nombre del projecto\n");
+                 }
+                 console.log(errstr);
+                 swal('Error', errstr, 'error');
+             }
 			},
 
 			getProject: function(){
-				'/v1/organization/{organizationId}/project/{projectId}'
+				console.log(this.$route.params.projectId);
+				
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
 					console.log(this.project);

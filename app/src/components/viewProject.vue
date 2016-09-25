@@ -258,11 +258,12 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-									<p id="typologyObservations"><u>{{project.typologyObservations}}</u></p>
+										<p id="typologyObservations" type="text" class="validate"><u>{{project.typologyObservations}}</u></p>
 
-										<label class="active" for="typologyObservations" ">Observaciones</label>
+										<label class="active" for="typologyObservations">Observaciones</label>
 
-										
+
+
 									</div>
 								</div>
 							</form>
@@ -299,7 +300,8 @@
 				'/v1/organization/{organizationId}/project/{projectId}'
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
-					console.log(this.project);
+					$('#typologyObservations').text(this.project.tipologyObservations);
+					console.log(this.project.tipologyObservations);
 					
 				},function(error){
 					console.log(error);

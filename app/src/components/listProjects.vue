@@ -309,20 +309,36 @@
         },
         methods: {
             addProject: function(){
+            console.log("lol");
+               if ($('#projectNumber').val()!=="" && $('#name').val()!=="" ) {
+
                 this.project.department = $('#projectDepartment').find(":selected").text();
                 console.log(this.project);
                 this.projects.push(this.project);
                 this.project = {};
-            },
-            removeProject: function(index){
-                this.projects.splice(index, 1);
-            },
-            clear: function(){
-                this.projects = [];
-                this.project = {};
-            }
+                
+                }else{
+                    var errstr= "Error agregando organización, falta:\n";
+                    if ($('#projectNumber').val()==="") {
+                        errstr = errstr.concat("Numero de projecto\n");
+
+                    }
+                    if ($('#name').val()==="") {
+                     errstr =  errstr.concat("Nombre del projecto\n");
+                 }
+                 console.log(errstr);
+                 swal('Error', errstr, 'error');
+             }
+         },
+         removeProject: function(index){
+            this.projects.splice(index, 1);
+        },
+        clear: function(){
+            this.projects = [];
+            this.project = {};
         }
-    } 
+    }
+} 
 </script>
 
 <style>

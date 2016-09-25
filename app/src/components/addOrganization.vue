@@ -210,79 +210,105 @@
                         </div>
                     </div>
                 </div>
-           
-        </template>
 
-        <script>
-            var swal = require('sweetalert');
-            var config = require('../../config.js');
-            var listProjects = require('./listProjects.vue');
-            module.exports = {
-                ready: function(){
-                    $('select').material_select();
-                    var d = new Date();
-                    d.setFullYear( d.getFullYear() - 100 );
-                    $('.datepicker').pickadate(
-                    {
-                        selectMonths: true,
-                        selectYears: 100,
-                        max: new Date()
-                    });
+            </template>
+
+            <script>
+                var swal = require('sweetalert');
+                var config = require('../../config.js');
+                var listProjects = require('./listProjects.vue');
+                module.exports = {
+                    ready: function(){
+                        $('select').material_select();
+                        var d = new Date();
+                        d.setFullYear( d.getFullYear() - 100 );
+                        $('.datepicker').pickadate(
+                        {
+                            selectMonths: true,
+                            selectYears: 100,
+                            max: new Date()
+                        });
                     
-                },
-                name: 'addOrganization',
-                methods: {
-                    createOrganization: function(event){
-                            
-                        var organization = {
-                            orgNumber: $('#orgNumber').val(),
-                            orgName: $('#orgName').val(),
-                            acronym: $('#acronym').val(),
-                            postal: $('#postal').val(),
-                            department: $('#department').find(":selected").text(),
-                            municipality: $('#municipality').val(),
-                            village: $('#village').val(),
-                            community: $('#community').val(),
-                            sector: $('#sector').val(),
-                            mission: $('#mission').val(),
-                            vision: $('#vision').val(),
-                            market: $('#market').val(),
-                            webPage: $('#webPage').val(),
-                            orgPhone: $('#orgPhone').val(),
-                            orgCelPhone: $('#orgCelPhone').val(),
-                            orgSocialNetwork: $('#orgSocialNetwork').val(),
-                            orgEmail: $('#orgEmail').val(),
-                            directorName: $('#directorName').val(),
-                            directorPhone: $('#directorPhone').val(),
-                            directorCelPhone: $('#directorCelPhone').val(),
-                            directorEmail: $('#directorEmail').val(),
-                            orgResolutionNumber: $('#orgResolutionNumber').val(),
-                            orgResolutionDate: $('#orgResolutionDate').val(),
-                            legalRepresentativeName: $('#legalRepresentativeName').val(),
-                            ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
-                            ursacRegistrationDate: $('#ursacRegistrationDate').val(),
-                            latitude: $('#latitude').val(),
-                            longitude: $('#longitude').val(),
-                            intervieweeName: $('#intervieweeName').val(),
-                            interviewDate: $('#interviewDate').val(),
-                            interviewTime: $('#interviewTime').val(),
-                            otherOrgsInRegion: $('#otherOrgsInRegion').val(),
-                            observations: $('#observations').val(),
-                            projects: this.$children[0].projects
-                        }
-                        
-                        this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
-                            swal('Éxito', 'Organización agregada exitosamente', 'success');
-                            this.clear();
-
-                            console.log(response.body);
-                            
-                        }, function(error){
-                            swal('Error', 'Error agregando organización', 'error');
-                            console.log(error.body.message);
-                        })
+                    $(document).ready(function(){
+                        $('.modal-trigger').leanModal();
+                    });
                     },
-                    clear: function(event){
+                    name: 'addOrganization',
+                    methods: {
+                        createOrganization: function(event){
+                            if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
+                                var organization = {
+                                    orgNumber: $('#orgNumber').val(),
+                                    orgName: $('#orgName').val(),
+                                    acronym: $('#acronym').val(),
+                                    postal: $('#postal').val(),
+                                    department: $('#department').find(":selected").text(),
+                                    municipality: $('#municipality').val(),
+                                    village: $('#village').val(),
+                                    community: $('#community').val(),
+                                    sector: $('#sector').val(),
+                                    mission: $('#mission').val(),
+                                    vision: $('#vision').val(),
+                                    market: $('#market').val(),
+                                    webPage: $('#webPage').val(),
+                                    orgPhone: $('#orgPhone').val(),
+                                    orgCelPhone: $('#orgCelPhone').val(),
+                                    orgSocialNetwork: $('#orgSocialNetwork').val(),
+                                    orgEmail: $('#orgEmail').val(),
+                                    directorName: $('#directorName').val(),
+                                    directorPhone: $('#directorPhone').val(),
+                                    directorCelPhone: $('#directorCelPhone').val(),
+                                    directorEmail: $('#directorEmail').val(),
+                                    orgResolutionNumber: $('#orgResolutionNumber').val(),
+                                    orgResolutionDate: $('#orgResolutionDate').val(),
+                                    legalRepresentativeName: $('#legalRepresentativeName').val(),
+                                    ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
+                                    ursacRegistrationDate: $('#ursacRegistrationDate').val(),
+                                    latitude: $('#latitude').val(),
+                                    longitude: $('#longitude').val(),
+                                    intervieweeName: $('#intervieweeName').val(),
+                                    interviewDate: $('#interviewDate').val(),
+                                    interviewTime: $('#interviewTime').val(),
+                                    otherOrgsInRegion: $('#otherOrgsInRegion').val(),
+                                    observations: $('#observations').val(),
+                                    projects: this.$children[0].projects
+                                }
+
+                                this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
+                                    swal('Éxito', 'Organización agregada exitosamente', 'success');
+                                    this.clear();
+
+                                    console.log(response.body);
+
+                                }, function(error){
+                                    swal('Error', 'Error agregando organización', 'error');
+                                    console.log(error.body.message);
+                                })
+                            } else{
+                                var errstr= "Error agregando organización, falta:\n";
+                                if ($('#orgNumber').val()==="") {
+                                    errstr = errstr.concat("Numero de Organizacion\n");
+
+                                }
+                                if ($('#orgName').val()==="") {
+                                   errstr =  errstr.concat("Nombre de la organización\n");
+                               }
+                               if ($('#acronym').val()==="") {
+                                   errstr =  errstr.concat("Acronimo de la Organizacion\n");
+
+                               }
+                               console.log(errstr);
+                               swal('Error', errstr, 'error');
+                           }
+
+
+
+
+
+
+
+                       },
+                       clear: function(event){
                         $('#orgNumber').val("");
                         $('#orgName').val("");
                         $('#acronym').val("");
