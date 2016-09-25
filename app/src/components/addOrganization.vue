@@ -7,11 +7,20 @@
                         <form class="col s12">
                             <span class="card-title">Información General</span>
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="file-field input-field col s4">
+                                    <div class="btn">
+                                        <span>Logo</span>
+                                        <input type="file" v-on:change="appendLogo">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                                <div class="input-field col s4">
                                     <input id="orgNumber" type="number" class="validate">
                                     <label for="orgNumber">Número de boleta</label>
                                 </div>
-                                <div class="input-field col s6">
+                                <div class="input-field col s4">
                                     <input id="orgName" type="text" class="validate">
                                     <label for="orgName">Nombre de la organización</label>
                                 </div>
@@ -219,6 +228,7 @@
             var listProjects = require('./listProjects.vue');
             module.exports = {
                 ready: function(){
+                    $.cloudinary.config({ cloud_name: 'dvxiia4du', api_key: '856997925515926'})
                     $('select').material_select();
                     var d = new Date();
                     d.setFullYear( d.getFullYear() - 100 );
@@ -233,43 +243,43 @@
                 name: 'addOrganization',
                 methods: {
                     createOrganization: function(event){
-                            
-                        var organization = {
-                            orgNumber: $('#orgNumber').val(),
-                            orgName: $('#orgName').val(),
-                            acronym: $('#acronym').val(),
-                            postal: $('#postal').val(),
-                            department: $('#department').find(":selected").text(),
-                            municipality: $('#municipality').val(),
-                            village: $('#village').val(),
-                            community: $('#community').val(),
-                            sector: $('#sector').val(),
-                            mission: $('#mission').val(),
-                            vision: $('#vision').val(),
-                            market: $('#market').val(),
-                            webPage: $('#webPage').val(),
-                            orgPhone: $('#orgPhone').val(),
-                            orgCelPhone: $('#orgCelPhone').val(),
-                            orgSocialNetwork: $('#orgSocialNetwork').val(),
-                            orgEmail: $('#orgEmail').val(),
-                            directorName: $('#directorName').val(),
-                            directorPhone: $('#directorPhone').val(),
-                            directorCelPhone: $('#directorCelPhone').val(),
-                            directorEmail: $('#directorEmail').val(),
-                            orgResolutionNumber: $('#orgResolutionNumber').val(),
-                            orgResolutionDate: $('#orgResolutionDate').val(),
-                            legalRepresentativeName: $('#legalRepresentativeName').val(),
-                            ursacRegistrationNumber: $('#ursacRegistrationNumber').val(),
-                            ursacRegistrationDate: $('#ursacRegistrationDate').val(),
-                            latitude: $('#latitude').val(),
-                            longitude: $('#longitude').val(),
-                            intervieweeName: $('#intervieweeName').val(),
-                            interviewDate: $('#interviewDate').val(),
-                            interviewTime: $('#interviewTime').val(),
-                            otherOrgsInRegion: $('#otherOrgsInRegion').val(),
-                            observations: $('#observations').val(),
-                            projects: this.$children[0].projects
-                        }
+                        var formData = new FormData();
+                        // var organization = {
+                            this.formData.append("orgNumber", $('#orgNumber').val());
+                            this.formData.append("orgName", $('#orgName').val());
+                            this.formData.append("acronym", $('#acronym').val());
+                            this.formData.append("postal", $('#postal').val());
+                            this.formData.append("department", $('#department').find(":selected").text(),
+                            this.formData.append("municipality", $('#municipality').val());
+                            this.formData.append("village", $('#village').val());
+                            this.formData.append("community", $('#community').val());
+                            this.formData.append("sector", $('#sector').val());
+                            this.formData.append("mission", $('#mission').val());
+                            this.formData.append("vision", $('#vision').val());
+                            this.formData.append("market", $('#market').val());
+                            this.formData.append("webPage", $('#webPage').val());
+                            this.formData.append("orgPhone", $('#orgPhone').val());
+                            this.formData.append("orgCelPhone", $('#orgCelPhone').val());
+                            this.formData.append("orgSocialNetwork", $('#orgSocialNetwork').val());
+                            this.formData.append("orgEmail", $('#orgEmail').val());
+                            this.formData.append("directorName", $('#directorName').val());
+                           this.formData.append(",directorPhone", $('#directorPhone').val());
+                            this.formData.append("directorCelPhone", $('#directorCelPhone').val());
+                            this.formData.append("directorEmail", $('#directorEmail').val());
+                            this.formData.append("orgResolutionNumber", $('#orgResolutionNumber').val());
+                            this.formData.append("orgResolutionDate", $('#orgResolutionDate').val());
+                            this.formData.append("legalRepresentativeName", $('#legalRepresentativeName').val());
+                            this.formData.append("ursacRegistrationNumber", $('#ursacRegistrationNumber').val());
+                           this.formData.append("ursacRegistrationDate", $('#ursacRegistrationDate').val());
+                            this.formData.append("latitude", $('#latitude').val());
+                            this.formData.append("longitude", $('#longitude').val());
+                            this.formData.append("intervieweeName", $('#intervieweeName').val());
+                            this.formData.append("interviewDate", $('#interviewDate').val());
+                            this.formData.append("interviewTime", $('#interviewTime').val());
+                            this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
+                            this.formData.append("observations", $('#observations').val());
+                            this.formData.append("projects", this.$children[0].projects);
+                        // }
                         
                         this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
                             swal('Éxito', 'Organización agregada exitosamente', 'success');
@@ -321,6 +331,11 @@
                 },
                 components: {
                     'list-project': listProjects
+                },
+                data: function(){
+                    return {
+                        formData = new FormData();
+                    }
                 }
             };
         </script>
