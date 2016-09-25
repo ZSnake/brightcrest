@@ -2,10 +2,8 @@
     <div id="application">
         <div id="navbar">
             <ul id="usersDropdown" class="dropdown-content">
-                <li>
-                    <a v-link="'/users'">Listar usuarios</a>
-                </li>
-                <li><a href="#!">Agregar Usuario</a></li>
+                
+                
             </ul>
             <ul id="organizationsDropdown" class="dropdown-content">
                 <li>
@@ -27,10 +25,11 @@
                                  Organizaciones<i class="material-icons right">arrow_drop_down</i>
                              </a>
                         </li>
-                        <li v-if="currentUser.scope === 'admin'">
-                             <a class="dropdown-button" href="#!" data-activates="usersDropdown">
-                                 Usuarios<i class="material-icons right">arrow_drop_down</i>
-                             </a>
+                        <li>
+                            <a v-link="'/users'" v-if="currentUser.scope === 'admin'">Listar usuarios</a>
+                        </li>
+                        <li>
+                            <a href="#!" v-if="currentUser.scope === 'admin'">Agregar Usuario</a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>
@@ -42,7 +41,7 @@
                 </div>
             </nav>
         </div>
-            <router-view :current-user.sync="currentUser"></router-view>
+            <router-view :current-user.sync="currentUser" :refresh-user="refreshUser"></router-view>
     </div>
 </template>
 
@@ -50,11 +49,7 @@
     var config = require('./config.js');
     module.exports = {
         ready: function(){
-            this.currentUser = {
-                userId: window.sessionStorage.getItem('userId'),
-                username: window.sessionStorage.getItem('user'),
-                scope: window.sessionStorage.getItem('scope')
-            }
+            this.refreshUser();
         },
         methods: {
              logout: function(){
@@ -71,6 +66,13 @@
                 },function(error){
                     console.log(error);
                 })
+            },
+            refreshUser: function(){
+                this.currentUser = {
+                    userId: window.sessionStorage.getItem('userId'),
+                    username: window.sessionStorage.getItem('user'),
+                    scope: window.sessionStorage.getItem('scope')
+                }
             }
         },
         data: function(){

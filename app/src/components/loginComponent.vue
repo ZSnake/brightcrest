@@ -33,7 +33,7 @@
 
 	module.exports = {
 		name: 'login',
-        props: ['currentUser'],
+        props: ['currentUser', 'refreshUser'],
 		methods: {	
             logIn: function(){
                 this.$http.post(config.baseUrl() + '/v1/login', this.user).then(function(response){
@@ -46,7 +46,8 @@
                     window.sessionStorage.setItem('username', this.currentUser.username);
                     window.sessionStorage.setItem('userId', this.currentUser.userId);
                     window.sessionStorage.setItem('scope', this.currentUser.scope);
-                    console.log(this.currentUser)
+                    console.log(this.currentUser);
+                    this.refreshUser();
                     this.$route.router.go('/');
                 },function(error){
                     swal('Error', 'Usuario o password incorrecto', 'error');
