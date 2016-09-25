@@ -40,6 +40,7 @@
 	var gps = [];
 	var map = {};
 	var polydep = [];
+	var gpsP = [];
 	module.exports = {
 		name: 'mapOrganization',
 		data: function(){
@@ -48,7 +49,8 @@
 				organizations: [],
 				message: {},
 				projects: [],
-				polydep: []
+				
+				allprojects: [],
 
 			}
 		},
@@ -71,6 +73,11 @@
 				for (var i = 0; i < gps.length; i++) {
 					map.removeLayer(gps[i][0]);
 				}
+				for (var i = 0; i < gpsP.length; i++) {
+					map.removeLayer(gpsP[i][0]);
+				}
+				
+
 				for (var i = 0; i < polydep.length; i++) {
 					map.removeLayer(polydep[i]);
 				}
@@ -89,16 +96,23 @@
 							});
 
 
-							var LamMarker = L.marker([gps[i][0].getLatLng().lat, gps[i][0].getLatLng().lng]).bindPopup($('<a href="#/organization/view/'+gps[i][11]+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0]).addTo(map);
+							var LamMarker = L.marker([gps[i][0].getLatLng().lat, gps[i][0].getLatLng().lng]).bindPopup($('<a href="#/organization/view/'+gps[i][gps.length-1]+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0]).addTo(map);
 							gps[i][0] = LamMarker;
 							
 						}
 					}
-					console.log("termina arreglo")
+					
 				}
 
 
+				for (var i = 0; i < gpsP.length; i++) {
+					if (this.message == gpsP[i][2].name) {
+						gpsP[i][0].addTo(map);
+						this.addPoly(gpsP[i][2]);
+					}
 					
+				}
+				
 
 
 			},
@@ -194,7 +208,8 @@
 
 
 
-			initMap: function(organizations) {
+			initMap: function() {
+
 				map = L.map('map').setView([14.70, -86.20], 8);
 				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
 					maxZoom: 18,
@@ -208,40 +223,44 @@
 					var longi = this.strtoGps(this.organizations[i].longitude);
 					if(!isNaN(lat) && !isNaN(longi)){
 
-						/*
-						var LamMarker = L.marker([lat, -1*longi],{draggable:true}).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0]).addTo(map);
-						*/
-						
-
-						
 						
 						var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] ).addTo(map);
-
-						
-
-
-
 						gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id]);
 
 					}
 				};
 
+				console.log("dasd");
+				for (var i = 0; i < this.allprojects.length; i++) {
+					
+					if (this.allprojects[i].organizationId!=null) {
+						
+						
+						for (var j = 0; j < this.organizations.length; j++) {
+							console.log(this.organizations[j]._id);
+							if (this.allprojects[i].organizationId==this.organizations[j]._id){
+								var lat = this.strtoGps(this.organizations[j].latitude);
+								var longi = this.strtoGps(this.organizations[j].longitude);
+								if(!isNaN(lat) && !isNaN(longi)){
+									var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] );
+									gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
+								}
+								
+							}
+						}
 
-
-
-
-				
-				
-				var popup = L.popup();
-
-				function onMapClick(e) {
-					console.log(e.latlng.toString());
-
+					}
 				}
 
+
+				
+				var popup = L.popup();
+				function onMapClick(e) {
+					console.log(e.latlng.toString());
+				}
 				map.on('click', onMapClick);
 				
-
+				
 
 
 
@@ -252,9 +271,9 @@
 
 				var str = argument;
 
-				var patt = /[^\.|\d]/g
+				var patt = /[^\d\w]+/g
 				var res = str.split(patt);
-
+				console.log(res);
 				var newArray = new Array();
 				for (var i = 0; i < res.length; i++) {
 					if (res[i]) {
@@ -263,23 +282,25 @@
 				}
 
 				var gps = Number(newArray[0]) + Number((newArray[1]/60)) + Number((newArray[2]/3600));
-
+				console.log(argument);
+				console.log(gps);
 				return gps;
 			},
 
 			getOrganizations: function(){
 				this.k = 1;
-
-				this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
-
-					this.organizations = response.json();
-					this.initMap();
-
-
-				}, function(error){
-					swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
+				this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
+					this.allprojects = responsep.json();
+					console.log(this.allprojects);
+					this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
+						this.organizations = response.json();
+						this.initMap();
+					}, function(error){
+						swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
+					});
+				}, function(errorp){
+					swal('Error', 'Error obteniendo los projects del servidor', 'errorp');
 				});
-
 
 			},
 

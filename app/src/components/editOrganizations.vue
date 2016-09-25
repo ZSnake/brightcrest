@@ -235,6 +235,7 @@
 									</table>
 								</div>
 							</div>
+							
 							<div class="row">
 								<a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar projecto</a>
 							</div>
