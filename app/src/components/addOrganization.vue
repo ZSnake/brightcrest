@@ -228,9 +228,7 @@
                         selectYears: 100,
                         max: new Date()
                     });
-                    $(document).ready(function(){
-                        $('.modal-trigger').leanModal();
-                    });
+                    
                 },
                 name: 'addOrganization',
                 methods: {

@@ -297,6 +297,7 @@
         name: 'listProjects',
         ready: function(){
             $('select').material_select();
+            
         },
         data: function(){
             return {

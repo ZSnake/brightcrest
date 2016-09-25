@@ -29,7 +29,7 @@
                             <a v-link="'/users'" v-if="currentUser.scope === 'admin'">Listar usuarios</a>
                         </li>
                         <li>
-                            <a href="#!" v-if="currentUser.scope === 'admin'">Agregar Usuario</a>
+                            <a href="#createUser" v-if="currentUser.scope === 'admin'" class="modal-trigger">Agregar Usuario</a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>
@@ -41,15 +41,21 @@
                 </div>
             </nav>
         </div>
-            <router-view :current-user.sync="currentUser" :refresh-user="refreshUser"></router-view>
+        <router-view :current-user.sync="currentUser" :refresh-user="refreshUser"></router-view>
+        <add-user></add-user>
     </div>
 </template>
 
 <script>
     var config = require('./config.js');
+    var addUser = require('./src/components/addUser.vue')
     module.exports = {
         ready: function(){
             this.refreshUser();
+            $('select').material_select();
+            $(document).ready(function(){
+                $('.modal-trigger').leanModal();
+            });
         },
         methods: {
              logout: function(){
@@ -73,6 +79,9 @@
                     username: window.sessionStorage.getItem('user'),
                     scope: window.sessionStorage.getItem('scope')
                 }
+            },
+            reloadUsers: function(){
+                console.log(this.$children);
             }
         },
         data: function(){
@@ -81,7 +90,15 @@
                     userId: '',
                     username: '',
                     scope: ''
-                }
+                },
+            }
+        },
+        components: {
+            'add-user': addUser
+        },
+        events: {
+            'user-added': function(){
+                this.$broadcast('reload-users')
             }
         }
     }

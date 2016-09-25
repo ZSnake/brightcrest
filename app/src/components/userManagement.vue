@@ -53,11 +53,24 @@
 				});
 			},
             deleteUser: function(id){
-                this.$http.delete(config.baseUrl() + '/v1/user/' + id).then(function(response){
-					console.log('user removed');
-				},function(error){
-					console.log(error);
-				});
+                var component = this;
+                swal({   
+                    title: "Are you sure?",   
+                    text: "You will not be able to recover this imaginary file!",   
+                    type: "warning",   
+                    showCancelButton: true,   
+                    confirmButtonColor: "#DD6B55",   
+                    confirmButtonText: "Yes, delete it!",   
+                    closeOnConfirm: true 
+                }, function(){
+                        component.$http.delete(config.baseUrl() + '/v1/user/' + id).then(function(response){
+                            component.getUsers();
+                            swal.close();
+                        },function(error){
+                            console.log(error);
+                        });
+                        
+                });
             }		
 
 		},
@@ -65,6 +78,11 @@
 			return {
 				users: [],
 			}
-		}
+		},
+        events: {
+            'reload-users': function(){
+                this.getUsers();
+            }
+        }
 	}
 </script>
