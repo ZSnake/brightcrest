@@ -18,8 +18,10 @@
                             <td>{{user.username}}</td>
                             <td>{{user.scope}}</td>
                             <td>
-                                <a class="waves-effect waves-light btn blue darken-4 modal-trigger" v-on:click="editUser(user)">Editar</a>
-                                <a class="waves-effect waves-light btn red darken-4" v-on:click="deleteUser(user._id)">Borrar</a>
+                                <div class="row">
+                                    <a class="waves-effect waves-light col m6 btn blue darken-4 modal-trigger" v-on:click="editUser(user)"><i class="material-icons">mode_edit</i></a>
+                                    <a class="waves-effect waves-light col m6 btn red darken-4" v-on:click="deleteUser(user._id)"><i class="material-icons">delete</i></a>
+                                </div>
                             </td>
                         </tr>
                         </tbody>

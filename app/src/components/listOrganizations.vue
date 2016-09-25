@@ -20,11 +20,11 @@
                 <td>{{organization.department}}</td>
                 <td>{{organization.directorName}}</td>
                 <td>
-
-                  <a class="waves-effect waves-light btn blue darken-4" v-link="{name: 'viewOrganization', params: {organizationId: organization._id}}">Ver</a>
-
-                  <a class="waves-effect waves-light btn blue darken-4" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}">Editar</a>
-
+                  <div class="row">
+                    <a class="waves-effect waves-light btn green darken-4 col s4" v-link="{name: 'viewOrganization', params: {organizationId: organization._id}}"><i class="material-icons">pageview</i></a>
+                    <a class="waves-effect waves-light btn blue darken-4 col s4" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization._id}}"><i class="material-icons">mode_edit</i></a>
+                    <a class="waves-effect waves-light btn red darken-4 col s4" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization._id)"><i class="material-icons">delete</i></a>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -33,23 +33,12 @@
         </div>
       </div>
     </div>
-
-
   </template>
 
-
-
   <script>
-
-
-
     var swal = require('sweetalert');
     var config = require('../../config.js');
     var Vue = require('vue');
-
-    
-
-
     var list;
     module.exports = {
 
@@ -72,6 +61,27 @@
             this.list = this.organizations;
           }, function(error){
             swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
+          });
+        },
+        deleteOrganization(id){
+          var component = this;
+          swal({   
+              title: "¿Está seguro?",   
+              text: "¡Si eliminas esta organización, no se podrá recuperar!",   
+              type: "warning",   
+              showCancelButton: true,   
+              confirmButtonColor: "#DD6B55",   
+              confirmButtonText: "Si, eliminar",
+              cancelButtonText: "No, cancelar",   
+              closeOnConfirm: true 
+          }, function(){
+                  component.$http.delete(config.baseUrl() + '/v1/organization/' + id).then(function(response){
+                      component.getOrganizations();
+                      swal.close();
+                  },function(error){
+                      console.log(error);
+                  });
+                  
           });
         }
       }
