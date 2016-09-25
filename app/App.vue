@@ -29,7 +29,7 @@
                             <a v-link="'/users'" v-if="currentUser.scope === 'admin'">Listar usuarios</a>
                         </li>
                         <li>
-                            <a href="#createUser" v-if="currentUser.scope === 'admin'" class="modal-trigger">Agregar Usuario</a>
+                            <a v-if="currentUser.scope === 'admin'" v-on:click="openAddUser">Agregar Usuario</a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>
@@ -41,7 +41,7 @@
                 </div>
             </nav>
         </div>
-        <router-view :current-user.sync="currentUser" :refresh-user="refreshUser"></router-view>
+        <router-view :current-user.sync="currentUser"></router-view>
         <add-user></add-user>
     </div>
 </template>
@@ -53,9 +53,6 @@
         ready: function(){
             this.refreshUser();
             $('select').material_select();
-            $(document).ready(function(){
-                $('.modal-trigger').leanModal();
-            });
         },
         methods: {
              logout: function(){
@@ -82,6 +79,9 @@
             },
             reloadUsers: function(){
                 console.log(this.$children);
+            },
+            openAddUser: function(){
+                $('#createUser').openModal();
             }
         },
         data: function(){

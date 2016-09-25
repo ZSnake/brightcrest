@@ -42,8 +42,16 @@ new Vue({
 var router = new VueRouter();
 
 router.beforeEach(function(transition){
-  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' ||  transition.to.name === 'login' || transition.to.name === 'viewProject' || transition.to.name === 'mapOrganization')
-    transition.next();
+  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' || transition.to.name === 'login' || transition.to.name === 'viewProject' || transition.to.name === 'mapOrganization'){
+    if( transition.to.name === 'login'){
+      if(window.sessionStorage.getItem('userId') === null)
+        transition.next();
+      else
+        router.go('/')
+    }else{
+      transition.next();
+    }
+  }
   else{
     var userPermissions = window.sessionStorage.getItem('scope');
     if(userPermissions && userPermissions != ''){
