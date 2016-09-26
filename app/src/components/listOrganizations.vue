@@ -106,11 +106,6 @@
             if (this.keyword == "") {
               this.filteredorganizations=this.organizations;
             }
-
-
-
-
-
           },
           getOrganizations: function(){
             this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){

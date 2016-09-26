@@ -18,11 +18,11 @@
 											<input class="file-path validate" type="text">
 										</div>
 									</div>
-									<div class="input-field col s6">
+									<div class="input-field col s4">
 										<input id="orgNumber" v-model="organization.orgNumber" type="number" class="validate">
 										<label class="active" for="orgNumber" v-bind:class="{'active': organization.orgNumber}">Número de boleta</label>
 									</div>
-									<div class="input-field col s6">
+									<div class="input-field col s4">
 										<input id="orgName" v-model="organization.orgName" type="text" class="validate">
 										<label class="active" for="orgName">Nombre de la organización</label>
 									</div>
@@ -534,6 +534,7 @@
 
 		name: 'editOrganization',
 		ready: function(){
+			this.formData = new FormData();
 			console.log(this.$route.params);
 
 			$('select').material_select();
@@ -562,24 +563,13 @@
 								this.project=pro;
 								console.log("entrando a edit");
 								$('#addProjectModal').openModal();
-
 								return "edit";
 							}
 						}
-
-
 					}
-
-
-
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
-
-					console.log(pro);
-
-
 				},
-				updateOrganization: function(){
-					if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
+				updateOrganization: function(){	
 						this.organization.department = $('#department').find(":selected").text();
 						this.organization.orgResolutionDate = $('#orgResolutionDate').val();
 
@@ -587,35 +577,49 @@
 						console.log($('#ursacrRegistrationDate').val());
 						this.organization.projects = this.newprojects;
 
-						
+						if(this.organization.orgNumber){this.formData.append("orgNumber", this.organization.orgNumber);}
+						if(this.organization.orgName){this.formData.append("orgName", this.organization.orgName);}
+						if(this.organization.acronym){this.formData.append("acronym", this.organization.acronym);}
+						if(this.organization.postal){this.formData.append("postal", this.organization.postal);}
+						if(this.organization.municipality){this.formData.append("municipality", this.organization.municipality);}
+						if(this.organization.village){this.formData.append("village", this.organization.village);}
+						if(this.organization.department){this.formData.append("department", $('#department').find(":selected").text());}
+						if(this.organization.community){this.formData.append("community", this.organization.community);}
+						if(this.organization.sector){this.formData.append("sector", this.organization.sector);}
+						if(this.organization.mission){this.formData.append("mission", this.organization.mission);}
+						if(this.organization.vision){this.formData.append("vision", this.organization.vision);}
+						if(this.organization.market){this.formData.append("market", this.organization.market);}
+						if(this.organization.webPage){this.formData.append("webPage", this.organization.webPage);}
+						if(this.organization.orgPhone){this.formData.append("orgPhone", this.organization.orgPhone);}
+						if(this.organization.orgCelPhone){this.formData.append("orgCelPhone", this.organization.orgCelPhone);}
+						if(this.organization.orgSocialNetwork){this.formData.append("orgSocialNetwork", this.organization.orgSocialNetwork);}
+						if(this.organization.orgEmail){this.formData.append("orgEmail", this.organization.orgEmail);}
+						if(this.organization.directorName){this.formData.append("directorName", this.organization.directorName);}
+						if(this.organization.directorPhone){this.formData.append("directorPhone", this.organization.directorPhone);}
+						if(this.organization.directorCelPhone){this.formData.append("directorCelPhone", this.organization.directorCelPhone);}
+						if(this.organization.directorEmail){this.formData.append("directorEmail", this.organization.directorEmail);}
+						if(this.organization.orgResolutionNumber){this.formData.append("orgResolutionNumber", this.organization.orgResolutionNumber);}
+						if(this.organization.orgResolutionDate){this.formData.append("orgResolutionDate", this.organization.orgResolutionDate);}
+						if(this.organization.legalRepresentativeName){this.formData.append("legalRepresentativeName", this.organization.legalRepresentativeName);}
+						if(this.organization.ursacRegistrationNumber){this.formData.append("ursacRegistrationNumber", this.organization.ursacRegistrationNumber);}
+						if(this.organization.ursacRegistrationDate){this.formData.append("ursacRegistrationDate", this.organization.ursacRegistrationDate);}
+						if(this.organization.latitude){this.formData.append("latitude", this.organization.latitude);}
+						if(this.organization.longitude){this.formData.append("longitude", this.organization.longitude);}
+						if(this.organization.intervieweeName){this.formData.append("intervieweeName", this.organization.intervieweeName);}
+						if(this.organization.interviewDate){this.formData.append("interviewDate", this.organization.interviewDate);}
+						if(this.organization.interviewTime){this.formData.append("interviewTime", this.organization.interviewTime);}
+						if(this.organization.otherOrgsInRegion){this.formData.append("otherOrgsInRegion", this.organization.otherOrgsInRegion);}
+						if(this.organization.observations){this.formData.append("observations", this.organization.observations);}
+						if(this.organization.projects){this.formData.append("projects", this.organization.projects);}
+						if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
 
-						if($("#editLogo")[0].files[0]){
-							this.organization.logo = $("#editLogo")[0].files[0];
-						}
-
-						this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
+						this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
 							swal('Éxito', 'Organización se edito exitosamente', 'success');
 							this.$route.router.go('/');
 
 						}, function(error){
 							swal('Error', 'Error modificando organización', 'error');
 						});
-					}else{
-						var errstr= "Error agregando organización, falta:\n";
-						if ($('#orgNumber').val()==="") {
-							errstr = errstr.concat("Numero de Organizacion\n");
-
-						}
-						if ($('#orgName').val()==="") {
-							errstr =  errstr.concat("Nombre de la organización\n");
-						}
-						if ($('#acronym').val()==="") {
-							errstr =  errstr.concat("Acronimo de la Organizacion\n");
-
-						}
-						console.log(errstr);
-						swal('Error', errstr, 'error');
-					}
 
 				},
 				deleteProject: function (pro) {
@@ -651,8 +655,6 @@
 						
 					}
 				}
-				
-				
 			},
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
@@ -661,13 +663,6 @@
 					$('#department').selectedIndex = this.organization.department;  
 					$('#department').change();
 					$('#department').material_select();
-
-					
-						
-					
-
-				
-
 				},function(error){
 					console.log(error);
 				});
@@ -726,7 +721,8 @@
 				projects: [],
 				newprojects: [],
 				project: {},
-				dataPr: {}
+				dataPr: {},
+				formData: {}
 			}
 		}
 
