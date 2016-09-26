@@ -10,7 +10,7 @@
 								<div class="row">
 									<div class="input-field col s2">
 
-										<p id="projectNumber"><u>{{project.projectNumber}}</u></p>
+										<p id="projectNumber">{{project.projectNumber}}</p>
 
 										<label class="active" for="projectNumber" ">Número de proyecto</label>
 
@@ -19,38 +19,38 @@
 
 									</div>
 									<div class="input-field col s10">
-										<p id="name" type="text" class="validate"><u>{{project.name}}</u></p>
+										<p id="name" type="text" class="validate">{{project.name}}</p>
 
 										<label class="active" for="name">Nombre del programa</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s8">
-										<p id="description" type="text" class="validate"><u>{{project.description}}</u></p>
+										<p id="description" type="text" class="validate">{{project.description}}</p>
 
 										<label class="active" for="description">Descripción del programa</label>
 									</div>
 									<div class="input-field col s4">
-										<p id="duration" type="text" class="validate"><u>{{project.duration}}</u></p>
+										<p id="duration" type="text" class="validate">{{project.duration}}</p>
 
 										<label class="active" for="duration">Duración (en años)</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<p id="scope" type="text" class="validate"><u>{{project.scope}}</u></p>
+										<p id="scope" type="text" class="validate">{{project.scope}}</p>
 
 										<label class="active" for="scope">Ámbito de actuación</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s8">
-										<p id="childrenProfile" type="text" class="validate"><u>{{project.childrenProfile}}</u></p>
+										<p id="childrenProfile" type="text" class="validate">{{project.childrenProfile}}</p>
 
 										<label class="active" for="childrenProfile">Perfil de los niños y niñas</label>
 									</div>
 									<div class="input-field col s4">
-										<p id="ages" type="text" class="validate"><u>{{project.ages}}</u></p>
+										<p id="ages" type="text" class="validate">{{project.ages}}</p>
 
 										<label class="active" for="ages">Edades</label>
 									</div>
@@ -58,12 +58,12 @@
 								<h5 class="condensed light">Capacidad de atención</h5>
 								<div class="row">
 									<div class="input-field col s6">
-										<p id="totalSpace" type="text" class="validate"><u>{{project.totalSpace}}</u></p>
+										<p id="totalSpace" type="text" class="validate">{{project.totalSpace}}</p>
 
 										<label class="active" for="totalSpace">Cupos totales</label>
 									</div>
 									<div class="input-field col s6">
-										<p id="availableSpace" type="text" class="validate"><u>{{project.availableSpace}}</u></p>
+										<p id="availableSpace" type="text" class="validate">{{project.availableSpace}}</p>
 
 										<label class="active" for="availableSpace">Cupos disponibles</label>
 									</div>
@@ -71,24 +71,24 @@
 								<h5 class="condensed light">Contacto del coordinador(a)</h5>
 								<div class="row">
 									<div class="input-field col s6">
-										<p id="coordinatorName" type="text" class="validate"><u>{{project.coordinatorName}}</u></p>
+										<p id="coordinatorName" type="text" class="validate">{{project.coordinatorName}}</p>
 
 										<label class="active" for="coordinatorName">Nombre completo</label>
 									</div>
 									<div class="input-field col s6">
-										<p id="coordinatorPhone" type="text" class="validate"><u>{{project.coordinatorPhone}}</u></p>
+										<p id="coordinatorPhone" type="text" class="validate">{{project.coordinatorPhone}}</p>
 
 										<label class="active" for="coordinatorPhone">Teléfono fijo</label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col s6">
-										<p id="coordinatorEmail" type="email" class="validate"><u>{{project.coordinatorEmail}}</u></p>
+										<p id="coordinatorEmail" type="email" class="validate">{{project.coordinatorEmail}}</p>
 
 										<label class="active" for="coordinatorEmail">Email</label>
 									</div>
 									<div class="input-field col s6">
-										<p id="coordinatorCelPhone" type="text" class="validate"><u>{{project.coordinatorCelPhone}}</u></p>
+										<p id="coordinatorCelPhone" type="text" class="validate">{{project.coordinatorCelPhone}}</p>
 
 										<label class="active" for="coordinatorCelPhone">Teléfono celular</label>
 									</div>
@@ -96,12 +96,12 @@
 								<h5 class="condensed light">Ubicación</h5>
 								<div class="row">
 									<div class="input-field col s8">
-										<p id="postalCode" type="text" class="validate"><u>{{project.postalCode}}</u></p>
+										<p id="postalCode" type="text" class="validate">{{project.postalCode}}</p>
 
 										<label class="active" for="postalCode">Dirección Postal</label>
 									</div>
 									<div class="input-field col s4">
-										<p id="department"><u>{{project.department}}</u></p>
+										<p id="department">{{project.department}}</p>
 
 										<label class="active" for="department" ">Departamento</label>
 
@@ -111,7 +111,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<p id="observations"><u>{{project.observations}}</u></p>
+										<p id="observations">{{project.observations}}</p>
 
 										<label class="active" for="observations" ">Observaciones</label>
 
@@ -258,7 +258,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<p id="typologyObservations" type="text" class="validate"><u>{{project.typologyObservations}}</u></p>
+										<p id="typologyObservations" type="text" class="validate">{{project.typologyObservations}}</p>
 
 										<label class="active" for="typologyObservations">Observaciones</label>
 

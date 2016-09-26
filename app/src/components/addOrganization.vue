@@ -119,7 +119,8 @@
                                     <label for="directorName">Nombre</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="directorEmail" type="text" class="validate">
+
+                                    <input id="directorEmail" type="email" class="validate">
                                     <label for="directorEmail">Email</label>
                                 </div>
                             </div>
