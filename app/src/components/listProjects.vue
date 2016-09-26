@@ -299,6 +299,9 @@
         name: 'listProjects',
         ready: function(){
             $('select').material_select();
+            $(document).ready(function(){
+                $('.modal-trigger').leanModal();
+            });
             
         },
         data: function(){
@@ -326,5 +329,4 @@
 </script>
 
 <style>
-    .modal { width: 80% !important  }  /* increase the width as per you desire */
 </style>
