@@ -261,7 +261,7 @@
                         this.formData.append("orgSocialNetwork", $('#orgSocialNetwork').val());
                         this.formData.append("orgEmail", $('#orgEmail').val());
                         this.formData.append("directorName", $('#directorName').val());
-                        this.formData.append(",directorPhone", $('#directorPhone').val());
+                        this.formData.append("directorPhone", $('#directorPhone').val());
                         this.formData.append("directorCelPhone", $('#directorCelPhone').val());
                         this.formData.append("directorEmail", $('#directorEmail').val());
                         this.formData.append("orgResolutionNumber", $('#orgResolutionNumber').val());

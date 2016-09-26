@@ -16,7 +16,7 @@
             </thead>
             <tbody>
               <tr v-for="organization in organizations | orderBy 'orgNumber' order">
-                <td><img v-if="organization.logoUrl" class="list-logo" src="{{organization.logoUrl}}" alt=""></td>
+                <td><img v-if="organization.logoUrl" class="list-logo" v-bind:src="organization.logoUrl" alt=""></td>
                 <td>{{organization.orgNumber}}</td>
                 <td>{{organization.orgName}}</td>
                 <td>{{organization.department}}</td>
