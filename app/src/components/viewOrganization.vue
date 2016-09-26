@@ -9,11 +9,14 @@
                             <form class="col s12">
                                 <span class="card-title">Información General</span>
                                 <div class="row">
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s2">
+                                        <img class="viewLogo" src="{{organization.logoUrl}}" alt="logo">
+                                    </div>
+                                    <div class="input-field col s3">
                                         <input disabled value id="orgNumber" v-model="organization.orgNumber" type="number" class="active" >
                                         <label class="active" for="orgNumber" v-bind:class="{'active': organization.orgNumber}">Número de boleta</label>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s7">
                                         <input disabled value disabled value id="orgName" v-model="organization.orgName" type="text" class="validate" >
                                         <label class="active" for="orgName" v-bind:class="{'active': organization.orgNumber}">Nombre de la organización</label>
                                     </div>
@@ -321,5 +324,9 @@
  .input-field input[type=text].invalid {
     border-bottom: 1px solid #F0F8FF;
    box-shadow: 0 1px 0 0 #F0F8FF;
+}
+
+.viewLogo{
+    height: 150px;
 }
 </style>

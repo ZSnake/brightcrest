@@ -6,6 +6,7 @@
           <table> 
             <thead>
               <tr>
+                <th data-field="logoUrl">Logo</th>
                 <th data-field="orgNumber" @click="order = order * -1" v-if="order == 1">Número de boleta ⇩</th><th @click="order = order * -1" v-else>Número de boleta ⇧</th>
                 <th data-field="orgName">Nombre de ONG</th>
                 <th data-field="department">Departamento</th>
@@ -15,6 +16,7 @@
             </thead>
             <tbody>
               <tr v-for="organization in organizations | orderBy 'orgNumber' order">
+                <td><img v-if="organization.logoUrl" class="list-logo" src="{{organization.logoUrl}}" alt=""></td>
                 <td>{{organization.orgNumber}}</td>
                 <td>{{organization.orgName}}</td>
                 <td>{{organization.department}}</td>
@@ -29,7 +31,6 @@
               </tr>
             </tbody>
           </table>
-
         </div>
       </div>
     </div>
@@ -102,6 +103,8 @@
     #container {
       overflow: scroll;
       height: 100%;
-
+    }
+    .list-logo {
+      height: 80px;
     }
   </style>

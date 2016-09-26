@@ -10,7 +10,7 @@
                                 <div class="file-field input-field col s4">
                                     <div class="btn">
                                         <span>Logo</span>
-                                        <input type="file" v-on:change="appendLogo">
+                                        <input id="createLogo" type="file">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text">
@@ -228,7 +228,6 @@
             var listProjects = require('./listProjects.vue');
             module.exports = {
                 ready: function(){
-                    $.cloudinary.config({ cloud_name: 'dvxiia4du', api_key: '856997925515926'})
                     $('select').material_select();
                     var d = new Date();
                     d.setFullYear( d.getFullYear() - 100 );
@@ -238,59 +237,56 @@
                         selectYears: 100,
                         max: new Date()
                     });
+                    this.formData = new FormData();
                     
                 },
                 name: 'addOrganization',
                 methods: {
-                    createOrganization: function(event){
-                        var formData = new FormData();
-                        // var organization = {
-                            this.formData.append("orgNumber", $('#orgNumber').val());
-                            this.formData.append("orgName", $('#orgName').val());
-                            this.formData.append("acronym", $('#acronym').val());
-                            this.formData.append("postal", $('#postal').val());
-                            this.formData.append("department", $('#department').find(":selected").text(),
-                            this.formData.append("municipality", $('#municipality').val());
-                            this.formData.append("village", $('#village').val());
-                            this.formData.append("community", $('#community').val());
-                            this.formData.append("sector", $('#sector').val());
-                            this.formData.append("mission", $('#mission').val());
-                            this.formData.append("vision", $('#vision').val());
-                            this.formData.append("market", $('#market').val());
-                            this.formData.append("webPage", $('#webPage').val());
-                            this.formData.append("orgPhone", $('#orgPhone').val());
-                            this.formData.append("orgCelPhone", $('#orgCelPhone').val());
-                            this.formData.append("orgSocialNetwork", $('#orgSocialNetwork').val());
-                            this.formData.append("orgEmail", $('#orgEmail').val());
-                            this.formData.append("directorName", $('#directorName').val());
-                           this.formData.append(",directorPhone", $('#directorPhone').val());
-                            this.formData.append("directorCelPhone", $('#directorCelPhone').val());
-                            this.formData.append("directorEmail", $('#directorEmail').val());
-                            this.formData.append("orgResolutionNumber", $('#orgResolutionNumber').val());
-                            this.formData.append("orgResolutionDate", $('#orgResolutionDate').val());
-                            this.formData.append("legalRepresentativeName", $('#legalRepresentativeName').val());
-                            this.formData.append("ursacRegistrationNumber", $('#ursacRegistrationNumber').val());
-                           this.formData.append("ursacRegistrationDate", $('#ursacRegistrationDate').val());
-                            this.formData.append("latitude", $('#latitude').val());
-                            this.formData.append("longitude", $('#longitude').val());
-                            this.formData.append("intervieweeName", $('#intervieweeName').val());
-                            this.formData.append("interviewDate", $('#interviewDate').val());
-                            this.formData.append("interviewTime", $('#interviewTime').val());
-                            this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
-                            this.formData.append("observations", $('#observations').val());
-                            this.formData.append("projects", this.$children[0].projects);
-                        // }
+                    createOrganization: function(evt){
+                        this.formData.append("orgNumber", $('#orgNumber').val());
+                        this.formData.append("orgName", $('#orgName').val());
+                        this.formData.append("acronym", $('#acronym').val());
+                        this.formData.append("postal", $('#postal').val());
+                        this.formData.append("department", $('#department').find(":selected").text()),
+                        this.formData.append("municipality", $('#municipality').val());
+                        this.formData.append("village", $('#village').val());
+                        this.formData.append("community", $('#community').val());
+                        this.formData.append("sector", $('#sector').val());
+                        this.formData.append("mission", $('#mission').val());
+                        this.formData.append("vision", $('#vision').val());
+                        this.formData.append("market", $('#market').val());
+                        this.formData.append("webPage", $('#webPage').val());
+                        this.formData.append("orgPhone", $('#orgPhone').val());
+                        this.formData.append("orgCelPhone", $('#orgCelPhone').val());
+                        this.formData.append("orgSocialNetwork", $('#orgSocialNetwork').val());
+                        this.formData.append("orgEmail", $('#orgEmail').val());
+                        this.formData.append("directorName", $('#directorName').val());
+                        this.formData.append(",directorPhone", $('#directorPhone').val());
+                        this.formData.append("directorCelPhone", $('#directorCelPhone').val());
+                        this.formData.append("directorEmail", $('#directorEmail').val());
+                        this.formData.append("orgResolutionNumber", $('#orgResolutionNumber').val());
+                        this.formData.append("orgResolutionDate", $('#orgResolutionDate').val());
+                        this.formData.append("legalRepresentativeName", $('#legalRepresentativeName').val());
+                        this.formData.append("ursacRegistrationNumber", $('#ursacRegistrationNumber').val());
+                        this.formData.append("ursacRegistrationDate", $('#ursacRegistrationDate').val());
+                        this.formData.append("latitude", $('#latitude').val());
+                        this.formData.append("longitude", $('#longitude').val());
+                        this.formData.append("intervieweeName", $('#intervieweeName').val());
+                        this.formData.append("interviewDate", $('#interviewDate').val());
+                        this.formData.append("interviewTime", $('#interviewTime').val());
+                        this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
+                        this.formData.append("observations", $('#observations').val());
+                        this.formData.append("projects", this.$children[0].projects);
+                        this.formData.append("logo", $("#createLogo")[0].files[0]);
                         
-                        this.$http.post(config.baseUrl() + '/v1/organization', organization).then(function(response){
+                        this.$http.post(config.baseUrl() + '/v1/organization', this.formData).then(function(response){
                             swal('Éxito', 'Organización agregada exitosamente', 'success');
                             this.clear();
-
-                            console.log(response.body);
                             
                         }, function(error){
                             swal('Error', 'Error agregando organización', 'error');
                             console.log(error.body.message);
-                        })
+                        });
                     },
                     clear: function(event){
                         $('#orgNumber').val("");
@@ -334,7 +330,7 @@
                 },
                 data: function(){
                     return {
-                        formData = new FormData();
+                        formData: {}
                     }
                 }
             };
