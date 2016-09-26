@@ -9,318 +9,354 @@
                             <form class="col s12">
                                 <span class="card-title">Información General</span>
                                 <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value id="orgNumber" v-model="organization.orgNumber" type="number" class="active" >
-                                        <label class="active" for="orgNumber" v-bind:class="{'active': organization.orgNumber}">Número de boleta</label>
+                                    <div class="input-field col s2">
+                                        <img class="viewLogo" src="{{organization.logoUrl}}" alt="logo">
                                     </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value disabled value id="orgName" v-model="organization.orgName" type="text" class="validate" >
-                                        <label class="active" for="orgName" v-bind:class="{'active': organization.orgNumber}">Nombre de la organización</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value disabled value id="acronym" v-model="organization.acronym" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="acronym">Siglas de la organización</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value disabled value id="postal" v-model="organization.postal" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="postal">Dirección postal</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <select disabled selected id="department" v-model="organization.department">
-                                            <option value="Atlántida">Atlántida</option>
-                                            <option value="Colón">Colón</option>
-                                            <option value="Comayagua">Comayagua</option>
-                                            <option value="Copán">Copán</option>
-                                            <option value="Cortes">Cortes</option>
-                                            <option value="Choluteca">Choluteca</option>
-                                            <option value="Paraíso">El Paraíso</option>
-                                            <option value="Francisco Morazán">Francisco Morazán</option>
-                                            <option value="Gracias a Dios">Gracias a Dios</option>
-                                            <option value="Intibucá">Intibucá</option>
-                                            <option value="Islas de la Bahía">Islas de la Bahía</option>
-                                            <option value="La Paz">La Paz</option>
-                                            <option value="Lempira">Lempira</option>
-                                            <option value="Ocotepeque">Ocotepeque</option>
-                                            <option value="Olancho">Olancho</option>
-                                            <option value="Santa Bárbara">Santa Bárbara</option>
-                                            <option value="Valle">Valle</option>
-                                            <option value="Yoro">Yoro</option>
-                                        </select>
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active">Departamento</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value id="municipality" v-model="organization.municipality" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="municipality">Municipalidad</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s4">
-                                        <input disabled value id="village" v-model="organization.village" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="village">Aldea</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input disabled value id="community" v-model="organization.community" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="community">Comunidad</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input disabled value id="sector" v-model="organization.sector" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="sector">Sector</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <textarea disabled value id="mission" v-model="organization.mission" type="text" class="materialize-textarea"></textarea>
+                                    <div class="input-field col s3">
+                                    <p id="orgNumber">{{organization.orgNumber}}</p>
 
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="mission">Misión</label>
+                                        <label class="active" for="orgNumber" ">Número de boleta</label>
+                                    </div>
+                                    <div class="input-field col s7">
+                                        <p id="orgName">{{organization.orgName}}</p>
+
+                                        <label class="active" for="orgName" ">Nombre de la organización</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <p id="acronym">{{organization.acronym}}</p>
+
+                                        <label class="active" for="acronym" ">Siglas de la organización</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <textarea disabled value id="vision" v-model="organization.vision" type="text" class="materialize-textarea"></textarea>
+                                        <p id="postal">{{organization.postal}}</p>
 
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="vision">Visión</label>
+                                        <label class="active" for="postal" ">Dirección postal</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+
+                                        <p id="department">{{organization.department}}</p>
+
+                                        <label class="active" for="department" ">Departamento</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p id="municipality">{{organization.municipality}}</p>
+
+                                        <label class="active" for="municipality" ">Municipalidad</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <p id="village">{{organization.village}}</p>
+
+                                        <label class="active" for="village" ">Aldea</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <p id="community">{{organization.community}}</p>
+
+                                        <label class="active" for="community" ">Comunidad</label>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <p id="sector">{{organization.sector}}</p>
+
+                                        <label class="active" for="sector" ">Sector</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <p id="mission">{{organization.mission}}</p>
+
+                                        <label class="active" for="mission" ">Misión</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p id="vision">{{organization.vision}}</p>
+
+                                        <label class="active" for="vision" ">Visión</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input disabled value id="market" v-model="organization.market" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="market">Orientación principal de atención (rubro)</label>
+
+                                        <p id="market">{{organization.market}}</p>
+
+                                        <label class="active" for="market" ">Orientación principal de atención (rubro)</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Contacto de la ONG</span>
                                 <div class="row">
                                     <div class="input-field col s4">
-                                        <input disabled value id="webPage" v-model="organization.webPage" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="webPage">Página web</label>
+                                        <p id="webPage">{{organization.webPage}}</p>
+                                        <label class="active" for="webPage" ">Página web</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input disabled value id="orgPhone" v-model="organization.orgPhone" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgPhone">Número de teléfono fijo</label>
+                                        <p id="orgPhone">{{organization.orgPhone}}</p>
+                                        <label class="active" for="orgPhone" ">Número de teléfono fijo</label>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input disabled value id="orgCelPhone" v-model="organization.orgCelPhone" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgCelPhone">Número de celular</label>
+                                        <p id="orgCelPhone">{{organization.orgCelPhone}}</p>
+                                        <label class="active" for="orgCelPhone" ">Número de celular</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input disabled value id="orgSocialNetwork" v-model="organization.orgSocialNetwork" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgSocialNetwork">Redes Sociales</label>
+                                        <p id="orgSocialNetwork">{{organization.orgSocialNetwork}}</p>
+
+                                        <label class="active" for="orgSocialNetwork" ">Redes Sociales</label>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input disabled value id="orgEmail" v-model="organization.orgEmail" type="email" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgEmail">Email</label>
+                                        <p id="orgEmail">{{organization.orgEmail}}</p>
+
+                                        <label class="active" for="orgEmail" ">Email</label>
                                     </div>
                                 </div>
                                 <span class="card-title">Contacto del director</span>
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <input disabled value id="directorName" v-model="organization.directorName" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorName">Nombre</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value id="directorEmail" v-model="organization.directorEmail" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorEmail">Email</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value id="directorPhone" v-model="organization.directorPhone" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorPhone">Teléfono fijo</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value id="directorCelPhone" v-model="organization.directorCelPhone" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="directorCelPhone">Teléfono celular</label>
-                                    </div>
-                                </div>
-                                <span class="card-title">Personería Jurídica</span>
-                                <div class="row">
-                                    <div class="input-field col s4">
-                                        <input disabled value id="orgResolutionNumber" v-model="organization.orgResolutionNumber" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgResolutionNumber">Número de resolución</label>
-                                    </div>
+                                        <div class="input-field col s6">
+                                            <p id="directorName">{{organization.directorName}}</p>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <p id="directorEmail">{{organization.directorEmail}}</p>
 
-                                    <div class="input-field col s4">
-                                        <input disabled value id="orgResolutionDate" v-model="organization.orgResolutionDate" type="date" class="datepicker">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="orgResolutionDate">Fecha de resolución</label>
+                                            <label class="active" for="directorEmail" ">Email</label>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s4">
-                                        <input disabled value id="legalRepresentativeName" v-model="organization.legalRepresentativeName" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="legalRepresentativeName">Nombre de representante legal</label>
-                                    </div>
-                                </div>
-                                <span class="card-title">Registro en URSAC</span>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value id="ursacRegistrationNumber" v-model="organization.ursacRegistrationNumber" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="ursacRegistrationNumber">Número de registro</label>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input disabled value id="ursacRegistrationDate" v-model="organization.ursacRegistrationDate" type="date" class="datepicker">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="ursacRegistrationDate">Fecha de resolución</label>
-                                    </div>
-                                </div>
-                                <span class="card-title">Ubicación Geográfica</span>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value id="latitude" v-model="organization.latitude" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="latitude">Latitud</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value id="longitude" v-model="organization.longitude" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="longitude">Longitud</label>
-                                    </div>
-                                </div>
-                                <span class="card-title">Verificación de la entrevista</span>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input disabled value id="intervieweeName" v-model="organization.intervieweeName" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="intervieweeName">Nombre de la persona entrevistada</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <input disabled value id="interviewDate" v-model="organization.interviewDate" type="date" class="datepicker">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="interviewDate">Fecha de la entrevista</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input disabled value id="interviewTime" v-model="organization.interviewTime" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="interviewTime">Hora de la entrevista</label>
-                                    </div>
-                                </div>
-                                <span class="card-title">Información adicional/Otras informaciones</span>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input disabled value id="otherOrgsInRegion" v-model="organization.otherOrgsInRegion" type="text" class="validate">
-                                        <label v-bind:class="{'active': organization.orgNumber}" class="active" for="otherOrgsInRegion">Conoce otra(s) ONG del sector que trabaja en esta región?</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <textarea  disabled value id="observations" v-model="organization.observations" type="text" class="materialize-textarea"></textarea>
-                                        <label  v-bind:class="{'active': organization.orgNumber}" class="active" for="observations">Observaciones</label>
-                                    </div>
-                                </div>                  
-                            </form>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <p id="directorPhone">{{organization.directorPhone}}</p>
 
+                                            <label class="active" for="directorPhone" ">Teléfono fijo</label>
 
-                            <div class="row">
-                                <div class="card-content">
-                                    <table> 
-                                        <thead>
-                                            <tr>
-                                                <th data-field="projectNumber">Número de proyecto</th>
-                                                <th data-field="name">Nombre del proyecto</th>
-                                                <th data-field="duration">Duración (años)</th>
-                                                <th data-field="department">Departamento</th>
-                                                <th data-field="action">Acción</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="project in projects">
-                                                <td>{{project.projectNumber}}</td>
-                                                <td>{{project.name}}</td>
-                                                <td>{{project.duration}}</td>
-                                                <td>{{project.department}}</td>
-                                                <td><a class="waves-effect waves-light btn green darken-4" v-link="{name: 'viewProject', params: {projectId: project._id}}">ver</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <p id="directorCelPhone">{{organization.directorCelPhone}}</p>
+
+                                            <label class="active" for="directorCelPhone" ">Teléfono celular</label>
+                                        </div>
+                                    </div>
+                                    <span class="card-title">Personería Jurídica</span>
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <p id="orgResolutionNumber">{{organization.orgResolutionNumber}}</p>
+
+                                            <label class="active" for="orgResolutionNumber" ">Número de resolución</label>
+                                        </div>
+
+                                        <div class="input-field col s4">
+                                            <p id="orgResolutionDate">{{organization.orgResolutionDate}}</p>
+
+                                            <label class="active" for="orgResolutionDate" ">Fecha de resolución</label>
+
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <p id="orgResolutionDate">{{organization.legalRepresentativeName}}</p>
+
+                                            <label class="active" for="legalRepresentativeName" ">Nombre de representante legal</label>
+                                        </div>
+                                    </div>
+                                    <span class="card-title">Registro en URSAC</span>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <p id="ursacRegistrationNumber">{{organization.ursacRegistrationNumber}}</p>
+
+                                            <label class="active" for="ursacRegistrationNumber" ">Número de registro</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <p id="ursacRegistrationDate">{{organization.ursacRegistrationDate}}</p>
+
+                                            <label class="active" for="ursacRegistrationDate" ">Fecha de resolución</label>
+
+                                        </div>
+                                    </div>
+                                    <span class="card-title">Ubicación Geográfica</span>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <p id="latitude">{{organization.latitude}}</p>
+
+                                            <label class="active" for="latitude" ">Latitud</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <p id="longitude">{{organization.longitude}}</p>
+
+                                            <label class="active" for="longitude" ">Longitud</label>
+                                        </div>
+                                    </div>
+                                    <span class="card-title">Verificación de la entrevista</span>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <p id="intervieweeName">{{organization.intervieweeName}}</p>
+
+                                            <label class="active" for="intervieweeName" ">Nombre de la persona entrevistada</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <p id="interviewDate">{{organization.interviewDate}}</p>
+
+                                            <label class="active" for="interviewDate" ">Fecha de la entrevista</label>
+
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <p id="interviewTime">{{organization.interviewTime}}</p>
+
+                                            <label class="active" for="interviewTime" ">Hora de la entrevista</label>
+                                        </div>
+                                    </div>
+                                    <span class="card-title">Información adicional/Otras informaciones</span>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <p id="otherOrgsInRegion">{{organization.otherOrgsInRegion}}</p>
+
+                                            <label class="active" for="otherOrgsInRegion" ">Conoce otra(s) ONG del sector que trabaja en esta región?</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <p id="observations">{{organization.observations}}</p>
+
+                                            <label class="active" for="observations" ">Observaciones</label>
+                                        </div>
+                                    </div>                  
+                                </form>
 
 
-                        </div>        
-                        <div class="card-content">     
-                            <div class="class-action">
+                                <div class="row">
+                                    <div class="card-content">
+                                        <table> 
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="projectNumber">Número de proyecto</th>
+                                                    <th data-field="name">Nombre del proyecto</th>
+                                                    <th data-field="duration">Duración (años)</th>
+                                                    <th data-field="department">Departamento</th>
+                                                    <th data-field="action">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="project in projects">
+                                                    <td>{{project.projectNumber}}</td>
+                                                    <td>{{project.name}}</td>
+                                                    <td>{{project.duration}}</td>
+                                                    <td>{{project.department}}</td>
+                                                    <td><a class="waves-effect waves-light btn green darken-4" v-link="{name: 'viewProject', params: {projectId: project._id}}">ver</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
 
-                                <a class="waves-effect waves-light btn red darken-1 right-align" v-link="{path: '/'}">Regresar</a>
+
+                            </div>        
+                            <div class="card-content">     
+                                <div class="class-action">
+
+                                    <a class="waves-effect waves-light btn red darken-1 right-align" v-link="{path: '/'}">Regresar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</template>
+    </template>
 
-<script>
-    var swal = require('sweetalert');
-    var config = require('../../config.js');
-    var viewProject = require('./viewProject.vue')
-    var listProjects = require('./listProjects.vue');
-    module.exports = {
-        name: 'viewOrganization',
-        ready: function(){
-            $(document).ready(function() {
-                Materialize.updateTextFields();
-            });
-            console.log(this.$route.params);
-            
-            $('select').material_select();
-            var d = new Date();
-            d.setFullYear( d.getFullYear() - 100 );
-            $('.datepicker').pickadate(
-            {
-                selectMonths: true,
-                selectYears: 100,
-                max: new Date()
-            });
-            $(document).ready(function(){
-                $('.modal-trigger').leanModal();
-            });
-            this.getOrganization();
-            this.getProjects();
-            
-        },
-        methods: {
-            getOrganization: function(){
-                this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
-                    this.organization=response.json()[0];
-                    $('#department').val(this.organization.department);
-                    $('#department').selectedIndex = this.organization.department;  
-                    $('#department').change();
-                    $('#department').material_select();
-
-                    $('#ursacrRegistrationDate').text = this.organization.ursacrRegistrationDate;
-                    
-                },function(error){
-                    console.log(error);
-                });
-
+    <script>
+        var swal = require('sweetalert');
+        var config = require('../../config.js');
+        var viewProject = require('./viewProject.vue')
+        var listProjects = require('./listProjects.vue');
+        module.exports = {
+            name: 'viewOrganization',
+            ready: function(){
                 $(document).ready(function() {
                     Materialize.updateTextFields();
                 });
+                console.log(this.$route.params);
 
-            },
-            getProjects: function(){
-                this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/projects/').then(function(response){
-                    this.projects = response.json();
-                    
-                }, function(error){
-                    swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
+                $('select').material_select();
+                var d = new Date();
+                d.setFullYear( d.getFullYear() - 100 );
+                $('.datepicker').pickadate(
+                {
+                    selectMonths: true,
+                    selectYears: 100,
+                    max: new Date()
                 });
-            },
+                $(document).ready(function(){
+                    $('.modal-trigger').leanModal();
+                });
+                this.getOrganization();
+                this.getProjects();
 
-        },
-        data: function(){
-            return {
-                newprojects: [],
-                organization: {},
-                projects: [],
-                project: {}
+            },
+            methods: {
+                getOrganization: function(){
+                    this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
+                        this.organization=response.json()[0];
+                        var month = new Array(12);
+                        month[0] = "January";
+                        month[1] = "February";
+                        month[2] = "March";
+                        month[3] = "April";
+                        month[4] = "May";
+                        month[5] = "June";
+                        month[6] = "July";
+                        month[7] = "August";
+                        month[8] = "September";
+                        month[9] = "October";
+                        month[10] = "November";
+                        month[11] = "December";
+
+var d1 = new Date(this.organization.orgResolutionDate); // Valid Date
+this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
+var d2 = new Date(this.organization.ursacRegistrationDate); 
+this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
+var d3 = new Date(this.organization.interviewDate); 
+this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+
+
+
+},function(error){
+    console.log(error);
+});
+
+                    $(document).ready(function() {
+                        Materialize.updateTextFields();
+                    });
+
+                },
+                getProjects: function(){
+                    this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/projects/').then(function(response){
+                        this.projects = response.json();
+
+                    }, function(error){
+                        swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
+                    });
+                },
+
+            },
+            data: function(){
+                return {
+                    newprojects: [],
+                    organization: {},
+                    projects: [],
+                    project: {}
+                }
             }
+
+        }
+    </script>
+
+    <style>
+        .input-field input[type=text].invalid {
+            border-bottom: 1px solid #F0F8FF;
+            box-shadow: 0 1px 0 0 #F0F8FF;
         }
 
-    }
-    
-</script>
-
-<style>
- .input-field input[type=text].invalid {
-    border-bottom: 1px solid #F0F8FF;
-   box-shadow: 0 1px 0 0 #F0F8FF;
-}
-</style>
+        .viewLogo{
+            height: 150px;
+        }
+    </style>

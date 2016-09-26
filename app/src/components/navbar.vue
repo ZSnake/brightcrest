@@ -9,8 +9,14 @@
                 <li>
                     <a v-link="'/'">Listar organizaciones</a>
                 </li>
-                <li>
-                    <a v-link="{path: '/organization/new'}">Agregar organización</a>
+                <li >
+                    <a  v-link="{path: '/organization/new'}">Agregar organización</a>
+                </li>
+                <li  v-if="!isLoggedIn">
+                    <a v-link="{path: '/login'}">Login</a>
+                </li>
+                <li v-else>
+                    <span>Welcome {{currentUser.scope}} </span><a v-on:click="logout()" class="waves-effect waves-light btn blue darken-1">Logout</a>
                 </li>
             </ul>
         </div>
@@ -19,13 +25,35 @@
 
 <script>
     var Vue = require('vue'); 
-
-    module.exports.navbar = Vue.extend({
-        name: 'navbar'
-    });
+    var config = require('../../config.js');
+    module.exports = {
+        name: 'navbar',
+        props: ['currentUser'],
+        ready: function(){
+            this.isLoggedIn = this.currentUser.scope != ''
+            console.log(this.isLoggedIn)
+        },
+        methods: {
+            logout: function(){
+                this.$http.get(config.baseUrl() + '/v1/logout').then(function(response){
+                    window.sessionStorage.removeItem('user');
+                    window.sessionStorage.removeItem('userId');
+                    window.sessionStorage.removeItem('scope');
+                    this.currentUser = {
+                                            userId: '',
+                                            username: '',
+                                            scope: ''
+                                        }
+                    this.$route.router.go('/');   
+                },function(error){
+                    console.log(error);
+                })
+            }
+        },
+        data: function(){
+            return {
+                isLoggedIn: false,
+            }
+        }
+    };
 </script>
-<style>
-    .logo{
-        margin-left: 20px;
-    }
-</style>

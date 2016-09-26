@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="row">
-        <a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar projecto</a>
+        <a class="waves-effect waves-light btn blue darken-4 col m4 offset-m4 modal-trigger" href="#addProjectModal">Agregar projecto</a>
     </div>
 
     <div id="addProjectModal" class="modal modal-fixed-footer">
@@ -286,8 +286,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="addProject">Guardar</a>
-            <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Cerrar</a>
+            <div class="row">
+                <a class="waves-effect waves-light btn-flat modal-action modal-close col s6" v-on:click="addProject">Guardar</a>
+                <a class="waves-effect waves-light btn-flat modal-action modal-close col s6" v-on:click="clear">Cerrar</a>
+            </div>
         </div>
     </div>
 </template>
@@ -297,6 +299,10 @@
         name: 'listProjects',
         ready: function(){
             $('select').material_select();
+            $(document).ready(function(){
+                $('.modal-trigger').leanModal();
+            });
+            
         },
         data: function(){
             return {
@@ -323,5 +329,4 @@
 </script>
 
 <style>
-    .modal { width: 80% !important  }  /* increase the width as per you desire */
 </style>
