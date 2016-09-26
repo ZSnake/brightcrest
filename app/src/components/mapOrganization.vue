@@ -88,6 +88,7 @@
 				}
 
 				for (var i = 0; i < this.organizations.length; i++) {
+
 					var lat = this.strtoGps(this.organizations[i].latitude);
 					var longi = this.strtoGps(this.organizations[i].longitude);
 					if(!isNaN(lat) && !isNaN(longi)){
@@ -147,8 +148,10 @@
 					polydep=[];
 					for (var i = 0; i < gps.length; i++) {
 						for (var j = 0; j < gps[i].length; j++) {
+
+
 						//console.log(gps[i][j]);
-						if (this.message == gps[i][j]) {
+						if (this.message == gps[i][j] ) {
 							this.$http.get(config.baseUrl() + '/v1/organization/'+gps[i][11]+'/projects/').then(function(response){
 								this.projects = response.json();
 								for (var k = 0; k < this.projects.length; k++) {
@@ -163,6 +166,8 @@
 							gps[i][0] = LamMarker;
 							
 						}
+
+
 					}
 					
 				}
@@ -282,14 +287,17 @@
 				id: 'mapbox.streets'
 			}).addTo(map);
 			for (var i = 0; i < this.organizations.length; i++) {
+				if (this.organizations[i].latitude!=null && this.organizations[i].longitude!=null) {
 				var lat = this.strtoGps(this.organizations[i].latitude);
 				var longi = this.strtoGps(this.organizations[i].longitude);
+				
 				if(!isNaN(lat) && !isNaN(longi)){
 
 
 					var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] ).addTo(map);
 					gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id]);
 
+				}
 				}
 			};
 
