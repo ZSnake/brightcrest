@@ -243,6 +243,7 @@
                 name: 'addOrganization',
                 methods: {
                     createOrganization: function(evt){
+                        if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
                         this.formData.append("orgNumber", $('#orgNumber').val());
                         this.formData.append("orgName", $('#orgName').val());
                         this.formData.append("acronym", $('#acronym').val());
@@ -287,6 +288,22 @@
                             swal('Error', 'Error agregando organización', 'error');
                             console.log(error.body.message);
                         });
+                        } else{
+                                var errstr= "Error agregando organización, falta:\n";
+                                if ($('#orgNumber').val()==="") {
+                                    errstr = errstr.concat("Numero de Organizacion\n");
+
+                                }
+                                if ($('#orgName').val()==="") {
+                                   errstr =  errstr.concat("Nombre de la organización\n");
+                               }
+                               if ($('#acronym').val()==="") {
+                                   errstr =  errstr.concat("Acronimo de la Organizacion\n");
+
+                               }
+                               console.log(errstr);
+                               swal('Error', errstr, 'error');
+                           }
                     },
                     clear: function(event){
                         $('#orgNumber').val("");
