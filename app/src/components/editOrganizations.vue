@@ -235,7 +235,7 @@
 									</table>
 								</div>
 							</div>
-							
+
 							<div class="row">
 								<a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar projecto</a>
 							</div>
@@ -573,7 +573,10 @@
 				updateOrganization: function(){
 					if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
 						this.organization.department = $('#department').find(":selected").text();
+						this.organization.orgResolutionDate = $('#orgResolutionDate').val();
+
 						this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
+						console.log($('#ursacrRegistrationDate').val());
 						this.organization.projects = this.newprojects;
 						this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.organization).then(function(response){
 							swal('Éxito', 'Organización se edito exitosamente', 'success');
@@ -644,7 +647,11 @@
 					$('#department').change();
 					$('#department').material_select();
 
-					$('#ursacrRegistrationDate').text = this.organization.ursacrRegistrationDate;
+					
+						
+					
+
+				
 
 				},function(error){
 					console.log(error);
@@ -665,7 +672,7 @@
 						if (this.newprojects.length!=0) {
 							if (this.project.projectNumber == this.newprojects[i].projectNumber) {
 								
-				
+
 								this.newprojects[i]=this.project;
 
 								this.projects.push(this.project);
@@ -677,7 +684,7 @@
 					}
 
 					console.log($('#projectDepartment').find(":selected").text());
-								this.project.department = $('#projectDepartment').find(":selected").text();
+					this.project.department = $('#projectDepartment').find(":selected").text();
 					this.newprojects.push(this.project);
 					this.projects.push(this.project);
 					this.project = {};
