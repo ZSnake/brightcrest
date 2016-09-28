@@ -313,16 +313,7 @@
         methods: {
             addProject: function(){
                 this.project.department = $('#projectDepartment').find(":selected").text();
-                
-                console.log($('#alternativeEducationCenter').prop('checked')+" valor de voca");
-                
-                if ($('#alternativeEducationCenter').prop('checked')) {
-                    this.projects.alternativeEducationCenter = true;
-                } else {
-                    this.projects.alternativeEducationCenter = false;
-                }
-                
-                
+                console.log(this.project);
                 this.projects.push(this.project);
                 this.project = {};
             },

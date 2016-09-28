@@ -244,7 +244,7 @@
                 methods: {
                     createOrganization: function(evt){
                         console.log('getting into ')
-                        
+                        if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
                             this.formData.append("orgNumber", $('#orgNumber').val());
                             this.formData.append("orgName", $('#orgName').val());
                             this.formData.append("acronym", $('#acronym').val());
@@ -278,21 +278,33 @@
                             this.formData.append("interviewTime", $('#interviewTime').val());
                             this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
                             this.formData.append("observations", $('#observations').val());
-                            console.log(this.$children[0].projects[0]);
-                            this.formData.append("projects", JSON.stringify(this.$children[0].projects));
+                            this.formData.append("projects", this.$children[0].projects);
                             this.formData.append("logo", $("#createLogo")[0].files[0]);
                             
                             this.$http.post(config.baseUrl() + '/v1/organization', this.formData).then(function(response){
-                                console.log("entro a guarduar");
                                 swal('Éxito', 'Organización agregada exitosamente', 'success');
                                 this.clear();
                                 
                             }, function(error){
                                 swal('Error', 'Error agregando organización', 'error');
-                                console.log("entro a error");
-                                console.log(error);
+                                console.log(error.body.message);
                             });
-                       
+                        } else{
+                            var errstr= "Error agregando organización, falta:\n";
+                            if ($('#orgNumber').val()==="") {
+                                errstr = errstr.concat("Numero de Organizacion\n");
+
+                            }
+                            if ($('#orgName').val()==="") {
+                                errstr =  errstr.concat("Nombre de la organización\n");
+                            }
+                            if ($('#acronym').val()==="") {
+                                errstr =  errstr.concat("Acronimo de la Organizacion\n");
+
+                            }
+                            console.log(errstr);
+                            swal('Error', errstr, 'error');
+                        }
                     },
                     clear: function(event){
                         $('#orgNumber').val("");

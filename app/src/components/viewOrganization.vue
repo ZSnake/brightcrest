@@ -9,18 +9,15 @@
                             <form class="col s12">
                                 <span class="card-title">Información General</span>
                                 <div class="row">
-                                     <div class="input-field col s12">
+                                    <div class="input-field col s2">
                                         <img class="viewLogo" src="{{organization.logoUrl}}" alt="logo">
                                     </div>
-                                </div>
-                                <div class="row">
-                                   
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s3">
                                     <p id="orgNumber">{{organization.orgNumber}}</p>
 
                                         <label class="active" for="orgNumber" ">Número de boleta</label>
                                     </div>
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s7">
                                         <p id="orgName">{{organization.orgName}}</p>
 
                                         <label class="active" for="orgName" ">Nombre de la organización</label>
