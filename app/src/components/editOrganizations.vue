@@ -610,7 +610,7 @@
 						if(this.organization.interviewTime){this.formData.append("interviewTime", this.organization.interviewTime);}
 						if(this.organization.otherOrgsInRegion){this.formData.append("otherOrgsInRegion", this.organization.otherOrgsInRegion);}
 						if(this.organization.observations){this.formData.append("observations", this.organization.observations);}
-						if(this.organization.projects){this.formData.append("projects", this.organization.projects);}
+						if(this.organization.projects){this.formData.append("projects", JSON.stringify(this.organization.projects));}
 						if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
 
 						this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
