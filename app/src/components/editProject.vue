@@ -290,8 +290,9 @@
 				console.log(this.$route.params.organizationId);
 
 				this.project.department = $('#projectDepartment').find(":selected").text();
-				
+				console.log("entra a update"+this.$route.params.organizationId+" "+this.$route.params.projectId);
 				this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId,this.project).then(function(response){
+
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId);
 				}, function(error){
 					swal('Error', 'Error modificando projecto', 'error');
@@ -314,13 +315,14 @@
 				'/v1/organization/{organizationId}/project/{projectId}'
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
-					console.log(this.project);
+					console.log(this.project.alternativeEducationCenter+" edu");
 					
 					$('#projectDepartment').val(this.project.department);
 					$('#projectDepartment').selectedIndex = this.project.department;  
 					
 					$('#projectDepartment').change();
 					$('#projectDepartment').material_select();
+
 				},function(error){
 					console.log(error);
 				});

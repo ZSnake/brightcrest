@@ -228,7 +228,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s6">
-										<input type="checkbox" id="preBasicEducationCenter" v-model="project.preBasicEducationCenter"/>
+										<input type="checkbox"  id="preBasicEducationCenter" v-model="project.preBasicEducationCenter"/>
 										<label class="active" for="preBasicEducationCenter">Centro de educación prebásica</label>
 									</div>
 									<div class="input-field col s6">
@@ -300,6 +300,8 @@
 				'/v1/organization/{organizationId}/project/{projectId}'
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
+					console.log(this.project.alternativeEducationCenter)
+
 					$('#typologyObservations').text(this.project.tipologyObservations);
 					console.log(this.project.tipologyObservations);
 					

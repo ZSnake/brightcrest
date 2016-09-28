@@ -17,7 +17,9 @@
 								<div class="input-field col s6">
 
 									<a class="waves-effect waves-light btn blue darken-4"  v-on:click="search(message)"><i class="large material-icons">search</i></a>
-									<a class="waves-effect waves-light btn red darken-4"  v-on:click="cleansearch()">Limpiar Busqueda</a>
+									
+									<a class="waves-effect waves-light btn red darken-4"  onClick="history.go(0)">Limpiar Busqueda</a>
+									
 
 								</div>
 
