@@ -351,7 +351,7 @@
 													</select>
 													<label>Departamento</label>
 												</div>
-												<span>Selected: {{ project.department | json }}</span>
+												
 											</div>
 											<div class="row">
 												<div class="input-field col s12">
