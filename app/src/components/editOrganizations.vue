@@ -119,7 +119,7 @@
 										<label class="active" for="orgSocialNetwork">Redes Sociales</label>
 									</div>
 									<div class="input-field col s6">
-										<input id="orgEmail" v-model="organization.orgEmail" type="email" class="validate">
+										<input id="orgEmail" v-model="organization.orgEmail" type="text" class="validate">
 										<label class="active" for="orgEmail">Email</label>
 									</div>
 								</div>
@@ -235,7 +235,7 @@
 												<td>{{project.department}}</td>
 												<td> 
 
-													<a class="waves-effect waves-light btn green darken-4" v-on:click="editHandler(project)">Editar</a>
+													<a class="waves-effect waves-light btn green darken-4" v-on:click="editHandler(project,$index)">Editar</a>
 													<a class="waves-effect waves-light btn red darken-4" v-on:click="deleteProject(project)">Eliminar</a>
 												</td>
 
@@ -314,7 +314,7 @@
 											</div>
 											<div class="row">
 												<div class="input-field col s6">
-													<input id="coordinatorEmail" type="email" class="validate" v-model="project.coordinatorEmail">
+													<input id="coordinatorEmail" type="text" class="validate" v-model="project.coordinatorEmail">
 													<label for="coordinatorEmail">Email</label>
 												</div>
 												<div class="input-field col s6">
@@ -330,7 +330,7 @@
 												</div>
 												<div class="input-field col s4">
 													<select id="projectDepartment" v-model="project.department">
-														<option>Atlántida</option>
+														<option selected>Atlántida</option>
 														<option>Colón</option>
 														<option>Comayagua</option>
 														<option>Copán</option>
@@ -351,6 +351,7 @@
 													</select>
 													<label>Departamento</label>
 												</div>
+												
 											</div>
 											<div class="row">
 												<div class="input-field col s12">
@@ -534,6 +535,8 @@
 
 		name: 'editOrganization',
 		ready: function(){
+			this.try = "LOL";
+			this.eoa = null;
 			this.formData = new FormData();
 			console.log(this.$route.params);
 
@@ -555,75 +558,90 @@
 		},
 		methods: {
 
-			editHandler: function(pro){
-					var bandera = 0; //0 no esta en new, 1 si esta.
-					for (var i = 0; i < this.newprojects.length ; i++) {
-						if (this.newprojects.length!=0) {
-							if (pro.projectNumber == this.newprojects[i].projectNumber) {
-								this.project=pro;
-								console.log("entrando a edit");
-								$('#addProjectModal').openModal();
-								return "edit";
-							}
-						}
-					}
+			editHandler: function(pro,index){
+				
+				console.log(this.projects.length-this.newprojects.length);
+				if (index>(this.projects.length-this.newprojects.length-1)) {
+					console.log(index); //es new project
+					this.eoa = index;
+					this.project=pro;
+					
+					$('#addProjectModal').openModal();
+					$('#addProjectModal').animate({ scrollTop: 0 }, 'slow');
+				} else	{
+					console.log("es menor"); // es old project
+
+
+
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
-				},
-				updateOrganization: function(){	
-						this.organization.department = $('#department').find(":selected").text();
-						this.organization.orgResolutionDate = $('#orgResolutionDate').val();
 
-						this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
-						console.log($('#ursacrRegistrationDate').val());
-						this.organization.projects = this.newprojects;
+					$("html, body").animate({ scrollTop: 0 }, "slow");
+						
+				}
 
-						if(this.organization.orgNumber){this.formData.append("orgNumber", this.organization.orgNumber);}
-						if(this.organization.orgName){this.formData.append("orgName", this.organization.orgName);}
-						if(this.organization.acronym){this.formData.append("acronym", this.organization.acronym);}
-						if(this.organization.postal){this.formData.append("postal", this.organization.postal);}
-						if(this.organization.municipality){this.formData.append("municipality", this.organization.municipality);}
-						if(this.organization.village){this.formData.append("village", this.organization.village);}
-						if(this.organization.department){this.formData.append("department", $('#department').find(":selected").text());}
-						if(this.organization.community){this.formData.append("community", this.organization.community);}
-						if(this.organization.sector){this.formData.append("sector", this.organization.sector);}
-						if(this.organization.mission){this.formData.append("mission", this.organization.mission);}
-						if(this.organization.vision){this.formData.append("vision", this.organization.vision);}
-						if(this.organization.market){this.formData.append("market", this.organization.market);}
-						if(this.organization.webPage){this.formData.append("webPage", this.organization.webPage);}
-						if(this.organization.orgPhone){this.formData.append("orgPhone", this.organization.orgPhone);}
-						if(this.organization.orgCelPhone){this.formData.append("orgCelPhone", this.organization.orgCelPhone);}
-						if(this.organization.orgSocialNetwork){this.formData.append("orgSocialNetwork", this.organization.orgSocialNetwork);}
-						if(this.organization.orgEmail){this.formData.append("orgEmail", this.organization.orgEmail);}
-						if(this.organization.directorName){this.formData.append("directorName", this.organization.directorName);}
-						if(this.organization.directorPhone){this.formData.append("directorPhone", this.organization.directorPhone);}
-						if(this.organization.directorCelPhone){this.formData.append("directorCelPhone", this.organization.directorCelPhone);}
-						if(this.organization.directorEmail){this.formData.append("directorEmail", this.organization.directorEmail);}
-						if(this.organization.orgResolutionNumber){this.formData.append("orgResolutionNumber", this.organization.orgResolutionNumber);}
-						if(this.organization.orgResolutionDate){this.formData.append("orgResolutionDate", this.organization.orgResolutionDate);}
-						if(this.organization.legalRepresentativeName){this.formData.append("legalRepresentativeName", this.organization.legalRepresentativeName);}
-						if(this.organization.ursacRegistrationNumber){this.formData.append("ursacRegistrationNumber", this.organization.ursacRegistrationNumber);}
-						if(this.organization.ursacRegistrationDate){this.formData.append("ursacRegistrationDate", this.organization.ursacRegistrationDate);}
-						if(this.organization.latitude){this.formData.append("latitude", this.organization.latitude);}
-						if(this.organization.longitude){this.formData.append("longitude", this.organization.longitude);}
-						if(this.organization.intervieweeName){this.formData.append("intervieweeName", this.organization.intervieweeName);}
-						if(this.organization.interviewDate){this.formData.append("interviewDate", this.organization.interviewDate);}
-						if(this.organization.interviewTime){this.formData.append("interviewTime", this.organization.interviewTime);}
-						if(this.organization.otherOrgsInRegion){this.formData.append("otherOrgsInRegion", this.organization.otherOrgsInRegion);}
-						if(this.organization.observations){this.formData.append("observations", this.organization.observations);}
-						if(this.organization.projects){this.formData.append("projects", JSON.stringify(this.organization.projects));}
-						if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
 
-						this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
-							swal('Éxito', 'Organización se edito exitosamente', 'success');
-							this.$route.router.go('/');
 
-						}, function(error){
-							swal('Error', 'Error modificando organización', 'error');
-						});
 
-				},
-				deleteProject: function (pro) {
-					console.log(pro);
+			},
+			updateOrganization: function(){	
+				this.organization.department = $('#department').find(":selected").text();
+				this.organization.orgResolutionDate = $('#orgResolutionDate').val();
+
+				this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
+				console.log($('#ursacrRegistrationDate').val());
+				this.organization.projects = this.newprojects;
+
+				if(this.organization.orgNumber){this.formData.append("orgNumber", this.organization.orgNumber);}
+				if(this.organization.orgName){this.formData.append("orgName", this.organization.orgName);}
+				if(this.organization.acronym){this.formData.append("acronym", this.organization.acronym);}
+				if(this.organization.postal){this.formData.append("postal", this.organization.postal);}
+				if(this.organization.municipality){this.formData.append("municipality", this.organization.municipality);}
+				if(this.organization.village){this.formData.append("village", this.organization.village);}
+				if(this.organization.department){this.formData.append("department", $('#department').find(":selected").text());}
+				if(this.organization.community){this.formData.append("community", this.organization.community);}
+				if(this.organization.sector){this.formData.append("sector", this.organization.sector);}
+				if(this.organization.mission){this.formData.append("mission", this.organization.mission);}
+				if(this.organization.vision){this.formData.append("vision", this.organization.vision);}
+				if(this.organization.market){this.formData.append("market", this.organization.market);}
+				if(this.organization.webPage){this.formData.append("webPage", this.organization.webPage);}
+				if(this.organization.orgPhone){this.formData.append("orgPhone", this.organization.orgPhone);}
+				if(this.organization.orgCelPhone){this.formData.append("orgCelPhone", this.organization.orgCelPhone);}
+				if(this.organization.orgSocialNetwork){this.formData.append("orgSocialNetwork", this.organization.orgSocialNetwork);}
+				if(this.organization.orgEmail){this.formData.append("orgEmail", this.organization.orgEmail);}
+				if(this.organization.directorName){this.formData.append("directorName", this.organization.directorName);}
+				if(this.organization.directorPhone){this.formData.append("directorPhone", this.organization.directorPhone);}
+				if(this.organization.directorCelPhone){this.formData.append("directorCelPhone", this.organization.directorCelPhone);}
+				if(this.organization.directorEmail){this.formData.append("directorEmail", this.organization.directorEmail);}
+				if(this.organization.orgResolutionNumber){this.formData.append("orgResolutionNumber", this.organization.orgResolutionNumber);}
+				if(this.organization.orgResolutionDate){this.formData.append("orgResolutionDate", this.organization.orgResolutionDate);}
+				if(this.organization.legalRepresentativeName){this.formData.append("legalRepresentativeName", this.organization.legalRepresentativeName);}
+				if(this.organization.ursacRegistrationNumber){this.formData.append("ursacRegistrationNumber", this.organization.ursacRegistrationNumber);}
+				if(this.organization.ursacRegistrationDate){this.formData.append("ursacRegistrationDate", this.organization.ursacRegistrationDate);}
+				if(this.organization.latitude){this.formData.append("latitude", this.organization.latitude);}
+				if(this.organization.longitude){this.formData.append("longitude", this.organization.longitude);}
+				if(this.organization.intervieweeName){this.formData.append("intervieweeName", this.organization.intervieweeName);}
+				if(this.organization.interviewDate){this.formData.append("interviewDate", this.organization.interviewDate);}
+				if(this.organization.interviewTime){this.formData.append("interviewTime", this.organization.interviewTime);}
+				if(this.organization.otherOrgsInRegion){this.formData.append("otherOrgsInRegion", this.organization.otherOrgsInRegion);}
+				if(this.organization.observations){this.formData.append("observations", this.organization.observations);}
+
+				console.log("printing projects");
+				console.log(this.organization.projects);
+
+				if(this.organization.projects){this.formData.append("projects", JSON.stringify(this.organization.projects));}
+				if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
+
+					this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
+						swal('Éxito', 'Organización se edito exitosamente', 'success');
+						this.$route.router.go('/');
+
+					}, function(error){
+						swal('Error', 'Error modificando organización', 'error');
+					});
+
+			},
+			deleteProject: function (pro) {
+				console.log(pro);
 				//if its new done if its new.
 				if (this.newprojects.length!=0) {
 					for (var i = 0; i < this.newprojects.length; i++) {
@@ -652,7 +670,7 @@
 							console.log("somehow it didnt delete :(");
 						});
 						break;
-						
+
 					}
 				}
 			},
@@ -670,62 +688,103 @@
 
 			getProjects: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/projects/').then(function(response){
+
 					this.projects = response.json();
+					console.log(this.projects.length+" length");
 
 				}, function(error){
 					swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
 				});
 			},
 			addProject: function() {
-				if ($('#projectNumber').val()!=="" && $('#name').val()!=="" ) {
-					for (var i = 0; i < this.newprojects.length ; i++) {
-						if (this.newprojects.length!=0) {
-							if (this.project.projectNumber == this.newprojects[i].projectNumber) {
-								
+				console.log($('#projectDepartment').find(":selected").text());
+				console.log(this.project.projectNumber);
+				
+				this.try = $('#projectDepartment').find(":selected").text();
+				this.project.department = $('#projectDepartment').find(":selected").text();
+				
 
-								this.newprojects[i]=this.project;
-
-								this.projects.push(this.project);
-								this.project = {};
-								console.log("wtfitsworking")
-								return "edit";
-							}
-						}
+				if (this.eoa == null) { 			//new
+					if (this.newprojects.length==0) {
+						this.newprojects.push(this.project);
+						this.projects.push(this.project);
+						console.log(this.newprojects[this.newprojects.length-1][0]);
+						this.project = {};
+					} else {
+						this.newprojects.push(this.project);
+						console.log(this.newprojects.length-1);
+						this.projects.push(this.project);
+						this.project = {};
 					}
+				} else{ //added before edit project
+					console.log(this.eoa + " EOA");
 
-					console.log($('#projectDepartment').find(":selected").text());
-					this.project.department = $('#projectDepartment').find(":selected").text();
-					this.newprojects.push(this.project);
-					this.projects.push(this.project);
+					this.projects[this.eoa]=this.project;
+					console.log(this.projects[this.eoa].name);
+					console.log(this.projects[this.eoa].department);
+					
+					this.eoa=null;
 					this.project = {};
-					console.log(this.newprojects[this.newprojects.length-1].projectNumber);
-					console.log(this.newprojects[0].projectNumber + " add pro");
-				}else{
-					var errstr= "Error agregando organización, falta:\n";
-					if ($('#projectNumber').val()==="") {
-						errstr = errstr.concat("Numero de projecto\n");
 
-					}
-					if ($('#name').val()==="") {
-						errstr =  errstr.concat("Nombre del projecto\n");
-					}
-					console.log(errstr);
-					swal('Error', errstr, 'error');
 				}
-			}
-		},
-		data: function(){
-			return {
-				newprojects: [],
-				organization: {},
-				projects: [],
-				newprojects: [],
-				project: {},
-				dataPr: {},
-				formData: {}
-			}
-		}
+				$('#projectDepartment').val("Atlántida");
 
-	}
+
+				$('#projectDepartment').material_select();
+
+
+/*
+if ($('#projectNumber').val()!=="" && $('#name').val()!=="" ) {
+for (var i = 0; i < this.newprojects.length ; i++) {
+if (this.newprojects.length!=0) {
+if (this.project.projectNumber == this.newprojects[i].projectNumber) {
+
+
+this.newprojects[i]=this.project;
+
+this.projects.push(this.project);
+this.project = {};
+console.log("wtfitsworking")
+return "edit";
+}
+}
+}
+
+console.log($('#projectDepartment').find(":selected").text());
+this.project.department = $('#projectDepartment').find(":selected").text();
+this.newprojects.push(this.project);
+this.projects.push(this.project);
+this.project = {};
+console.log(this.newprojects[this.newprojects.length-1].projectNumber);
+console.log(this.newprojects[0].projectNumber + " add pro");
+}else{
+var errstr= "Error agregando organización, falta:\n";
+if ($('#projectNumber').val()==="") {
+errstr = errstr.concat("Numero de projecto\n");
+
+}
+if ($('#name').val()==="") {
+errstr =  errstr.concat("Nombre del projecto\n");
+}
+console.log(errstr);
+swal('Error', errstr, 'error');
+}
+*/
+}
+},
+data: function(){
+	return {
+		newprojects: [],
+		organization: {},
+		projects: [],
+		project: {},
+		dataPr: {},
+		formData: {},
+		try: {},
+eoa: {}//edit or add
+}
+}
+
+}
 
 </script>

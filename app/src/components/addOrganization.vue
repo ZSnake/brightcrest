@@ -117,7 +117,7 @@
                                     <label for="orgSocialNetwork">Redes Sociales</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="orgEmail" type="email" class="validate">
+                                    <input id="orgEmail" type="text" class="validate">
                                     <label for="orgEmail">Email</label>
                                 </div>
                             </div>
@@ -278,7 +278,9 @@
                             this.formData.append("interviewTime", $('#interviewTime').val());
                             this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
                             this.formData.append("observations", $('#observations').val());
-                            this.formData.append("projects", this.$children[0].projects);
+
+                            
+                            this.formData.append("projects", JSON.stringify(this.$children[0].projects));
                             this.formData.append("logo", $("#createLogo")[0].files[0]);
                             
                             this.$http.post(config.baseUrl() + '/v1/organization', this.formData).then(function(response){

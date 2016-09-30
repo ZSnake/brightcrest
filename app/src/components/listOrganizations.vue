@@ -7,12 +7,12 @@
             <label for="searchInput">Buscar: {{ keyword }}</label>
 
             
-            <input id="searchInput" type="text" v-model="keyword" placeholder="Buscar">
+            <input id="searchInput" type="text" v-model="keyword" placeholder="Buscar" >
 
           </div>
           <div class="input-field col s6">
 
-           <a class="waves-effect waves-light btn blue darken-4"  v-on:click="search(keyword)"><i class="large material-icons">search</i></a>
+           <a class="waves-effect waves-light btn blue darken-4"  v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
 
 
            <a class="waves-effect waves-light btn red darken-4"  v-on:click="cleansearch(message)">Limpiar Busqueda</a>
@@ -75,10 +75,14 @@
           }
         },
         methods: {
+          try: function(){
+
+          },
           cleansearch: function(){
             this.filteredorganizations=this.organizations;
           },
           search: function() {
+            console.log("is it working?");
             this.toSearch=[];
             var orgwhile  = [];
             k = 0;
@@ -88,7 +92,18 @@
                   orgwhile.push(this.organizations[i]);
                 }
               }
-              this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]])
+              this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()])
+              for (var k = 0; k < this.organizations[k].orgName.split(" ").length; k++) {
+              
+              }
+              console.log(this.toSearch);
+
+
+
+
+
+
+
               for (var j = 0; j < this.allprojects.length; j++) {
                 if (this.allprojects[j].organizationId==this.organizations[i]._id) {
 
@@ -110,13 +125,13 @@
           getOrganizations: function(){
             this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
               this.allprojects = responsep.json();
-              console.log(this.allprojects);
+             
               this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
-                console.log(response.json());
+               
                 this.organizations = response.json();
                 this.list = this.organizations;
                 this.filteredorganizations = this.organizations;
-                console.log(this.filteredorganizations[0][0])
+               
               }, function(error){
                 swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
               });
@@ -142,7 +157,7 @@
                 component.getOrganizations();
                 swal.close();
               },function(error){
-                console.log(error);
+             
               });
 
             });
