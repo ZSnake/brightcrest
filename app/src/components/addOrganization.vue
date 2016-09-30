@@ -117,7 +117,7 @@
                                     <label for="orgSocialNetwork">Redes Sociales</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="orgEmail" type="email" class="validate">
+                                    <input id="orgEmail" type="text" class="validate">
                                     <label for="orgEmail">Email</label>
                                 </div>
                             </div>

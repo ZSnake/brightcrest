@@ -14,7 +14,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock</i>
-                                <input id="password" type="password" v-model="user.password" class="validate">
+                                <input id="password" type="password" v-model="user.password" class="validate" v-on:keyup.13="logIn">
                                 <label for="password"><i class="fa fa-lock" aria-hidden="true"></i> Contraseña</label>
                             </div>
                         </div>

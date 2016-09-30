@@ -67,7 +67,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s6">
-										<input id="coordinatorEmail" type="email" class="validate" v-model="project.coordinatorEmail">
+										<input id="coordinatorEmail" type="text" class="validate" v-model="project.coordinatorEmail">
 										<label class="active" for="coordinatorEmail">Email</label>
 									</div>
 									<div class="input-field col s6">

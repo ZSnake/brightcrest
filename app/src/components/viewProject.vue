@@ -83,7 +83,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s6">
-										<p id="coordinatorEmail" type="email" class="validate">{{project.coordinatorEmail}}</p>
+										<p id="coordinatorEmail" type="text" class="validate">{{project.coordinatorEmail}}</p>
 
 										<label class="active" for="coordinatorEmail">Email</label>
 									</div>
@@ -289,10 +289,11 @@
 		name: 'viewProject',
 
 		ready: function() {
-
+		
 			$('select').material_select();
 			this.getProject();
-
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+						
 		},
 		methods: {
 
