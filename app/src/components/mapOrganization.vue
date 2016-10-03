@@ -363,6 +363,7 @@
 
 
 		strtoGps: function(argument) {
+			/* test
 			if (argument!=null) {
 				var gps1=null, gps2=null, gps3=null;
 				console.log(argument);
@@ -404,7 +405,7 @@
 				var gps = Number(gps1) + Number((gps2/60)) + Number((gps3/3600));
 				return gps;
 			} else	return null;
-			/*
+			*/
 
 			for (var i = 0; i < argument.length; i++) {
 				if (argument.charAt(i)=='W' || argument.charAt(i)=='w' || argument.charAt(i)=='N' || argument.charAt(i)=='n') {
@@ -428,7 +429,7 @@
 			//console.log(argument);
 			//console.log(gps);
 			return gps;
-			*/
+			
 		},
 
 		getOrganizations: function(){
