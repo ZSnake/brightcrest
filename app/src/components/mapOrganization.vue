@@ -75,6 +75,7 @@
 		methods: {
 
 			cleansearch: function(){
+				location.reload();
 				for (var i = 0; i < gps.length; i++) {
 					map.removeLayer(gps[i][0]);
 				}
@@ -94,7 +95,8 @@
 					if(!isNaN(lat) && !isNaN(longi)){
 
 						
-						var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] ).addTo(map);
+						var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">'+this.organizations[i].orgName+'</a>')[0] ).addTo(map);
+
 						gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id]);
 
 					}
@@ -162,7 +164,10 @@
 							});
 
 
-							var LamMarker = L.marker([gps[i][0].getLatLng().lat, gps[i][0].getLatLng().lng]).bindPopup($('<a href="#/organization/view/'+gps[i][gps[i].length-1]+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0]).addTo(map);
+							var LamMarker = L.marker([gps[i][0].getLatLng().lat, gps[i][0].getLatLng().lng]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">'+this.organizations[i].orgName+'</a>')[0] ).addTo(map);
+							LamMarker.on('mouseover', function (e) {
+								this.openPopup();
+							});
 							gps[i][0] = LamMarker;
 							
 						}
@@ -288,16 +293,28 @@
 			}).addTo(map);
 			for (var i = 0; i < this.organizations.length; i++) {
 				if (this.organizations[i].latitude!=null && this.organizations[i].longitude!=null) {
-				var lat = this.strtoGps(this.organizations[i].latitude);
-				var longi = this.strtoGps(this.organizations[i].longitude);
-				
-				if(!isNaN(lat) && !isNaN(longi)){
+					console.log(this.organizations[i].orgName)
+					try {
+						console.log(this.organizations[i].orgName);
+						var lat = this.strtoGps(this.organizations[i].latitude);
+						var longi = this.strtoGps(this.organizations[i].longitude);
+					}
+					catch(err) {
+						console.log(this.organizations[i].orgName);
+					}
+					
+
+					if(!isNaN(lat) && !isNaN(longi)){
 
 
-					var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] ).addTo(map);
-					gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id]);
+						var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">'+this.organizations[i].orgName+'</a>')[0] ).addTo(map);
+						LamMarker.on('mouseover', function (e) {
+							this.openPopup();
+						});
 
-				}
+						gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id, this.organizations[i].orgName.toLowerCase()]);
+
+					}
 				}
 			};
 
@@ -313,7 +330,10 @@
 							var lat = this.strtoGps(this.organizations[j].latitude);
 							var longi = this.strtoGps(this.organizations[j].longitude);
 							if(!isNaN(lat) && !isNaN(longi)){
-								var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">Ver Informacion de la Organizacion</a>')[0] );
+								var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[i]._id+'" class="speciallink">'+this.organizations[i].orgName+'</a>')[0] );
+								LamMarker.on('mouseover', function (e) {
+									this.openPopup();
+								});
 								gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
 							}
 
@@ -338,12 +358,54 @@
 
 		},
 
-		replaceAt: function(index, character,str){
-			return str.substr(0, index) + character + str.substr(index+str.length);
-		},
+		//14°6'9"N
+		//N14°17.524'
+
 
 		strtoGps: function(argument) {
-			
+			/* test
+			if (argument!=null) {
+				var gps1=null, gps2=null, gps3=null;
+				console.log(argument);
+				var ban1=null, ban2=null, ban3=null;
+				for (var i = 0; i < argument.length; i++) {
+					if (argument.charAt(i)=='W' || argument.charAt(i)=='w' || argument.charAt(i)=='N' || argument.charAt(i)=='n' || argument.charAt(i)=='-') {
+						argument = argument.substr(0, i) + "" + argument.substr(i+1,argument.length);
+					}
+				}
+
+				for (var i = 0; i < argument.length; i++) {
+					if (argument.charAt(i)=='°') {
+						ban1 =i;
+						gps1 = argument.substring(0, i);
+						console.log(gps1);
+					}
+					if (argument.charAt(i)=='\'') {
+						ban2 =i;
+						gps2 = argument.substring(gps1.length+1, i);
+						console.log(gps2);
+					}
+					if (argument.charAt(i)=='"') {
+						ban3 =i;
+						gps3 = argument.substring(gps1.length+gps2.length+2, i);
+						console.log(gps3);
+					}
+				}
+				var type;
+				if (ban3!=null) {
+					type=1;
+				}else{
+					type2=2;
+				}
+
+
+
+
+
+				var gps = Number(gps1) + Number((gps2/60)) + Number((gps3/3600));
+				return gps;
+			} else	return null;
+			*/
 
 			for (var i = 0; i < argument.length; i++) {
 				if (argument.charAt(i)=='W' || argument.charAt(i)=='w' || argument.charAt(i)=='N' || argument.charAt(i)=='n') {
@@ -367,6 +429,7 @@
 			//console.log(argument);
 			//console.log(gps);
 			return gps;
+			
 		},
 
 		getOrganizations: function(){

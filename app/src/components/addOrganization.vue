@@ -228,6 +228,7 @@
             var listProjects = require('./listProjects.vue');
             module.exports = {
                 ready: function(){
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
                     $('select').material_select();
                     var d = new Date();
                     d.setFullYear( d.getFullYear() - 100 );

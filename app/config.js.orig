@@ -1,10 +1,11 @@
 module.exports = {
     baseUrl: function(){
 <<<<<<< HEAD
+        var environment = 'production';
 =======
     //never use production
->>>>>>> develop
-        var environment = 'production';
+        var environment = 'dev';
+>>>>>>> bugFix0928
         if(environment === 'dev')
             return 'https://ladyluck-dev.herokuapp.com'
         if(environment === 'production')
