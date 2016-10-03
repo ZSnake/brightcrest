@@ -102,12 +102,6 @@
               }
               console.log(this.toSearch);
 
-
-
-
-
-
-
               for (var j = 0; j < this.allprojects.length; j++) {
                 if (this.allprojects[j].organizationId==this.organizations[i]._id) {
 
