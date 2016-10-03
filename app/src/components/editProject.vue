@@ -9,7 +9,7 @@
 								<h5 class="condensed light">Datos generales del programa</h5>
 								<div class="row">
 									<div class="input-field col s2">
-										<input disabled value id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
+										<input id="projectNumber" v-model="project.projectNumber" type="text" class="validate" >
 										<label class="active" for="projectNumber" v-bind:class="{'active': organization.orgNumber}">Número de proyecto</label>
 									</div>
 									<div class="input-field col s10">
@@ -278,7 +278,7 @@
 		name: 'editProject',
 
 		ready: function() {
-
+			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('select').material_select();
 			this.getProject();
 

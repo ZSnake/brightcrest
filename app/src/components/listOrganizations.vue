@@ -30,7 +30,7 @@
           </thead>
           <tbody>
             <tr v-for="organization in filteredorganizations | orderBy 'orgNumber' order">
-              <td><img v-if="organization.logoUrl" class="list-logo" v-bind:src="organization.logoUrl" alt=""></td>
+              <td><img v-if="organization.logoUrl" class="list-logo" v-bind:src="organization.logoUrl" alt="" width="110" height="110" ></td>
               <td>{{organization.orgNumber}}</td>
               <td>{{organization.orgName}}</td>
               <td>{{organization.department}}</td>
@@ -60,6 +60,7 @@
     name: 'listOrganizations',
     props: ['currentUser'],
     ready: function(){
+      $("html, body").animate({ scrollTop: 0 }, "slow");
             this.keyword = "";
       this.getOrganizations();
     },
@@ -92,9 +93,12 @@
                   orgwhile.push(this.organizations[i]);
                 }
               }
-              this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()])
-              for (var k = 0; k < this.organizations[k].orgName.split(" ").length; k++) {
+              this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName.trim(), this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()])
+
               
+              for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
+                console.log()
+               this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
               }
               console.log(this.toSearch);
 

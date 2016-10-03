@@ -535,6 +535,7 @@
 
 		name: 'editOrganization',
 		ready: function(){
+			$("html, body").animate({ scrollTop: 0 }, "slow");
 			this.try = "LOL";
 			this.eoa = null;
 			this.formData = new FormData();
@@ -575,7 +576,7 @@
 
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
 
-					$("html, body").animate({ scrollTop: 0 }, "slow");
+					
 						
 				}
 
@@ -677,6 +678,39 @@
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
 					this.organization=response.json()[0];
+					                    var month = new Array(12);
+                    month[0] = "January";
+                    month[1] = "February";
+                    month[2] = "March";
+                    month[3] = "April";
+                    month[4] = "May";
+                    month[5] = "June";
+                    month[6] = "July";
+                    month[7] = "August";
+                    month[8] = "September";
+                    month[9] = "October";
+                    month[10] = "November";
+                    month[11] = "December";
+
+
+var picker = $('#orgResolutionDate').pickadate('picker');
+
+
+var d1 = new Date(this.organization.orgResolutionDate); // Valid Date
+picker.set('select', [d1.getUTCFullYear(), month[d1.getUTCMonth()], d1.getUTCDate()]);
+
+
+this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
+var d2 = new Date(this.organization.ursacRegistrationDate); 
+picker = $('#ursacRegistrationDate').pickadate('picker');
+picker.set('select', [d2.getUTCFullYear(), month[d2.getUTCMonth()], d2.getUTCDate()]);
+
+
+this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
+var d3 = new Date(this.organization.interviewDate); 
+this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+
+
 					$('#department').val(this.organization.department);
 					$('#department').selectedIndex = this.organization.department;  
 					$('#department').change();
