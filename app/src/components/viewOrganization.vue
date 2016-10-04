@@ -9,7 +9,7 @@
                             <form class="col s12">
                                 <span class="card-title">Información General</span>
                                 <div class="row">
-                                   <div class="input-field col s2">
+                                   <div class="input-field col s12">
                                     <img class="viewLogo" src="{{organization.logoUrl}}" alt="logo">
                                 </div>
                             </div>
