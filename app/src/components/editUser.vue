@@ -46,7 +46,9 @@
         },
         methods: {
             editUser: function(){
+
                 this.user = this.userToEdit;
+                
                 var selectedScope = $('#editUserScope').find(":selected").val();
                 if(selectedScope)
                     this.user.scope = selectedScope;

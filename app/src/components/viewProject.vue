@@ -4,6 +4,8 @@
 			<div class="row">
 				<div class="card blue lighten-5 col m10 s12 offset-m1">
 					<div class="card-content">
+					
+					<a class="waves-effect waves-light btn red darken-1 right-align col m1 s2 offset-m10" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
 						<div class="row">
 							<form class="col s12">
 								<h5 class="condensed light">Datos generales del programa</h5>
@@ -15,8 +17,6 @@
 										<label class="active" for="projectNumber" ">Número de proyecto</label>
 
 										
-
-
 									</div>
 									<div class="input-field col s10">
 										<p id="name" type="text" class="validate">{{project.name}}</p>
@@ -272,7 +272,7 @@
 					<div class="card-content">
 						<div class="card-action">
 
-							<a class="waves-effect waves-light btn red darken-1 right-align" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
+							
 						</div>
 					</div>
 				</div>
