@@ -1,8 +1,13 @@
 <template>
+
     <nav>
+
         <div class="nav-wrapper blue darken-4">
+
+           
             <a href="#" class="brand-logo logo">DINAF</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
                 <li>
                     <a v-link="'/organization/map'">Mapa de organizaciones</a>
                 </li>
