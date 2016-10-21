@@ -19,7 +19,7 @@
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
               <ul class="right hide-on-med-and-down">
                 <li>
-                    <a v-link="'/organization/map'" title="regresar a casa">Dirección de Niñez, Adolecencia y Familia</a>
+                    <a v-link="'/'" title="regresar a casa">Dirección de Niñez, Adolecencia y Familia</a>
 
                 </li>
                 <li>
