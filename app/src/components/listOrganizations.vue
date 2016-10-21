@@ -51,7 +51,7 @@
             <div class="col s2"><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></div>
             <div class="col s5"><br>{{organization[1].orgName}}</div>
             <div class="col s2"><br>{{organization[1].department}}</div>
-            <div class="col s2"><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
+            <div class="col s2"><br><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
                 <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
                 <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a></div>
             </td>
