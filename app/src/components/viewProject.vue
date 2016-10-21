@@ -105,8 +105,6 @@
 
 										<label class="active" for="department" ">Departamento</label>
 
-
-
 									</div>
 								</div>
 								<div class="row">
@@ -301,7 +299,7 @@
 				'/v1/organization/{organizationId}/project/{projectId}'
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
-					$('#typologyObservations').text(this.project.tipologyObservations);
+					$('#typologyObservations').text(this.project.typologyObservations);
 					console.log(this.project.typologyObservations);
 					
 				},function(error){
