@@ -251,7 +251,7 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-										<textarea id="typologyObservations" type="text" class="materialize-textarea" v-model="project.tipologyObservations"></textarea>
+										<textarea id="typologyObservations" type="text" class="materialize-textarea" v-model="project.typologyObservations"></textarea>
 										<label class="active" for="typologyObservations">Observaciones</label>
 									</div>
 								</div>

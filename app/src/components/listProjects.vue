@@ -279,7 +279,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea id="typologyObservations" type="text" class="materialize-textarea" v-model="project.typologyObservations"></textarea>
-                            <label for="tipologyObservations">Observaciones</label>
+                            <label for="typologyObservations">Observaciones</label>
                         </div>
                     </div>
                 </form>
