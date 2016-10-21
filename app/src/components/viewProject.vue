@@ -302,7 +302,7 @@
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){
 					this.project=response.json()[0];
 					$('#typologyObservations').text(this.project.tipologyObservations);
-					console.log(this.project.tipologyObservations);
+					console.log(this.project.typologyObservations);
 					
 				},function(error){
 					console.log(error);

@@ -1,52 +1,58 @@
 <template>  
   <div id="application">
-   <div id="navbar">
-       <ul id="organizationsDropdown" class="dropdown-content">
+     <div id="navbar">
+         <ul id="organizationsDropdown" class="dropdown-content">
 
-        <li>
-            <a v-link="'/'">Listar organizaciones</a>
-        </li>
-        <li v-if="lolf(currentUser.scope)">
-            <a  v-link="{path: '/organization/new'}" >Agregar organización</a>
-        </li>
-    </ul>
-    <nav>
-        <div class="nav-wrapper blue darken-4">
-
-          <a href="#" class="brand-logo logo" title="home"><img src="../../styles/images/logo2.jpg" width="264" height="110"></a>
-          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
             <li>
-                <a v-link="'/organization/map'" title="ir a Mapa">Mapa de organizaciones</a>
+                <a v-link="'/'">Listar organizaciones</a>
             </li>
-            <li>
-                <a class="dropdown-button" title="Click para mostrar el menu" href="#!" data-activates="organizationsDropdown">
-                    Organizaciones<i class="material-icons right">arrow_drop_down</i>
-                </a>
-            </li>
-            <li>
-                <a v-link="'/users'" v-if="currentUser.scope === 'admin'" title="Listar Usuarios">Listar usuarios</a>
-            </li>
-            <li>
-                <a v-if="currentUser.scope === 'admin'" v-on:click="openAddUser" title="Agregar usuarios">Agregar Usuario</a>
-            </li>
-            <li  v-if="!currentUser.userId || currentUser.userId === ''" title="Iniciar Sesion">
-                <a v-link="{path: '/login'}">Login</a>
-            </li>
-            <li v-else>
-                <a v-on:click="logout()" title="Salir de sesion" class="waves-effect waves-light btn blue darken-1">Logout</a>
+            <li v-if="lolf(currentUser.scope)">
+                <a  v-link="{path: '/organization/new'}" >Agregar organización</a>
             </li>
         </ul>
-        <ul class="side-nav" id="mobile-demo">
-             <li>
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+
+              <a href="#" class="brand-logo logo" title="home"><img src="../../styles/images/logo2.jpg" width="264" height="110"></a>
+
+
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+              <ul class="right hide-on-med-and-down">
+                <li>
+                    <a v-link="'/organization/map'" title="regresar a casa">Dirección de Niñez, Adolecencia y Familia</a>
+
+                </li>
+                <li>
+                    <a v-link="'/organization/map'" title="ir a Mapa">Mapa de organizaciones</a>
+                </li>
+                <li>
+                    <a class="dropdown-button" title="Click para mostrar el menu" href="#!" data-activates="organizationsDropdown">
+                        Organizaciones<i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+                <li>
+                    <a v-link="'/users'" v-if="currentUser.scope === 'admin'" title="Listar Usuarios">Listar usuarios</a>
+                </li>
+                <li>
+                    <a v-if="currentUser.scope === 'admin'" v-on:click="openAddUser" title="Agregar usuarios">Agregar Usuario</a>
+                </li>
+                <li  v-if="!currentUser.userId || currentUser.userId === ''" title="Iniciar Sesion">
+                    <a v-link="{path: '/login'}">Login</a>
+                </li>
+                <li v-else>
+                    <a v-on:click="logout()" title="Salir de sesion" class="waves-effect waves-light btn blue darken-1">Logout</a>
+                </li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+               <li>
                 <a v-link="'/organization/map'">Mapa de organizaciones</a>
             </li>
-        <li>
-            <a v-link="'/'">Listar organizaciones</a>
-        </li>
-        <li v-if="lolf(currentUser.scope)">
-            <a  v-link="{path: '/organization/new'}" >Agregar organización</a>
-        </li>
+            <li>
+                <a v-link="'/'">Listar organizaciones</a>
+            </li>
+            <li v-if="lolf(currentUser.scope)">
+                <a  v-link="{path: '/organization/new'}" >Agregar organización</a>
+            </li>
             <li>
                 <a v-link="'/users'" v-if="currentUser.scope === 'admin'">Listar usuarios</a>
             </li>
@@ -79,7 +85,7 @@
         },
         methods: {
             lolf: function(resp) {
-                
+
                 if (resp === 'admin' || resp === 'orgUser') {
                     return true;
                 } else{
@@ -164,5 +170,7 @@
     .logo{
         margin-left: 60px;
     }
-
+    br.small {
+        line-height: 5px;
+    }
 </style>

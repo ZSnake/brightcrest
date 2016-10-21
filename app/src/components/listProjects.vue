@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="row">
-        <a class="waves-effect waves-light btn blue darken-4 col m4 offset-m4 modal-trigger" href="#addProjectModal">Agregar projecto</a>
+        <a class="waves-effect waves-light btn blue darken-4 col m4 offset-m4 modal-trigger" href="#addProjectModal">Agregar proyecto</a>
     </div>
 
     <div id="addProjectModal" class="modal modal-fixed-footer">
@@ -279,7 +279,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea id="typologyObservations" type="text" class="materialize-textarea" v-model="project.typologyObservations"></textarea>
-                            <label for="typologyObservations">Observaciones</label>
+                            <label for="tipologyObservations">Observaciones</label>
                         </div>
                     </div>
                 </form>
@@ -314,7 +314,7 @@
         methods: {
             addProject: function(){
                 this.project.department = $('#projectDepartment').find(":selected").text();
-                console.log(this.project);
+                console.log(this.project.typologyObservations);
                 this.projects.push(this.project);
                 this.project = {};
             },
@@ -322,7 +322,7 @@
                 this.projects.splice(index, 1);
             },
             clear: function(){
-                
+                this.projects = [];
                 this.project = {};
             }
         }

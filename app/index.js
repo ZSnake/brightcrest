@@ -1,4 +1,5 @@
 var VueRouter = require('vue-router');
+
 var addOrg = require('./src/components/addOrganization.vue');
 var listOrg = require('./src/components/listOrganizations.vue');
 var Vue = require('vue'); 
@@ -8,6 +9,7 @@ var editOrg = require('./src/components/editOrganizations.vue');
 var editPro = require('./src/components/editProject.vue');
 var mapOrg = require('./src/components/mapOrganization.vue');
 var viewOrg = require('./src/components/viewOrganization.vue');
+var vueAutocomplete = require('./src/components/vueautocomplete.vue');
 var viewPro = require('./src/components/viewProject.vue');
 var login = require('./src/components/loginComponent.vue');
 var usersManagement = require('./src/components/userManagement.vue')

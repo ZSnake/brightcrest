@@ -11,7 +11,7 @@
 									<label for="searchInput" >Buscar: {{ message }}</label>
 									
 									<br>
-									<input id="searchInput" type="text" v-model="message" placeholder="Buscar">
+									<input id="searchInput" v-on:keyup.13="search(message)" type="text" v-model="message" placeholder="Buscar">
 
 								</div>
 								<div class="input-field col s6">
@@ -138,7 +138,10 @@
 				}
 				
 			}
-
+			console.log(polydep.length)
+			for (var i = 0; i < polydep.length; i++) {
+				console.log(polydep[i])
+			}
 		}
 		catch(err) {
 			console.log(err);
@@ -150,11 +153,19 @@
 
 		}
 
+
+
+
 	},
 
 
 	addPoly: function(project){
 		var polygon;
+		for (i in polydep) {
+			if (polydep[i]._tooltip._content==project.department) {
+				return "bye";
+			}
+		}
 		if (project.department=="Atlántida") {
 			polygon = L.polygon([[15.91511, -87.70523],[15.89926, -87.68051],[15.89134, -87.63657],[15.90983, -87.62009],[15.86756, -87.59262],[15.83057, -87.54044],[15.78829, -87.491],[15.80679, -87.41684],[15.81207, -87.43057],[15.81207, -87.40311],[15.82793, -87.38388],[15.84643, -87.33719],[15.8385, -87.30698],[15.82264, -87.23282],[15.81207, -87.19437],[15.79358, -87.1312],[15.79358, -87.12296],[15.78763, -87.10442],[15.78234, -87.07832],[15.77838, -87.04536],[15.77177, -86.98769],[15.76913, -86.97533],[15.75657, -86.90598],[15.75921, -86.87027],[15.77243, -86.84006],[15.79886, -86.76041],[15.79358, -86.71097],[15.79622, -86.61484],[15.80415, -86.55991],[15.80943, -86.52969],[15.81736, -86.50497],[15.81472, -86.483],[15.783, -86.46103],[15.77507, -86.37863],[15.73807, -86.39236],[15.70898, -86.37589],[15.68783, -86.35666],[15.65874, -86.32919],[15.66139, -86.32095],[15.60849, -86.3237],[15.56616, -86.34567],[15.55822, -86.3649],[15.57939, -86.41983],[15.57939, -86.48575],[15.58203, -86.54892],[15.57939, -86.62308],[15.5688, -86.63956],[15.54235, -86.75491],[15.54235, -86.81259],[15.56087, -86.85104],[15.56087, -86.91422],[15.55028, -86.95267],[15.53441, -86.99112],[15.50265, -87.01584],[15.48942, -87.05429],[15.48942, -87.09],[15.48412, -87.13669],[15.48147, -87.18063],[15.455, -87.22183],[15.45236, -87.26028],[15.44177, -87.31796],[15.44177, -87.35092],[15.45765, -87.37289],[15.47353, -87.38663],[15.5053, -87.41135],[15.53176, -87.40585],[15.53441, -87.4498],[15.51588, -87.50748],[15.51324, -87.53769],[15.52911, -87.61185],[15.54764, -87.62833],[15.58732, -87.63382],[15.63229, -87.65579],[15.65874, -87.65579],[15.68254, -87.70248],[15.70105, -87.73819],[15.7222, -87.74368],[15.74071, -87.73544],[15.74864, -87.7327],[15.78565, -87.75192],[15.78829, -87.75742],[15.81802, -87.7581],[15.83255, -87.73888],[15.85766, -87.73338],[15.8669, -87.71416],[15.91313, -87.70866]]).addTo(map).bindTooltip("Atlántida");
 		} else if (project.department=="Colón") {
@@ -238,6 +249,7 @@
 		} 
 
 		polydep.push(polygon);
+
 	},
 
 
@@ -273,7 +285,8 @@
 						this.openPopup();
 					});
 
-					gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id, this.organizations[i].orgName.toLowerCase()]);
+					gps.push([LamMarker, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i]._id, this.organizations[i].orgName.toLowerCase(), this.organizations[i].orgName.toLowerCase().trim(), this.organizations[i].orgName.trim()]);
+
 					for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
 						
 						gps[gps.length-1].push(this.organizations[i].orgName.split(" ")[k]);

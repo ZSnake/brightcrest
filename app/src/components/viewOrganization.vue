@@ -52,7 +52,7 @@
                                     <div class="input-field col s6">
                                         <p id="municipality">{{organization.municipality}}</p>
 
-                                        <label class="active" for="municipality" ">Municipalidad</label>
+                                        <label class="active" for="municipality" ">Municipio</label>
                                     </div>
                                 </div>
                                 <div class="row">

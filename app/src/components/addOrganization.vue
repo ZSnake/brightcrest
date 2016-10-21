@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="input-field col s6">
                                     <input id="municipality" type="text" class="validate">
-                                    <label for="municipality">Municipalidad</label>
+                                    <label for="municipality">Municipio</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -280,7 +280,9 @@
                             this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
                             this.formData.append("observations", $('#observations').val());
 
-                            
+                            console.log(this.$children[0].projects[0].typologyObservations);
+                            console.log(this.$children[0].projects[0]);
+                            console.log(JSON.stringify(this.$children[0].projects));
                             this.formData.append("projects", JSON.stringify(this.$children[0].projects));
                             this.formData.append("logo", $("#createLogo")[0].files[0]);
                             

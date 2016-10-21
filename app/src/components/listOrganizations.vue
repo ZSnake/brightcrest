@@ -1,5 +1,6 @@
 <template >
   <div id="container">
+
     <div class="row">
       <div class="card blue lighten-5 col m10 s12 offset-m1">
         <div class="card-content" >
@@ -7,7 +8,7 @@
             <label for="searchInput">Buscar: {{ keyword }}</label>
 
             
-            <input id="searchInput" type="text" v-model="keyword" placeholder="Buscar" >
+      <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
 
           </div>
 
@@ -20,37 +21,58 @@
          </div>
 
 
-
+<div class="row"></div>
          <table> 
           <thead>
             <tr>
-
+            <b>
+            <div class="row">
+            <div class="col s1">#</div>
+            <div class="col s2">Logo</div>
+            <div class="col s5">Nombre de ONG</div>
+            <div class="col s2">Departamento</div>
+            <div class="col s2">Acción</div>
+            </div>
+            </b>
+            <!--
               <th data-field="number">#</th>
               <th data-field="logoUrl">Logo</th>
               <th data-field="orgName">Nombre de ONG</th>
               <th data-field="department">Departamento</th>
-              
               <th data-field="action">Acción</th>
+          -->
             </tr>
           </thead>
           <tbody>
             <tr v-for="organization in filteredorganizations">
+
+            <div class="row">
+            <td><div class="col s1"><br>{{organization[0]}}</div>
+            <div class="col s2"><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></div>
+            <div class="col s5"><br>{{organization[1].orgName}}</div>
+            <div class="col s2"><br>{{organization[1].department}}</div>
+            <div class="col s2"><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
+                <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
+                <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a></div>
+            </td>
+            <!--
              <td>{{organization[0]}}</td>
-             <td><img v-if="organization[1].logoUrl" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></td>
+             <td><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></td>
 
              <td>{{organization[1].orgName}}</td>
              <td>{{organization[1].department}}</td>
              
              <td>
-              <div class="row">
-                <a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
-                <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
-                <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a>
-              </div>
+              
+                
+              
             </td>
+            -->
           </tr>
         </tbody>
       </table>
+
+      </div>
       <div id="pagin" class="row col offset-s6 s6">
        <ul class="pagination" id="pagin">
 
@@ -59,14 +81,20 @@
        </ul>
      </div>
    </div>
+
+
+
+
  </div>
-</div>
+
+
 </template>
 
 <script>
   var swal = require('sweetalert');
   var config = require('../../config.js');
   var Vue = require('vue');
+ 
   var list;
   module.exports = {
 
@@ -78,7 +106,10 @@
       this.keyword = "";
       this.getOrganizations();
 
+
+
     },
+
     data: function(){
       return {
             order : 1, //Control de sortBy
@@ -216,13 +247,13 @@
           //this.filteredorganizations = orgwhile;
 
          // this.popsource(orgwhile);
-          this.popsource(this.uniq(orgwhile));
-          this.initPagin(0);
-          if (this.keyword == "") {
-            this.filteredorganizations=this.organizations;
-          }
+         this.popsource(this.uniq(orgwhile));
+         this.initPagin(0);
+         if (this.keyword == "") {
+          this.filteredorganizations=this.organizations;
+        }
 
-          
+
             /*
             this.listNumber=0;
             console.log("is it working?");

@@ -63,7 +63,7 @@
 									</div>
 									<div class="input-field col s6">
 										<input id="municipality" v-model="organization.municipality" type="text" class="validate">
-										<label class="active" for="municipality">Municipalidad</label>
+										<label class="active" for="municipality">Municipio</label>
 									</div>
 								</div>
 								<div class="row">
@@ -633,7 +633,7 @@
 				if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
 
 					this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
-						swal('Éxito', 'Organización se edito exitosamente', 'success');
+						swal('Éxito', 'Organización se editó exitosamente', 'success');
 						this.$route.router.go('/');
 
 					}, function(error){
