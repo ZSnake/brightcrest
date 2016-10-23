@@ -42,7 +42,7 @@
                                         <option value="Colón">Colón</option>
                                         <option value="Comayagua">Comayagua</option>
                                         <option value="Copán">Copán</option>
-                                        <option value="Cortes">Cortes</option>
+                                        <option value="Cortés">Cortés</option>
                                         <option value="Choluteca">Choluteca</option>
                                         <option value="Paraíso">El Paraíso</option>
                                         <option value="Francisco Morazán">Francisco Morazán</option>

@@ -114,7 +114,7 @@
                                 <option>Colón</option>
                                 <option>Comayagua</option>
                                 <option>Copán</option>
-                                <option>Cortes</option>
+                                <option>Cortés</option>
                                 <option>Choluteca</option>
                                 <option>El Paraíso</option>
                                 <option>Francisco Morazán</option>

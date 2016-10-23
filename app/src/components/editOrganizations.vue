@@ -44,7 +44,7 @@
 											<option value="Colón">Colón</option>
 											<option value="Comayagua">Comayagua</option>
 											<option value="Copán">Copán</option>
-											<option value="Cortes">Cortes</option>
+											<option value="Cortés">Cortés</option>
 											<option value="Choluteca">Choluteca</option>
 											<option value="Paraíso">El Paraíso</option>
 											<option value="Francisco Morazán">Francisco Morazán</option>
@@ -334,7 +334,7 @@
 														<option>Colón</option>
 														<option>Comayagua</option>
 														<option>Copán</option>
-														<option>Cortes</option>
+														<option>Cortés</option>
 														<option>Choluteca</option>
 														<option>El Paraíso</option>
 														<option>Francisco Morazán</option>

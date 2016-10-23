@@ -232,13 +232,14 @@
 
                 this.toSearch[i].push(this.allprojects[j].name);
 
+
               }
             }
 
           }
           for (var i = 0; i < this.toSearch.length; i++) {
             for (var j = 0; j < this.toSearch[i].length; j++) {
-              if (this.keyword == this.toSearch[i][j]) {
+              if (this.keyword == this.toSearch[i][j] || this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j]) {
                 orgwhile.push(this.organizations[i]);
               }
             }
