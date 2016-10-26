@@ -105,8 +105,6 @@
 
 										<label class="active" for="department" ">Departamento</label>
 
-
-
 									</div>
 								</div>
 								<div class="row">

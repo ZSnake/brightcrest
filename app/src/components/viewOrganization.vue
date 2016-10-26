@@ -281,6 +281,8 @@
             name: 'viewOrganization',
             props: ['currentUser'],
             ready: function(){
+                console.log(this.currentUser)
+             
                 $("html, body").animate({ scrollTop: 0 }, "slow");
                 $(document).ready(function() {
                     Materialize.updateTextFields();

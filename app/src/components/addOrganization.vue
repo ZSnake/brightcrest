@@ -42,7 +42,7 @@
                                         <option value="Colón">Colón</option>
                                         <option value="Comayagua">Comayagua</option>
                                         <option value="Copán">Copán</option>
-                                        <option value="Cortes">Cortes</option>
+                                        <option value="Cortés">Cortés</option>
                                         <option value="Choluteca">Choluteca</option>
                                         <option value="Paraíso">El Paraíso</option>
                                         <option value="Francisco Morazán">Francisco Morazán</option>
@@ -244,7 +244,7 @@
                 name: 'addOrganization',
                 methods: {
                     createOrganization: function(evt){
-                        console.log('getting into ')
+                        
                         if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
                             this.formData.append("orgNumber", $('#orgNumber').val());
                             this.formData.append("orgName", $('#orgName').val());
@@ -280,7 +280,7 @@
                             this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
                             this.formData.append("observations", $('#observations').val());
 
-                            console.log(this.$children[0].projects[0].typologyObservations);
+                           
                             console.log(this.$children[0].projects[0]);
                             console.log(JSON.stringify(this.$children[0].projects));
                             this.formData.append("projects", JSON.stringify(this.$children[0].projects));
@@ -288,6 +288,7 @@
                             
                             this.$http.post(config.baseUrl() + '/v1/organization', this.formData).then(function(response){
                                 swal('Éxito', 'Organización agregada exitosamente', 'success');
+                                this.formData = new FormData();
                                 this.clear();
                                 
                             }, function(error){

@@ -44,7 +44,7 @@
 											<option value="Colón">Colón</option>
 											<option value="Comayagua">Comayagua</option>
 											<option value="Copán">Copán</option>
-											<option value="Cortes">Cortes</option>
+											<option value="Cortés">Cortés</option>
 											<option value="Choluteca">Choluteca</option>
 											<option value="Paraíso">El Paraíso</option>
 											<option value="Francisco Morazán">Francisco Morazán</option>
@@ -334,7 +334,7 @@
 														<option>Colón</option>
 														<option>Comayagua</option>
 														<option>Copán</option>
-														<option>Cortes</option>
+														<option>Cortés</option>
 														<option>Choluteca</option>
 														<option>El Paraíso</option>
 														<option>Francisco Morazán</option>
@@ -534,7 +534,9 @@
 	module.exports = {
 
 		name: 'editOrganization',
+		props: ['currentUser'],
 		ready: function(){
+			console.log(this.currentUser)
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 			this.try = "LOL";
 			this.eoa = null;
@@ -577,7 +579,7 @@
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
 
 					
-						
+
 				}
 
 
@@ -628,11 +630,12 @@
 
 				console.log("printing projects");
 				console.log(this.organization.projects);
-
+				this.createLog("Edito organizacion "+this.organization.orgName);
 				if(this.organization.projects){this.formData.append("projects", JSON.stringify(this.organization.projects));}
 				if($("#editLogo")[0].files[0]){this.formData.append("logo", $("#editLogo")[0].files[0])}
 
 					this.$http.put(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId,this.formData).then(function(response){
+						
 						swal('Éxito', 'Organización se editó exitosamente', 'success');
 						this.$route.router.go('/');
 
@@ -640,7 +643,28 @@
 						swal('Error', 'Error modificando organización', 'error');
 					});
 
+				
+
 			},
+			createLog: function (action) {
+				var log={
+					action: action,
+					timestamp: new Date().toString(),
+					userId: this.currentUser.username
+				};
+				console.log(this.currentUser);
+				console.log(log);
+				
+				this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
+					console.log("huh?");
+					console.log(response.body.message);
+				}, function(error){
+					console.log(":(")
+					console.log(error.body.message);
+				})
+
+			},
+
 			deleteProject: function (pro) {
 				console.log(pro);
 				//if its new done if its new.
@@ -678,37 +702,37 @@
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
 					this.organization=response.json()[0];
-					                    var month = new Array(12);
-                    month[0] = "January";
-                    month[1] = "February";
-                    month[2] = "March";
-                    month[3] = "April";
-                    month[4] = "May";
-                    month[5] = "June";
-                    month[6] = "July";
-                    month[7] = "August";
-                    month[8] = "September";
-                    month[9] = "October";
-                    month[10] = "November";
-                    month[11] = "December";
+					var month = new Array(12);
+					month[0] = "January";
+					month[1] = "February";
+					month[2] = "March";
+					month[3] = "April";
+					month[4] = "May";
+					month[5] = "June";
+					month[6] = "July";
+					month[7] = "August";
+					month[8] = "September";
+					month[9] = "October";
+					month[10] = "November";
+					month[11] = "December";
 
 
-var picker = $('#orgResolutionDate').pickadate('picker');
+					var picker = $('#orgResolutionDate').pickadate('picker');
 
 
-var d1 = new Date(this.organization.orgResolutionDate); // Valid Date
-picker.set('select', [d1.getUTCFullYear(), month[d1.getUTCMonth()], d1.getUTCDate()]);
+					var d1 = new Date(this.organization.orgResolutionDate); // Valid Date
+					picker.set('select', [d1.getUTCFullYear(), month[d1.getUTCMonth()], d1.getUTCDate()]);
 
 
-this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
-var d2 = new Date(this.organization.ursacRegistrationDate); 
-picker = $('#ursacRegistrationDate').pickadate('picker');
-picker.set('select', [d2.getUTCFullYear(), month[d2.getUTCMonth()], d2.getUTCDate()]);
+					this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
+					var d2 = new Date(this.organization.ursacRegistrationDate); 
+					picker = $('#ursacRegistrationDate').pickadate('picker');
+					picker.set('select', [d2.getUTCFullYear(), month[d2.getUTCMonth()], d2.getUTCDate()]);
 
 
-this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
-var d3 = new Date(this.organization.interviewDate); 
-this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+					this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
+					var d3 = new Date(this.organization.interviewDate); 
+					this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
 
 
 					$('#department').val(this.organization.department);
@@ -815,8 +839,8 @@ data: function(){
 		dataPr: {},
 		formData: {},
 		try: {},
-eoa: {}//edit or add
-}
+		eoa: {}//edit or add
+	}
 }
 
 }

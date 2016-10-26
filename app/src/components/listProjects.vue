@@ -114,7 +114,7 @@
                                 <option>Colón</option>
                                 <option>Comayagua</option>
                                 <option>Copán</option>
-                                <option>Cortes</option>
+                                <option>Cortés</option>
                                 <option>Choluteca</option>
                                 <option>El Paraíso</option>
                                 <option>Francisco Morazán</option>
@@ -314,7 +314,6 @@
         methods: {
             addProject: function(){
                 this.project.department = $('#projectDepartment').find(":selected").text();
-                console.log(this.project.typologyObservations);
                 this.projects.push(this.project);
                 this.project = {};
             },
