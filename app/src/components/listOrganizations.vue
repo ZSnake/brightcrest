@@ -8,7 +8,7 @@
             <label for="searchInput">Buscar: {{ keyword }}</label>
 
             
-      <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
+            <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
 
           </div>
 
@@ -21,40 +21,40 @@
          </div>
 
 
-<div class="row"></div>
+         <div class="row"></div>
          <table> 
           <thead>
             <tr>
-            <b>
-            <div class="row">
-            <div class="col s1">#</div>
-            <div class="col s2">Logo</div>
-            <div class="col s5">Nombre de ONG</div>
-            <div class="col s2">Departamento</div>
-            <div class="col s2">Acción</div>
-            </div>
-            </b>
+              <b>
+                <div class="row">
+                  <div class="col s1">#</div>
+                  <div class="col s2">Logo</div>
+                  <div class="col s5">Nombre de ONG</div>
+                  <div class="col s2">Departamento</div>
+                  <div class="col s2">Acción</div>
+                </div>
+              </b>
             <!--
               <th data-field="number">#</th>
               <th data-field="logoUrl">Logo</th>
               <th data-field="orgName">Nombre de ONG</th>
               <th data-field="department">Departamento</th>
               <th data-field="action">Acción</th>
-          -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="organization in filteredorganizations">
+            -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="organization in filteredorganizations">
 
             <div class="row">
-            <td><div class="col s1"><br>{{organization[0]}}</div>
-            <div class="col s2"><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></div>
-            <div class="col s5"><br>{{organization[1].orgName}}</div>
-            <div class="col s2"><br>{{organization[1].department}}</div>
-            <div class="col s2"><br><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
-                <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
-                <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a></div>
-            </td>
+              <td><div class="col s1"><br>{{organization[0]}}</div>
+                <div class="col s2"><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></div>
+                <div class="col s5"><br>{{organization[1].orgName}}</div>
+                <div class="col s2"><br>{{organization[1].department}}</div>
+                <div class="col s2"><br><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
+                  <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
+                  <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a></div>
+                </td>
             <!--
              <td>{{organization[0]}}</td>
              <td><img v-if="organization[1].logoUrl" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}" class="list-logo" v-bind:src="organization[1].logoUrl" alt="" width="110" height="110" ></td>
@@ -67,25 +67,25 @@
                 
               
             </td>
-            -->
-          </tr>
-        </tbody>
-      </table>
+          -->
+        </tr>
+      </tbody>
+    </table>
 
-      </div>
-      <div id="pagin" class="row col offset-s6 s6">
-       <ul class="pagination" id="pagin">
-
-
-
-       </ul>
-     </div>
-   </div>
+  </div>
+  <div id="pagin" class="row col offset-s6 s6">
+   <ul class="pagination" id="pagin">
 
 
 
-
+   </ul>
  </div>
+</div>
+
+
+
+
+</div>
 
 
 </template>
@@ -94,7 +94,7 @@
   var swal = require('sweetalert');
   var config = require('../../config.js');
   var Vue = require('vue');
- 
+
   var list;
   module.exports = {
 
@@ -128,8 +128,8 @@
           initPagin: function(index){
 
             this.makepagList(this.sourceorganizations);
-            console.log(this.makepagList);
-            console.log("works");
+          //  console.log(this.makepagList);
+           // console.log("works");
             this.renderPagin(index);
           /*
            var element = $("#pagin ul").append('<li class="waves-effect"><a v-on:click="controlPagin(\'s\')"><i class="material-icons">chevron_left</i></a></li>');
@@ -201,7 +201,7 @@
             }
 
 
-            console.log(this.$compile(element.get(0)))
+           // console.log(this.$compile(element.get(0)))
             
           }
           $("#pagin ul").append('<li class="waves-effect"><a v-on:click="controlPagin(\'e\')"><i class="material-icons">chevron_right</i></a></li>');
@@ -223,7 +223,7 @@
           for (var i = 0; i < this.organizations.length; i++) {
             this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()]);
             for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
-              console.log()
+            //  console.log()
               this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
               this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
             }
@@ -239,19 +239,25 @@
           }
           for (var i = 0; i < this.toSearch.length; i++) {
             for (var j = 0; j < this.toSearch[i].length; j++) {
-              if (this.keyword == this.toSearch[i][j] || this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j]) {
-                orgwhile.push(this.organizations[i]);
+              if (typeof this.toSearch[i][j] === 'string'   ) {
+                
+                if (this.keyword == this.toSearch[i][j] || this.keyword.toLowerCase() == this.toSearch[i][j] ||
+                  this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() ) {
+                  orgwhile.push(this.organizations[i]);
               }
             }
+
           }
-          console.log(orgwhile);
+        }
+      //  console.log(orgwhile);
           //this.filteredorganizations = orgwhile;
 
          // this.popsource(orgwhile);
          this.popsource(this.uniq(orgwhile));
          this.initPagin(0);
          if (this.keyword == "") {
-          this.filteredorganizations=this.organizations;
+          this.popsource(this.organizations);
+          this.initPagin(0);
         }
 
 

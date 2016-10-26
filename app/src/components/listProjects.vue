@@ -314,7 +314,6 @@
         methods: {
             addProject: function(){
                 this.project.department = $('#projectDepartment').find(":selected").text();
-                console.log(this.project.typologyObservations);
                 this.projects.push(this.project);
                 this.project = {};
             },
