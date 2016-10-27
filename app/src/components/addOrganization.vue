@@ -242,7 +242,9 @@
                         
                     },
                     name: 'addOrganization',
+                    props: ['currentUser'],
                     methods: {
+                        
                         createOrganization: function(evt){
                             
                             if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
@@ -288,7 +290,9 @@
                                 
                                 this.$http.post(config.baseUrl() + '/v1/organization', this.formData).then(function(response){
                                     swal('Éxito', 'Organización agregada exitosamente', 'success');
+                                    this.createLog("Agregó la organización: "+$('#orgName').val());
                                     this.formData = new FormData();
+
                                     this.clear();
                                     
                                 }, function(error){

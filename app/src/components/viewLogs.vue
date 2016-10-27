@@ -18,13 +18,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="log in logs">
+            <tr v-for="log in logsShow">
 
               <div class="row">
                 <td><h5>
-                  <div class="col s2">{{log.userId}}</div>
-                  <div class="col s5">{{log.action}}</div>
-                  <div class="col s5">{{log.timestamp}}</div></h5>
+                  <div class="col s2">{{log[0]}}</div>
+                  <div class="col s5">{{log[1]}}</div>
+                  <div class="col s5">{{log[2]}}</div>
                 </td>
               </tr>
             </tbody>
@@ -54,19 +54,48 @@
       ready: function(){
         $("html, body").animate({ scrollTop: 0 }, "slow");
         this.getLogs();
+
+
+
+
+
+
+
       },
 
       data: function(){
         return {
-          logs: []
+          logs: [],
+          logsShow:[]
         }
       },
       methods: {
         getLogs: function() {
+          var month = new Array(12);
+          month[0] = "Enero";
+          month[1] = "Febrero";
+          month[2] = "Marzo";
+          month[3] = "Abril";
+          month[4] = "Mayo";
+          month[5] = "Junio";
+          month[6] = "Julio";
+          month[7] = "Agosto";
+          month[8] = "Septiembre";
+          month[9] = "Octubre";
+          month[10] = "Noviembre";
+          month[11] = "Diciembre";
+
+          
+          
           this.$http.get(config.baseUrl() + '/v1/logs').then(function(response){
             console.log();
             this.logs = response.json();
-            logs = response.json();
+            for (var i = 0; i < this.logs.length; i++) {
+              var d1 = new Date(this.logs[i].timestamp); // Valid Date
+              this.logsShow.push([this.logs[i].userId,this.logs[i].action,d1])
+              //this.logsShow.push([this.logs[i].userId,this.logs[i].action,d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear()+" "+d1.getUTCHours()+":"+d1.getUTCMinutes()+":"+d1.getUTCSeconds()])
+              console.log("fasasd");
+            }
 
           }, function(errorp){
             swal('Error', 'Error obteniendo los projects del servidor', 'errorp');

@@ -53,7 +53,7 @@
                 <div class="col s2"><br>{{organization[1].department}}</div>
                 <div class="col s2"><br><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
                   <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
-                  <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1]._id)"><i class="material-icons">delete</i></a></div>
+                  <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1])"><i class="material-icons">delete</i></a></div>
                 </td>
             <!--
              <td>{{organization[0]}}</td>
@@ -125,12 +125,30 @@
           }
         },
         methods: {
+          createLog: function (action) {
+            var log={
+              action: action,
+              timestamp: new Date().toString(),
+              userId: this.currentUser.username
+            };
+            console.log(this.currentUser);
+            console.log(log);
+
+            this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
+              console.log("huh?");
+              console.log(response.body.message);
+            }, function(error){
+              console.log(":(")
+              console.log(error.body.message);
+            });
+
+          },
           initPagin: function(index){
 
-            this.makepagList(this.sourceorganizations);
+           this.makepagList(this.sourceorganizations);
           //  console.log(this.makepagList);
            // console.log("works");
-            this.renderPagin(index);
+           this.renderPagin(index);
           /*
            var element = $("#pagin ul").append('<li class="waves-effect"><a v-on:click="controlPagin(\'s\')"><i class="material-icons">chevron_left</i></a></li>');
            $("#pagin ul").append('<li id="pagin1" class="active blue darken-4"><a v-on:click="controlPagin('+'1'+')">1</a></li>');
@@ -202,53 +220,53 @@
 
 
            // console.log(this.$compile(element.get(0)))
-            
-          }
-          $("#pagin ul").append('<li class="waves-effect"><a v-on:click="controlPagin(\'e\')"><i class="material-icons">chevron_right</i></a></li>');
-          this.$compile(element.get(0));
 
-        },
-        cleansearch: function(){
-          this.keyword="";
-          
-          this.popsource(this.organizations);
-          this.initPagin(0);
+         }
+         $("#pagin ul").append('<li class="waves-effect"><a v-on:click="controlPagin(\'e\')"><i class="material-icons">chevron_right</i></a></li>');
+         this.$compile(element.get(0));
 
-        },
+       },
+       cleansearch: function(){
+        this.keyword="";
 
-        search: function() {
-          this.keyword=this.keyword.trim();
-          this.toSearch=[];
-          var orgwhile  = [];
-          for (var i = 0; i < this.organizations.length; i++) {
-            this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()]);
-            for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
+        this.popsource(this.organizations);
+        this.initPagin(0);
+
+      },
+
+      search: function() {
+        this.keyword=this.keyword.trim();
+        this.toSearch=[];
+        var orgwhile  = [];
+        for (var i = 0; i < this.organizations.length; i++) {
+          this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()]);
+          for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
             //  console.log()
-              this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
-              this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
-            }
-            for (var j = 0; j < this.allprojects.length; j++) {
-              if (this.allprojects[j].organizationId==this.organizations[i]._id) {
-
-                this.toSearch[i].push(this.allprojects[j].name);
-
-
-              }
-            }
-
+            this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
+            this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
           }
-          for (var i = 0; i < this.toSearch.length; i++) {
-            for (var j = 0; j < this.toSearch[i].length; j++) {
-              if (typeof this.toSearch[i][j] === 'string'   ) {
-                
-                if (this.keyword == this.toSearch[i][j] || this.keyword.toLowerCase() == this.toSearch[i][j] ||
-                  this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() ) {
-                  orgwhile.push(this.organizations[i]);
-              }
-            }
+          for (var j = 0; j < this.allprojects.length; j++) {
+            if (this.allprojects[j].organizationId==this.organizations[i]._id) {
 
+              this.toSearch[i].push(this.allprojects[j].name);
+
+
+            }
           }
+
         }
+        for (var i = 0; i < this.toSearch.length; i++) {
+          for (var j = 0; j < this.toSearch[i].length; j++) {
+            if (typeof this.toSearch[i][j] === 'string'   ) {
+
+              if (this.keyword == this.toSearch[i][j] || this.keyword.toLowerCase() == this.toSearch[i][j] ||
+                this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() ) {
+                orgwhile.push(this.organizations[i]);
+            }
+          }
+
+        }
+      }
       //  console.log(orgwhile);
           //this.filteredorganizations = orgwhile;
 
@@ -306,7 +324,17 @@
             */
 
           },
-
+          sortName: function () {
+            this.organizations.sort(function(a, b){ 
+              var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
+              if (nameA < nameB) 
+                return -1 
+              if (nameA > nameB)
+                return 1
+              return 0 
+            });
+          },
+          
           getOrganizations: function(){
             this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
               this.allprojects = responsep.json();
@@ -314,6 +342,7 @@
               this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
 
                 this.organizations = response.json();
+                this.sortName();
                 //this.filteredorganizations = this.organizations;
                 this.popsource(this.organizations);
                 this.initPagin(0);
@@ -346,9 +375,10 @@
               cancelButtonText: "No, cancelar",   
               closeOnConfirm: true 
             }, function(){
-              component.$http.delete(config.baseUrl() + '/v1/organization/' + id).then(function(response){
+              component.$http.delete(config.baseUrl() + '/v1/organization/' + id._id).then(function(response){
                 component.getOrganizations();
                 swal.close();
+                this.createLog("Eliminó la organización: "+id.orgName);
               },function(error){
 
               });
