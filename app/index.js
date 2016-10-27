@@ -11,8 +11,9 @@ var mapOrg = require('./src/components/mapOrganization.vue');
 var viewOrg = require('./src/components/viewOrganization.vue');
 var vueAutocomplete = require('./src/components/vueautocomplete.vue');
 var viewPro = require('./src/components/viewProject.vue');
+var viewLogs = require('./src/components/viewLogs.vue');
 var login = require('./src/components/loginComponent.vue');
-var usersManagement = require('./src/components/userManagement.vue')
+var usersManagement = require('./src/components/userManagement.vue');
 var config = require('./config.js');
 
 
@@ -43,9 +44,9 @@ new Vue({
 })
 
 var router = new VueRouter();
-
+//falta view logs
 router.beforeEach(function(transition){
-  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' || transition.to.name === 'login' || transition.to.name === 'viewProject' || transition.to.name === 'mapOrganization'){
+  if(transition.to.name === 'listOrganizations' || transition.to.name === 'viewOrganization' || transition.to.name === 'login' || transition.to.name === 'viewProject' || transition.to.name === 'mapOrganization' || transition.to.name === 'viewLogs'){
     if( transition.to.name === 'login'){
       if(window.sessionStorage.getItem('userId') === null)
         transition.next();
@@ -115,6 +116,10 @@ router.map({
     '/users': {
       name: 'usersManagement',
       component: usersManagement
+    }, 
+    '/viewLogs': {
+      name: 'viewLogs',
+      component: viewLogs
     }  
 })  
 

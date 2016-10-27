@@ -99,7 +99,7 @@
 
 
 						//console.log(gps[i][j]);
-						if (this.message == gps[i][j] || this.message.toLowerCase() == gps[i][j] || this.message.toLowerCase() == gps[i][j].toLowerCase() || this.message == gps[i][j].toLowerCase() ) {
+						if (this.message == gps[i][j] || this.message.toLowerCase() == gps[i][j] ) {
 							
 							
 							this.$http.get(config.baseUrl() + '/v1/organization/'+gps[i][11]+'/projects/').then(function(response){
@@ -129,7 +129,7 @@
 				for (var i = 0; i < gpsP.length; i++) {
 					console.log(this.message)
 					console.log(gpsP[i][2].name)
-					if (this.message == gpsP[i][2].name || this.message.toLowerCase() == gpsP[i][2].name || this.message.toLowerCase() == gpsP[i][2].name.toLowerCase() || this.message == gpsP[i][2].name.toLowerCase()) {
+					if (this.message == gpsP[i][2].name || this.message.toLowerCase() == gpsP[i][2].name) {
 						gpsP[i][0].addTo(map);
 						this.addPoly(gpsP[i][2]);
 						console.log("lol")
