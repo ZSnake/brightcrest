@@ -123,7 +123,7 @@
 										<label class="active" for="orgEmail">Email</label>
 									</div>
 								</div>
-								<span class="card-title">Contacto del director</span>
+								<span class="card-title">Contacto del Director/a</span>
 								<div class="row">
 									<div class="input-field col s6">
 										<input id="directorName" v-model="organization.directorName" type="text" class="validate">
@@ -246,7 +246,7 @@
 							</div>
 
 							<div class="row">
-								<a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar projecto</a>
+								<a class="waves-effect waves-light btn blue darken-4 col m12 modal-trigger" href="#addProjectModal">Agregar proyecto</a>
 							</div>
 
 							<div id="addProjectModal" class="modal modal-fixed-footer">
@@ -557,10 +557,17 @@
 			});
 			this.getOrganization();
 			this.getProjects();
+			this.refreshUser();
 
 		},
 		methods: {
-
+			refreshUser: function(){
+				this.currentUser = {
+					userId: window.sessionStorage.getItem('userId'),
+					username: window.sessionStorage.getItem('username'),
+					scope: window.sessionStorage.getItem('scope')
+				}
+			},
 			editHandler: function(pro,index){
 				
 				console.log(this.projects.length-this.newprojects.length);
@@ -571,11 +578,12 @@
 					
 					$('#addProjectModal').openModal();
 					$('#addProjectModal').animate({ scrollTop: 0 }, 'slow');
+					
 				} else	{
 					console.log("es menor"); // es old project
 
 
-
+					this.createLog("Edito project "+pro.name);
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
 
 					
@@ -588,10 +596,9 @@
 			},
 			updateOrganization: function(){	
 				this.organization.department = $('#department').find(":selected").text();
-				this.organization.orgResolutionDate = $('#orgResolutionDate').val();
 
+				this.organization.orgResolutionDate = $('#orgResolutionDate').val();
 				this.organization.ursacrRegistrationDate = $('#ursacrRegistrationDate').val();
-				console.log($('#ursacrRegistrationDate').val());
 				this.organization.projects = this.newprojects;
 
 				if(this.organization.orgNumber){this.formData.append("orgNumber", this.organization.orgNumber);}
@@ -689,7 +696,7 @@
 						console.log("mmm");
 						this.$http.delete(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+pro._id ).then(function(response){
 							this.projects.splice(i,1);
-
+							this.createLog("Elimino proyecto "+pro.name);
 							console.log(response);
 						}, function(error){
 							console.log("somehow it didnt delete :(");
@@ -719,20 +726,21 @@
 
 					var picker = $('#orgResolutionDate').pickadate('picker');
 
-
-					var d1 = new Date(this.organization.orgResolutionDate); // Valid Date
-					picker.set('select', [d1.getUTCFullYear(), month[d1.getUTCMonth()], d1.getUTCDate()]);
-
-
-					this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
-					var d2 = new Date(this.organization.ursacRegistrationDate); 
-					picker = $('#ursacRegistrationDate').pickadate('picker');
-					picker.set('select', [d2.getUTCFullYear(), month[d2.getUTCMonth()], d2.getUTCDate()]);
-
-
-					this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
-					var d3 = new Date(this.organization.interviewDate); 
-					this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+					if (this.organization.orgResolutionDate) {
+						var d1 = new Date(this.organization.orgResolutionDate);  // Valid Date
+						picker.set('select', [d1.getUTCFullYear(), month[d1.getUTCMonth()], d1.getUTCDate()]);
+						this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
+					}
+					if (this.organization.ursacRegistrationDate) {
+						var d2 = new Date(this.organization.ursacRegistrationDate); 
+						picker = $('#ursacRegistrationDate').pickadate('picker');
+						picker.set('select', [d2.getUTCFullYear(), month[d2.getUTCMonth()], d2.getUTCDate()]);
+						this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();		
+					}
+					if (this.organization.interviewDate) {
+						var d3 = new Date(this.organization.interviewDate); 
+						this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+					}
 
 
 					$('#department').val(this.organization.department);

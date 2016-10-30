@@ -121,7 +121,7 @@
                                     <label for="orgEmail">Email</label>
                                 </div>
                             </div>
-                            <span class="card-title">Contacto del director</span>
+                            <span class="card-title">Contacto del Director/a</span>
                             <div class="row">
                                 <div class="input-field col s6">
                                     <input id="directorName" type="text" class="validate">
@@ -234,19 +234,48 @@
                         d.setFullYear( d.getFullYear() - 100 );
                         $('.datepicker').pickadate(
                         {
+
                             selectMonths: true,
                             selectYears: 100,
-                            max: new Date()
+                            max: new Date(),
+                            // The title label to use for the month nav buttons
+        labelMonthNext: 'Mes siguiente',
+        labelMonthPrev: 'Mes anterior',
+
+// The title label to use for the dropdown selectors
+        labelMonthSelect: 'Selecciona un mes',
+        labelYearSelect: 'Selecciona un año',
+
+// Months and weekdays
+        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+        monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+        weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+
+// Materialize modified
+        weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+
+// Today and clear
+        today: 'Hoy',
+        clear: 'Limpiar',
+        close: 'Cerrar',
                         });
+
                         this.formData = new FormData();
-                        
+                        this.refreshUser();
                     },
                     name: 'addOrganization',
                     props: ['currentUser'],
                     methods: {
-                        
+                        refreshUser: function(){
+                            this.currentUser = {
+                                userId: window.sessionStorage.getItem('userId'),
+                                username: window.sessionStorage.getItem('username'),
+                                scope: window.sessionStorage.getItem('scope')
+                            }
+                        },
                         createOrganization: function(evt){
-                            
+
                             if ($('#orgName').val()!=="" && $('#acronym').val()!=="" && $('#orgNumber').val()!="") {
                                 this.formData.append("orgNumber", $('#orgNumber').val());
                                 this.formData.append("orgName", $('#orgName').val());
