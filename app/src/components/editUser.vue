@@ -1,35 +1,35 @@
 <template>
     <div id="editUser" class="modal">
-            <div class="row">
-                <div class="modal-content">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="editUsername" type="text" class="validate" v-model="userToEdit.username">
-                                <label class="active" for="username">Nombre de usuario</label>
-                            </div>
+        <div class="row">
+            <div class="modal-content">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="editUsername" type="text" class="validate" v-model="userToEdit.username">
+                            <label class="active" for="username">Nombre de usuario</label>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="editPassword" type="password" class="validate" v-model="userToEdit.password">
-                                <label class="active" for="password">Nueva Contraseña</label>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="editPassword" type="password" class="validate" v-model="userToEdit.password">
+                            <label class="active" for="password">Nueva Contraseña</label>
                         </div>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select id="editUserScope" v-model="userToEdit.scope">
-                                    <option value="admin">Administrador</option>
-                                    <option value="orgUser">Usuario de organización</option>
-                                </select>
-                                <label>Tipo de usuario</label>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select id="editUserScope" v-model="userToEdit.scope">
+                                <option value="admin">Administrador</option>
+                                <option value="orgUser">Usuario de organización</option>
+                            </select>
+                            <label>Tipo de usuario</label>
                         </div>
-                        <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="editUser">Actualizar</a>
-                        <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Cerrar</a>
-                    </form>
-                </div>
+                    </div>
+                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="editUser">Actualizar</a>
+                    <a class="waves-effect waves-light btn-flat modal-action modal-close" v-on:click="clear">Cerrar</a>
+                </form>
             </div>
         </div>
+    </div>
 </template>
 <script>
     var swal = require('sweetalert');
@@ -38,13 +38,41 @@
         name: 'editUser',
         props: ['userToEdit'],
         ready: function(){
+            this.refreshUser();
         },
         data: function(){
             return {
-                user: {}
+                user: {},
+                currentUser: {}
             }
         },
         methods: {
+            
+            refreshUser: function(){
+                this.currentUser = {
+                    userId: window.sessionStorage.getItem('userId'),
+                    username: window.sessionStorage.getItem('username'),
+                    scope: window.sessionStorage.getItem('scope')
+                }
+            },
+            createLog: function (action) {
+                var log={
+                    action: action,
+                    timestamp: new Date().toString(),
+                    userId: this.currentUser.username
+                };
+                console.log(this.currentUser);
+                console.log(log);
+                
+                this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
+                    console.log("huh?");
+                    console.log(response.body.message);
+                }, function(error){
+                    console.log(":(")
+                    console.log(error.body.message);
+                })
+
+            },
             editUser: function(){
 
                 this.user = this.userToEdit;
@@ -56,6 +84,7 @@
                     this.user.scope = this.userToEdit.scope
 
                 this.$http.put(config.baseUrl() + '/v1/user/' + this.user._id, this.user).then(function(response){
+                    this.createLog("Edito usuario "+this.userToEdit.username);
                     this.clear();
                     this.$dispatch('user-added');
                 }, function(error){
