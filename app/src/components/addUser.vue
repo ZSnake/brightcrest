@@ -39,8 +39,6 @@
 
         ready: function(){
             this.refreshUser();
-           console.log(window.sessionStorage.username);
-           console.log(this.currentUser);
         },
         data: function(){
             return {

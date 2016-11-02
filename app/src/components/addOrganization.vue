@@ -238,27 +238,24 @@
                             selectMonths: true,
                             selectYears: 100,
                             max: new Date(),
-                            // The title label to use for the month nav buttons
-        labelMonthNext: 'Mes siguiente',
-        labelMonthPrev: 'Mes anterior',
+                            /*
+                            labelMonthNext: 'Mes siguiente',
+                            labelMonthPrev: 'Mes anterior',
 
-// The title label to use for the dropdown selectors
-        labelMonthSelect: 'Selecciona un mes',
-        labelYearSelect: 'Selecciona un año',
+                            labelMonthSelect: 'Selecciona un mes',
+                            labelYearSelect: 'Selecciona un año',
 
-// Months and weekdays
-        monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
-        monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
-        weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
-        weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+                            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+                            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+                            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+                            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
 
-// Materialize modified
-        weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+                            weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
 
-// Today and clear
-        today: 'Hoy',
-        clear: 'Limpiar',
-        close: 'Cerrar',
+                            today: 'Hoy',
+                            clear: 'Limpiar',
+                            close: 'Cerrar',
+                            */
                         });
 
                         this.formData = new FormData();
@@ -312,8 +309,10 @@
                                 this.formData.append("observations", $('#observations').val());
 
                                 
-                                console.log(this.$children[0].projects[0]);
-                                console.log(JSON.stringify(this.$children[0].projects));
+                                console.log($('#orgResolutionDate').val());
+                                console.log($('#ursacRegistrationDate').val());
+                                console.log($('#interviewDate').val());
+                                
                                 this.formData.append("projects", JSON.stringify(this.$children[0].projects));
                                 this.formData.append("logo", $("#createLogo")[0].files[0]);
                                 
