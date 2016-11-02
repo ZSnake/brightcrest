@@ -281,6 +281,7 @@
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('select').material_select();
 			this.getProject();
+			console
 
 		},
 		methods: {

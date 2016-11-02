@@ -1,6 +1,5 @@
 <template >
   <div id="container">
-
     <div class="row">
       <div class="card blue lighten-5 col m10 s12 offset-m1">
         <div class="card-content" >
