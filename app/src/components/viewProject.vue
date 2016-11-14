@@ -5,7 +5,7 @@
 				<div class="card blue lighten-5 col m10 s12 offset-m1">
 					<div class="card-content">
 					
-					<a class="waves-effect waves-light btn red darken-1 right-align col m1 s2 offset-m10" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
+					<a class="waves-effect waves-light btn red darken-1 right-align col m2 s2 offset-m10" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
 						<div class="row">
 							<form class="col s12">
 								<h5 class="condensed light">Datos generales del programa</h5>

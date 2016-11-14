@@ -1,3 +1,4 @@
+
 <template>
 
     <div id="viewOrganization" >
@@ -9,12 +10,12 @@
                         <div class="row">
 
                             <form class="col s12">
-                                <a class="waves-effect waves-light btn red darken-1 right-align col m1 s2 offset-m10" v-link="{path: '/'}">Regresar</a>
+                                <a class="waves-effect waves-light btn red darken-1 right-align col m2 s2 offset-m10" v-link="{path: '/'}">Regresar</a>
                                 <span class="card-title">Información General</span>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <img class="viewLogo" src="{{organization.logoUrl}}" alt="logo">
+                                        <img class="viewLogo" v-bind:src="organization.logoUrl" alt="logo">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -119,8 +120,8 @@
                                         <label class="active" for="orgEmail" ">Email</label>
                                     </div>
                                 </div>
-                                <span class="card-title" v-if="currentUser.scope === 'admin'">Contacto del Director/a</span>
-                                <div class="row" v-if="currentUser.scope === 'admin'">
+                                <span class="card-title" v-if="checkPermission()">Contacto del Director/a</span>
+                                <div class="row" v-if="checkPermission()">
                                     <div class="input-field col s6">
                                         <div class="input-field col s6">
                                             <p id="directorName">{{organization.directorName}}</p>
@@ -193,15 +194,15 @@
                                         <label class="active" for="longitude" ">Longitud</label>
                                     </div>
                                 </div>
-                                <span class="card-title" v-if="currentUser.scope === 'admin'">Verificación de la entrevista</span>
-                                <div class="row" v-if="currentUser.scope === 'admin'">
+                                <span class="card-title" v-if="checkPermission()">Verificación de la entrevista</span>
+                                <div class="row" v-if="checkPermission()">
                                     <div class="input-field col s12">
                                         <p id="intervieweeName">{{organization.intervieweeName}}</p>
 
                                         <label class="active" for="intervieweeName" ">Nombre de la persona entrevistada</label>
                                     </div>
                                 </div>
-                                <div class="row" v-if="currentUser.scope === 'admin'">
+                                <div class="row" v-if="checkPermission()">
                                     <div class="input-field col s6">
                                         <p id="interviewDate">{{organization.interviewDate}}</p>
 
@@ -281,8 +282,7 @@
         name: 'viewOrganization',
         props: ['currentUser'],
         ready: function(){
-            console.log(this.currentUser)
-
+            this.getScopes();
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $(document).ready(function() {
                 Materialize.updateTextFields();
@@ -306,6 +306,31 @@
 
         },
         methods: {
+            getScopes: function(){
+                this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
+                    this.scopes=response.json();
+
+                },function(error){
+                    console.log(error);
+                });
+            },
+            checkPermission: function() {
+                var userScope = window.sessionStorage.getItem('scope');
+                var controlPermissions=null;
+                
+                for (var i = 0; i<this.scopes.length; i++) {
+                    if (userScope === this.scopes[i].scope) {
+                        controlPermissions = JSON.parse(this.scopes[i].views);
+                        break;
+                    }
+                }
+                if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
+                    return true;
+                } else  {
+                    return false;
+                }
+
+            },
             getOrganization: function(){
                 this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
                     this.organization=response.json()[0];
@@ -335,8 +360,8 @@
                     }
 
                     if (this.organization.interviewDate) {
-                                            var d3 = new Date(this.organization.interviewDate); 
-                    this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
+                        var d3 = new Date(this.organization.interviewDate); 
+                        this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
                     }
 
 
@@ -367,7 +392,8 @@
                 newprojects: [],
                 organization: {},
                 projects: [],
-                project: {}
+                project: {},
+                scopes: []
             }
         }
 

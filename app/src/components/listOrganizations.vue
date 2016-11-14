@@ -51,8 +51,8 @@
                 <div class="col s5"><br>{{organization[1].orgName}}</div>
                 <div class="col s2"><br>{{organization[1].department}}</div>
                 <div class="col s2"><br><a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-link="{name: 'viewOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">pageview</i></a>
-                  <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="currentUser.scope === 'admin'" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
-                  <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="currentUser.scope === 'admin'" v-on:click="deleteOrganization(organization[1])"><i class="material-icons">delete</i></a></div>
+                  <a class="waves-effect waves-light btn blue darken-4 col s4" title="Editar Organizacion" v-if="checkPermissionEdit()" v-link="{name: 'editOrganization', params: {organizationId: organization[1]._id}}"><i class="material-icons">mode_edit</i></a>
+                  <a class="waves-effect waves-light btn red darken-4 col s4" title="Eliminar Organizacion" v-if="checkPermissionDelete()" v-on:click="deleteOrganization(organization[1])"><i class="material-icons">delete</i></a></div>
                 </td>
             <!--
              <td>{{organization[0]}}</td>
@@ -100,7 +100,7 @@
     name: 'listOrganizations',
     props: ['currentUser'],
     ready: function(){
-
+      this.getScopes();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       this.keyword = "";
       this.getOrganizations();
@@ -121,9 +121,52 @@
             keyword: {},
             allprojects: [],
             paginatedList: [],
+            scopes: []
           }
         },
         methods: {
+          getScopes: function(){
+            this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
+              this.scopes=response.json();
+
+            },function(error){
+              console.log(error);
+            });
+          },
+          checkPermissionEdit: function() {
+            var userScope = window.sessionStorage.getItem('scope');
+            var controlPermissions=null;
+            
+            for (var i = 0; i<this.scopes.length; i++) {
+              if (userScope === this.scopes[i].scope) {
+                controlPermissions = JSON.parse(this.scopes[i].views);
+                break;
+              }
+            }
+            if (controlPermissions.editOrganization==true) {
+              return true;
+            } else  {
+              return false;
+            }
+
+          },
+          checkPermissionDelete: function() {
+            var userScope = window.sessionStorage.getItem('scope');
+            var controlPermissions=null;
+            
+            for (var i = 0; i<this.scopes.length; i++) {
+              if (userScope === this.scopes[i].scope) {
+                controlPermissions = JSON.parse(this.scopes[i].views);
+                break;
+              }
+            }
+            if (controlPermissions.deleteOrganization==true) {
+              return true;
+            } else  {
+              return false;
+            }
+
+          },
           createLog: function (action) {
             var log={
               action: action,
@@ -341,6 +384,7 @@
               this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
 
                 this.organizations = response.json();
+
                 this.sortName();
                 //this.filteredorganizations = this.organizations;
                 this.popsource(this.organizations);

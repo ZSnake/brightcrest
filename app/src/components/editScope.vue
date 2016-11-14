@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <input id="scopename" type="text" class="validate" v-model="scope.scope">
-                                <label for="scopename">Nombre del rol</label>
+                                <label class="active" for="scopename">Nombre del rol</label>
                             </div>
                         </div>
                         <h5 class="condensed light">Permisos Organizaciones</h5>

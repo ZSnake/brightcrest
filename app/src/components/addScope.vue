@@ -76,7 +76,6 @@
         };
       this.refreshUser();
       $('select').material_select();
-      console.log(this.method);
     },
 
     data: function(){
@@ -98,12 +97,15 @@
     },
     methods: {
       addScope: function () {
-          console.log(this.scope);
 
         this.scope.views=JSON.stringify(this.views);
         console.log(this.scope);
         this.$http.post(config.baseUrl() + '/v1/createScope', this.scope).then(function(response){
+          location.reload();
         }, function(error){
+          
+          console.log(":(")
+          console.log(error.body.message);
         });
       },
       clear: function () {
@@ -129,6 +131,7 @@
         this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
           console.log("huh?");
           console.log(response.body.message);
+
         }, function(error){
           console.log(":(")
           console.log(error.body.message);
