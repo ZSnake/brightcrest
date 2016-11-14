@@ -119,36 +119,51 @@
                 }
             },
             checkMain: function() {
-                console.log("main")
-                if (window.sessionStorage.getItem('username')!=='') {
-                    $(".dropdown-button").dropdown();
-                    if (this.controlPermissions.addOrganization==true) {
-                        this.pr1 = true;
-                    } 
-                    return true;
+                console.log(this.controlPermissions)
+                if (window.sessionStorage) {
+                    if (window.sessionStorage.getItem('username')!=='') {
+                        $(".dropdown-button").dropdown();
+                        if (this.controlPermissions) {
+                        if (this.controlPermissions.addOrganization==true) {
+                            this.pr1 = true;
+                        } }else return false
+                        return true;
+                    } else return false;
                 } else return false;
+
             },
             checkAddOrg: function() {
-                if (this.controlPermissions.addOrganization==true) {
-                    return true;
+                if (this.controlPermissions) {
+                    if (this.controlPermissions.addOrganization==true) {
+                        return true;
+                    } else return false;
                 } else return false;
             },
             checkScope: function() {
-                if (this.controlPermissions.crudScope==true) {
-                    return true;
-                } else return false;
+                return true;
+                /*
+                if (this.controlPermissions) {
+                    if (this.controlPermissions.crudScope==true) {
+                        return true;
+                    } else return false;
+                } else return false; 
+                */   
             },
             checkUser: function() {
-                if (this.controlPermissions.crudUser==true) {
-                    return true;
-                } else return false;
+                if (this.controlPermissions) {
+                    if (this.controlPermissions.crudUser==true) {
+                        return true;
+                    } else return false;
+                } else return false;    
             },
             checkLog: function() {
-                console.log(this.controlPermissions.viewLogs==true)
-                console.log("log")
-                if (this.controlPermissions.viewLogs==true) {
-                    return true;
-                } else return false;
+                if (this.controlPermissions) {
+                    console.log(this.controlPermissions.viewLogs==true)
+                    console.log("log")
+                    if (this.controlPermissions.viewLogs==true) {
+                        return true;
+                    } else return false;
+                } else return false;                    
             },
             
             check: function(resp) {/*

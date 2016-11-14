@@ -136,36 +136,36 @@
           checkPermissionEdit: function() {
             var userScope = window.sessionStorage.getItem('scope');
             var controlPermissions=null;
-            
-            for (var i = 0; i<this.scopes.length; i++) {
-              if (userScope === this.scopes[i].scope) {
-                controlPermissions = JSON.parse(this.scopes[i].views);
-                break;
+            if (userScope) {
+              for (var i = 0; i<this.scopes.length; i++) {
+                if (userScope === this.scopes[i].scope) {
+                  controlPermissions = JSON.parse(this.scopes[i].views);
+                  break;
+                }
               }
-            }
-            if (controlPermissions.editOrganization==true) {
-              return true;
-            } else  {
-              return false;
-            }
-
+              if (controlPermissions.editOrganization==true) {
+                return true;
+              } else  {
+                return false;
+              }
+            } return false;
           },
           checkPermissionDelete: function() {
             var userScope = window.sessionStorage.getItem('scope');
             var controlPermissions=null;
-            
-            for (var i = 0; i<this.scopes.length; i++) {
-              if (userScope === this.scopes[i].scope) {
-                controlPermissions = JSON.parse(this.scopes[i].views);
-                break;
+            if (userScope) {
+              for (var i = 0; i<this.scopes.length; i++) {
+                if (userScope === this.scopes[i].scope) {
+                  controlPermissions = JSON.parse(this.scopes[i].views);
+                  break;
+                }
               }
-            }
-            if (controlPermissions.deleteOrganization==true) {
-              return true;
-            } else  {
-              return false;
-            }
-
+              if (controlPermissions.deleteOrganization==true) {
+                return true;
+              } else  {
+                return false;
+              }
+            } return false;
           },
           createLog: function (action) {
             var log={

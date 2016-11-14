@@ -3,21 +3,18 @@
     <div class="row">
       <div class="card blue lighten-5 col m10 s12 offset-m1">
         <div class="card-content" >
-
-
-          <a class="waves-effect waves-light btn green darken-4 col s4" title="Ver Organizacion" v-on:click="makeCSV()"><i class="material-icons">pageview</i></a>
-
         </div>
         <form>
 
           <div class="input-field col s12">
 
-            <a class="waves-effect waves-light btn blue darken-4" title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
+          <a class="waves-effect waves-light btn blue darken-4 col s3" title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
+          <a class="waves-effect waves-light btn red darken-4 col s3" title="Buscar..." v-on:click="cleansearch()" >Limpiar Filtros</a>
+            <a class="waves-effect waves-light btn green darken-4 col s3" title="Ver Organizacion" v-on:click="makeCSV()">CSV</a>
+            <a class="waves-effect waves-light btn green darken-4 col s3" title="Ver Organizacion" v-on:click="makePDF()">PDF</a>
 
-
-            <a class="waves-effect waves-light btn red darken-4" title="Limpiar Busqueda" v-on:click="cleansearch(message)">Limpiar Busqueda</a>
           </div>
-
+            <div> 
           <h5 class="condensed light">Tipo de la vulneración de Derechos a niños y niñas (sólo centros residenciales)</h5>
           <h6 class="condensed light">Centro de la niñez y la adolescencia</h6>
           <div class="row valign-wrapper">
@@ -156,6 +153,7 @@
               <label for="others">Otros</label>
             </div>
           </div>
+          </div>
         </form>
 
 
@@ -203,9 +201,11 @@
             </div>
           </div>
 
+          <div id="customers">
 
+          </div>
 
-
+          
         </div>
 
 
@@ -215,7 +215,8 @@
         var swal = require('sweetalert');
         var config = require('../../config.js');
         var Vue = require('vue');
-
+        //var P = require('../../lib/jsPDF/jspdf.debug.js');
+        var P = require('jspdf');
         var list;
         module.exports = {
 
@@ -228,12 +229,12 @@
             this.getOrganizations();
 
 
-
           },
 
           data: function(){
             return {
               order : 1, 
+              P : {},
               listNumber: [],
               organizations: [],
               filteredorganizations: [],
@@ -248,6 +249,78 @@
             }
           },
           methods: {
+            makePDF: function () {
+              var source = document.getElementById("customers");
+              tbl  = document.createElement('table');
+              tbl.style.width  = '100px';
+              tbl.style.border = '1px solid black';
+
+              for(var i = 0; i < this.sourceorganizations.length; i++){
+                var tr = tbl.insertRow();
+                if (i==0) {
+                  var td = tr.insertCell();
+                  td.appendChild(document.createTextNode('ONG'));
+                  td.style.border = '1px solid black';
+
+                  var td = tr.insertCell();
+                  td.appendChild(document.createTextNode('Email'));
+                  td.style.border = '1px solid black';
+                  var tr = tbl.insertRow();
+                  var td = tr.insertCell();
+                  s1 = this.sourceorganizations[i][1].orgName;
+                  td.appendChild(document.createTextNode(s1));
+                  td.style.border = '1px solid black';
+
+                  var td = tr.insertCell();
+                  s1 = this.sourceorganizations[i][1].orgEmail;
+                  td.appendChild(document.createTextNode(s1));
+                  td.style.border = '1px solid black';
+                } else {
+                  var td = tr.insertCell();
+                  s1 = this.sourceorganizations[i][1].orgName;
+                  td.appendChild(document.createTextNode(s1));
+                  td.style.border = '1px solid black';
+
+                  var td = tr.insertCell();
+                  s1 = this.sourceorganizations[i][1].orgEmail;
+                  td.appendChild(document.createTextNode(s1));
+                  td.style.border = '1px solid black';
+                }
+
+              }
+
+
+              source.appendChild(tbl);
+              source.style.display == "none"
+
+              var pdf = new P('p', 'pt', 'letter');
+              source = $('#customers')[0];
+              specialElementHandlers = {
+                '#bypassme': function (element, renderer) {
+                  return true
+                }
+              };
+              margins = {
+                top: 80,
+                bottom: 60,
+                left: 40,
+                width: 522
+              };
+              pdf.fromHTML(
+                source, 
+                margins.left, 
+                margins.top, { 
+                  'width': margins.width, 
+                  'elementHandlers': specialElementHandlers
+                },
+
+                function (dispose) {
+                  pdf.save('Test.pdf');
+                }, margins);
+              console.log(source)
+              source.removeChild(tbl);
+              console.log(source)
+            },
             makeCSV: function () {
               var word='';
               for (var i = 0; i < this.sourceorganizations.length; i++) {
@@ -276,35 +349,38 @@
             checkPermissionEdit: function() {
               var userScope = window.sessionStorage.getItem('scope');
               var controlPermissions=null;
-
-              for (var i = 0; i<this.scopes.length; i++) {
-                if (userScope === this.scopes[i].scope) {
-                  controlPermissions = JSON.parse(this.scopes[i].views);
-                  break;
+              if (controlPermissions) {
+                for (var i = 0; i<this.scopes.length; i++) {
+                  if (userScope === this.scopes[i].scope) {
+                    controlPermissions = JSON.parse(this.scopes[i].views);
+                    break;
+                  }
                 }
-              }
-              if (controlPermissions.editOrganization==true) {
-                return true;
-              } else  {
-                return false;
-              }
+                if (controlPermissions.editOrganization==true) {
+                  return true;
+                } else  {
+                  return false;
+                }
+              } return false
             },
             checkPermissionDelete: function() {
               var userScope = window.sessionStorage.getItem('scope');
               var controlPermissions=null;
-
-              for (var i = 0; i<this.scopes.length; i++) {
-                if (userScope === this.scopes[i].scope) {
-                  controlPermissions = JSON.parse(this.scopes[i].views);
-                  break;
+              if (controlPermissions) {
+                for (var i = 0; i<this.scopes.length; i++) {
+                  if (userScope === this.scopes[i].scope) {
+                    controlPermissions = JSON.parse(this.scopes[i].views);
+                    break;
+                  }
                 }
-              }
-              if (controlPermissions.deleteOrganization==true) {
-                return true;
-              } else  {
-                return false;
-              }
+                if (controlPermissions.deleteOrganization==true) {
+                  return true;
+                } else  {
+                  return false;
+                }
+              } else return false;
             },
+
             createLog: function (action) {
               var log={
                 action: action,
@@ -368,9 +444,9 @@
               this.$compile(element.get(0));
             },
             cleansearch: function(){
-              this.keyword="";
               this.popsource(this.organizations);
               this.initPagin(0);
+              $('input:checkbox').prop('checked', false);
             },
             search: function() {
               var orgwhile  = [];
