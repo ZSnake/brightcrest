@@ -25,19 +25,30 @@
                 </div>
             </div>
         </div>
-     </div>
+    </div>
 </template>
 <script>
 	var swal = require('sweetalert');
 	var config = require('../../config.js');
 
 	module.exports = {
+
 		name: 'login',
         props: ['currentUser'],
-		methods: {	
+        ready: function(){
+            console.log(window.sessionStorage.getItem('username')!=='');
+            if (window.sessionStorage.getItem('username')!== null) {
+                this.gotohome();
+            }
+        },
+        methods: {	
+            gotohome:function () {
+                this.$route.router.go('/');
+                
+            },
             logIn: function(){
                 this.$http.post(config.baseUrl() + '/v1/login', this.user).then(function(response){
-                    
+
                     this.currentUser = {
                         username: response.json().username,
                         userId: response.json()._id,
@@ -47,19 +58,19 @@
                     window.sessionStorage.setItem('userId', this.currentUser.userId);
                     window.sessionStorage.setItem('scope', this.currentUser.scope);
                     console.log(this.currentUser);
-                    this.$route.router.go('/');
+                    location.reload(); 
                 },function(error){
                     swal('Error', 'Usuario o password incorrecto', 'error');
                 });
                 
             }
-		},
-		data: function(){
-			return {
-				user: {},
-			}
-		}
-	}
+        },
+        data: function(){
+         return {
+            user: {},
+        }
+    }
+}
 </script>
 <style>
     .loginContainer{

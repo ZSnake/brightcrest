@@ -113,7 +113,6 @@
 			getScopes: function(){
 				this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
 					this.scopes=response.json();
-					console.log(response.json());
 				},function(error){
 					console.log(error);
 				});

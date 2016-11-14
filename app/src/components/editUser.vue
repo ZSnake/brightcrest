@@ -18,8 +18,6 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select id="editUserScope" v-model="userToEdit.scope">
-                                <option value="admin">Administrador</option>
-                                <option value="orgUser">Usuario de organización</option>
                             </select>
                             <label>Tipo de usuario</label>
                         </div>
@@ -39,6 +37,7 @@
         props: ['userToEdit'],
         ready: function(){
             this.refreshUser();
+            this.getScopes();
         },
         data: function(){
             return {
@@ -47,13 +46,35 @@
             }
         },
         methods: {
-            
+
             refreshUser: function(){
                 this.currentUser = {
                     userId: window.sessionStorage.getItem('userId'),
                     username: window.sessionStorage.getItem('username'),
                     scope: window.sessionStorage.getItem('scope')
                 }
+            },
+            getScopes: function(){
+                this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
+                    this.scopes=response.json();
+                    var $selectDropdown = 
+                    $("#editUserScope")
+                    .empty()
+                    .html(' ');
+                    console.log(this.scopes)
+                    for (var i = 0; i < this.scopes.length; i++) {
+                        var value = this.scopes[i].scope;
+                        $selectDropdown.append(
+                          $("<option></option>")
+                          .attr("value",value)
+                          .text(value)
+                          );
+                    }
+                    $selectDropdown.trigger('contentChanged');
+                    $('select').material_select();
+                },function(error){
+                    console.log(error);
+                });
             },
             createLog: function (action) {
                 var log={
