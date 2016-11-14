@@ -15,6 +15,9 @@
 
                         </li>
                         <li>
+                        <a v-link="'/listFiltered'" title="Lista Filtrada">Lista Filtrada</a>
+                        </li>
+                        <li>
                             <a v-link="'/organization/map'" title="ir a Mapa">Mapa de organizaciones</a>
                         </li>
                         <li >
@@ -124,48 +127,45 @@
                     if (window.sessionStorage.getItem('username')!=='') {
                         $(".dropdown-button").dropdown();
                         if (this.controlPermissions) {
-                        if (this.controlPermissions.addOrganization==true) {
-                            this.pr1 = true;
-                        } }else return false
-                        return true;
+                            if (this.controlPermissions.addOrganization==true) {
+                                this.pr1 = true;
+                            } }else return false
+                            return true;
+                        } else return false;
                     } else return false;
-                } else return false;
 
-            },
-            checkAddOrg: function() {
-                if (this.controlPermissions) {
-                    if (this.controlPermissions.addOrganization==true) {
-                        return true;
+                },
+                checkAddOrg: function() {
+                    if (this.controlPermissions) {
+                        if (this.controlPermissions.addOrganization==true) {
+                            return true;
+                        } else return false;
                     } else return false;
-                } else return false;
-            },
-            checkScope: function() {
-                return true;
-                /*
-                if (this.controlPermissions) {
-                    if (this.controlPermissions.crudScope==true) {
-                        return true;
-                    } else return false;
-                } else return false; 
-                */   
-            },
-            checkUser: function() {
-                if (this.controlPermissions) {
-                    if (this.controlPermissions.crudUser==true) {
-                        return true;
-                    } else return false;
-                } else return false;    
-            },
-            checkLog: function() {
-                if (this.controlPermissions) {
-                    console.log(this.controlPermissions.viewLogs==true)
-                    console.log("log")
-                    if (this.controlPermissions.viewLogs==true) {
-                        return true;
-                    } else return false;
-                } else return false;                    
-            },
-            
+                },
+                checkScope: function() {
+                    if (this.controlPermissions) {
+                        if (this.controlPermissions.crudScope==true) {
+                            return true;
+                        } else return false;
+                    } else return false; 
+                },
+                checkUser: function() {
+                    if (this.controlPermissions) {
+                        if (this.controlPermissions.crudUser==true) {
+                            return true;
+                        } else return false;
+                    } else return false;    
+                },
+                checkLog: function() {
+                    if (this.controlPermissions) {
+                        console.log(this.controlPermissions.viewLogs==true)
+                        console.log("log")
+                        if (this.controlPermissions.viewLogs==true) {
+                            return true;
+                        } else return false;
+                    } else return false;                    
+                },
+
             check: function(resp) {/*
                 var userScope = window.sessionStorage.getItem('scope');
                 var controlPermissions=null;

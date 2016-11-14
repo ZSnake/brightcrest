@@ -70,6 +70,7 @@ function getscopes() {
 
     router.beforeEach(function(transition){
       userScope = window.sessionStorage.getItem('scope');
+      console.log(controlPermissions)
       console.log(userScope)
       for (var i = 0; i<scopes.length; i++) {
         if (userScope === scopes[i].scope) {
@@ -89,7 +90,8 @@ function getscopes() {
         }
       }else{
         var userPermissions = window.sessionStorage.getItem('scope');
-        if(userPermissions && userPermissions != ''){
+        console.log(userPermissions)
+        if(typeof controlPermissions !== "undefined" && userPermissions && userPermissions != ''){
           if (transition.to.name === 'addOrganization') {
             if(controlPermissions.addOrganization == true)
               transition.next();
@@ -135,7 +137,8 @@ function getscopes() {
           }
 
 
-        }
+        } else  router.go('/');
+              
 
       }
 
