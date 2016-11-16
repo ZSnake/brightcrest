@@ -96,6 +96,9 @@
             this.getScopes();
             $('select').material_select();
             $(".button-collapse").sideNav();
+            if (window.sessionStorage.getItem('scope')!== null) {
+                //console.log("huh");
+            }
 
         },
         methods: {
@@ -105,7 +108,7 @@
                     this.initControl();
 
                 },function(error){
-                    //console.log(error);
+                    ////console.log(error);
                 });
             },
             initControl: function() {
@@ -116,13 +119,13 @@
                 for (var i = 0; i<this.scopes.length; i++) {
                     if (userScope === this.scopes[i].scope) {
                         this.controlPermissions = JSON.parse(this.scopes[i].views);
-                        //console.log(this.controlPermissions);
+                        ////console.log(this.controlPermissions);
                         break;
                     }
                 }
             },
             checkMain: function() {
-                //console.log(this.controlPermissions)
+                ////console.log(this.controlPermissions)
                 if (window.sessionStorage) {
                     if (window.sessionStorage.getItem('username')!=='') {
                         $(".dropdown-button").dropdown();
@@ -158,8 +161,8 @@
                 },
                 checkLog: function() {
                     if (this.controlPermissions) {
-                        //console.log(this.controlPermissions.viewLogs==true)
-                        //console.log("log")
+                        ////console.log(this.controlPermissions.viewLogs==true)
+                        ////console.log("log")
                         if (this.controlPermissions.viewLogs==true) {
                             return true;
                         } else return false;
@@ -178,53 +181,53 @@
 
                 if (resp==1) {
                     if (controlPermissions.addOrganization==true) {
-                        //console.log("1");
+                        ////console.log("1");
                         return true;
                     }else {
-                        //console.log("2");
+                        ////console.log("2");
                         return false;
                     }
                 } else if (resp==2) {
                     if (controlPermissions.viewLogs==true) {
-                        //console.log("3");
+                        ////console.log("3");
                         return true;
                     }else {
-                        //console.log("4");
+                        ////console.log("4");
                         return false;
                     }
 
                 } else if (resp==3) {
                     if (controlPermissions.crudScope==true) {
-                        //console.log("5");
+                        ////console.log("5");
                         return true;
                     }else {
-                        //console.log("6");
+                        ////console.log("6");
                         return false;
                     }
 
                 } else if (resp==4) {
                     if (controlPermissions.crudUser==true) {
-                        //console.log("7");
+                        ////console.log("7");
                         return true;
                     }else {
-                        //console.log("8");
+                        ////console.log("8");
                         return false;
                     }
 
                 } else if (resp==5) {
                     if (controlPermissions.crudUser==true) {
-                        //console.log("9");
+                        ////console.log("9");
                         return true;
                     }else {
-                        //console.log("10");
+                        ////console.log("10");
                         return false;
                     }
                 } else if (resp == 6) {
                     if (controlPermissions.addOrganization==false && controlPermissions.viewLogs==false && controlPermissions.crudScope==false && controlPermissions.crudUser==false && controlPermissions.crudUser==false) {
-                        //console.log("11");
+                        ////console.log("11");
                         return false;
                     } else {
-                        //console.log("12");
+                        ////console.log("12");
                         return true;
                     }
                 } 
@@ -245,7 +248,7 @@
                     this.$route.router.go('/');  
                     location.reload(); 
                 },function(error){
-                    //console.log(error);
+                    ////console.log(error);
                 })
             },
             refreshUser: function(){
@@ -256,7 +259,7 @@
                 }
             },
             reloadUsers: function(){
-                //console.log(this.$children);
+                ////console.log(this.$children);
             },
             openAddUser: function(){
                 $('#createUser').openModal();

@@ -64,18 +64,18 @@ function getscopes() {
     for (var i = 0; i<scopes.length; i++) {
       if (userScope === scopes[i].scope) {
         controlPermissions = JSON.parse(scopes[i].views);
-        console.log(controlPermissions)
+        //console.log(controlPermissions)
       }
     }
 
     router.beforeEach(function(transition){
       userScope = window.sessionStorage.getItem('scope');
-      console.log(controlPermissions)
-      console.log(userScope)
+      //console.log(controlPermissions)
+      //console.log(userScope)
       for (var i = 0; i<scopes.length; i++) {
         if (userScope === scopes[i].scope) {
           controlPermissions = JSON.parse(scopes[i].views);
-          console.log(controlPermissions)
+          //console.log(controlPermissions)
         }
       }
 
@@ -90,7 +90,7 @@ function getscopes() {
         }
       }else{
         var userPermissions = window.sessionStorage.getItem('scope');
-        console.log(userPermissions)
+        //console.log(userPermissions)
         if(typeof controlPermissions !== "undefined" && userPermissions && userPermissions != ''){
           if (transition.to.name === 'addOrganization') {
             if(controlPermissions.addOrganization == true)
@@ -144,7 +144,7 @@ function getscopes() {
 
     });
   }, function (error) {
-    console.log(error);
+    //console.log(error);
   });
 
 }
