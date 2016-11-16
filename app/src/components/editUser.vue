@@ -18,8 +18,8 @@
                             <label class="active" for="password">Nueva Contraseña</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                    <div class="row" v-if="!check()">
+                        <div class="input-field col s12" >
                             <select id="editUserScope" v-model="userToEdit.scope">
                             </select>
                             <label>Tipo de usuario</label>
@@ -113,8 +113,8 @@
             },
             editUser: function(){
                 this.user = this.userToEdit;
-                if (true) {}
-                    var selectedScope = $('#editUserScope').find(":selected").val();
+                var backup=this.user.scope;
+                var selectedScope = $('#editUserScope').find(":selected").val();
                 if(selectedScope)
                     this.user.scope = selectedScope;
                 else
@@ -126,6 +126,15 @@
                     "flog" : true,
                     "scope" : this.user.scope
                 };
+                if (!this.check()) {
+                    toEdit = {
+                        "userId": this.user.userId,
+                        "password" : this.user.password,
+                        "username" : this.user.username,
+                        "flog" : true,
+                        "scope" : backup
+                    };
+                }
                 //console.log.log(toEdit)
 
                 this.$http.put(config.baseUrl() + '/v1/user/' + this.user._id, toEdit).then(function(response){
