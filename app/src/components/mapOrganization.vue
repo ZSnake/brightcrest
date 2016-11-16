@@ -55,7 +55,6 @@
 	var map = {};
 	var polydep = [];
 	var gpsP = [];
-	var markersonMap = [];
 	module.exports = {
 		name: 'mapOrganization',
 		data: function(){
@@ -82,26 +81,8 @@
 
 		},
 		methods: {
-			stripVowelAccent: function (str)
-			{
-				var rExps=[
-				{re:/[\xC0-\xC6]/g, ch:'A'},
-				{re:/[\xE0-\xE6]/g, ch:'a'},
-				{re:/[\xC8-\xCB]/g, ch:'E'},
-				{re:/[\xE8-\xEB]/g, ch:'e'},
-				{re:/[\xCC-\xCF]/g, ch:'I'},
-				{re:/[\xEC-\xEF]/g, ch:'i'},
-				{re:/[\xD2-\xD6]/g, ch:'O'},
-				{re:/[\xF2-\xF6]/g, ch:'o'},
-				{re:/[\xD9-\xDC]/g, ch:'U'},
-				{re:/[\xF9-\xFC]/g, ch:'u'},
-				{re:/[\xD1]/g, ch:'N'},
-				{re:/[\xF1]/g, ch:'n'} ];
+			lala: function () {
 
-				for(var i=0, len=rExps.length; i<len; i++)
-					str=str.replace(rExps[i].re, rExps[i].ch);
-
-				return str;
 			},
 			cleansearch: function () {
 
@@ -113,88 +94,6 @@
 				try {
 					if (this.message!="") {
 						for (var i = 0; i < gps.length; i++) {
-							console.log(map.removeLayer(gps[i][0]))
-							map.removeLayer(gps[i][0]);
-						}
-						for (var i = 0; i < gpsP.length; i++) {
-							map.removeLayer(gpsP[i][0]);
-						}
-
-						for (var i = 0; i < polydep.length; i++) {
-							map.removeLayer(polydep[i]);
-						}
-						for (var i = 0; i < markersonMap.length; i++) {
-							map.removeLayer(markersonMap[i]);
-						}
-						polydep=[];
-						var i=0;
-						map.eachLayer(function (layer) {
-							i++;
-							console.log(i)
-							console.log(layer);
-						});
-						for (var i = 0; i < gps.length; i++) {
-							for (var j = 0; j < gps[i].length; j++) {
-
-
-						//console.log(gps[i][j]);
-						if (this.message == gps[i][j] || this.message.toLowerCase() == gps[i][j] ) {
-							
-							
-							this.$http.get(config.baseUrl() + '/v1/organization/'+gps[i][11]+'/projects/').then(function(response){
-								this.projects = response.json();
-								for (var k = 0; k < this.projects.length; k++) {
-									this.addPoly(this.projects[k]);
-								}
-							}, function(error){
-								swal('Error', 'Error obteniendo los proyectos del servidor', 'error');
-							});
-
-							
-							var LamMarker = L.marker([gps[i][0].getLatLng().lat, gps[i][0].getLatLng().lng]).bindPopup($('<a href="#/organization/view/'+gps[i][11]+'" class="speciallink">'+gps[i][1]+'</a>')[0] ).addTo(map);
-							LamMarker.on('mouseover', function (e) {
-								this.openPopup();
-							});
-							markersonMap.push(LamMarker);
-							gps[i][0] = LamMarker;
-							
-						}
-
-
-					}
-					
-				}
-
-
-				for (var i = 0; i < gpsP.length; i++) {
-					//console.log(this.message)
-					//console.log(gpsP[i][2].name)
-					if (this.message == gpsP[i][2].name || this.message.toLowerCase() == gpsP[i][2].name) {
-						gpsP[i][0].addTo(map);
-						this.addPoly(gpsP[i][2]);
-						console.log("lol")
-					}
-					
-				}
-				
-			}
-
-		}
-		catch(err) {
-			console.log(err);
-
-			location.reload();
-
-
-		}
-
-
-				/*
-				this.message=this.message.trim();
-				try {
-					if (this.message!="") {
-						for (var i = 0; i < gps.length; i++) {
-							console.log(map.removeLayer(gps[i][0]))
 							map.removeLayer(gps[i][0]);
 						}
 						for (var i = 0; i < gpsP.length; i++) {
@@ -267,7 +166,7 @@
 
 		
 
-		*/
+
 	},
 
 
