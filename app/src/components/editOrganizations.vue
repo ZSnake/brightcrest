@@ -583,7 +583,7 @@
 					console.log("es menor"); // es old project
 
 
-					this.createLog("Edito project "+pro.name);
+					this.createLog("Editó project "+pro.name);
 					this.$route.router.go('/organization/edit/'+this.$route.params.organizationId+'/project/edit/'+pro._id);
 
 					
@@ -696,7 +696,7 @@
 						console.log("mmm");
 						this.$http.delete(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+pro._id ).then(function(response){
 							this.projects.splice(i,1);
-							this.createLog("Elimino proyecto "+pro.name);
+							this.createLog("Eliminó proyecto "+pro.name);
 							console.log(response);
 						}, function(error){
 							console.log("somehow it didnt delete :(");

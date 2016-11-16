@@ -62,15 +62,15 @@
               timestamp: new Date().toString(),
               userId: this.currentUser.username
           };
-          console.log(this.currentUser);
-          console.log(log);
+          //console.log(this.currentUser);
+          //console.log(log);
 
           this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
-              console.log("huh?");
-              console.log(response.body.message);
+              //console.log("huh?");
+              //console.log(response.body.message);
           }, function(error){
-              console.log(":(")
-              console.log(error.body.message);
+              //console.log(":(")
+              //console.log(error.body.message);
           });
 
       },
@@ -81,7 +81,7 @@
             $("#userScope")
             .empty()
             .html(' ');
-            console.log(this.scopes)
+            //console.log(this.scopes)
             for (var i = 0; i < this.scopes.length; i++) {
                 var value = this.scopes[i].scope;
                 $selectDropdown.append(
@@ -93,7 +93,7 @@
             $selectDropdown.trigger('contentChanged');
             $('select').material_select();
         },function(error){
-            console.log(error);
+            //console.log(error);
         });
     },
     createUser: function(){
@@ -109,7 +109,7 @@
             swal('Error', 'Error creando usuraio', 'error');
         })
         
-        console.log($('#userScope').find(":selected").text());
+        //console.log($('#userScope').find(":selected").text());
     },
     clear: function(){
         this.user = {};
