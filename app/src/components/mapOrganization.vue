@@ -1,28 +1,36 @@
 <template>
 	<div class="addOrganization">
+
 		<div class="row">
+
 			<div class="card blue lighten-5 col m10 s12 offset-m1">
+
 				<div class="card-content">
 					<div class="row">
-						<form class="col s12">
 
-							<div class="row">
-								<div class="input-field col s6">
-									<label for="searchInput" >Buscar: {{ message }}</label>
-									
-									<br>
-									<input id="searchInput" v-on:keyup.13="search(message)" type="text" v-model="message" placeholder="Buscar">
 
-								</div>
-								<div class="input-field col s6">
+						
+						
 
-									<a class="waves-effect waves-light btn blue darken-4" title="Buscar..." v-on:click="search(message)"><i class="large material-icons">search</i></a>
-									<a class="waves-effect waves-light btn red darken-4" title="Limpiar la busqueda"  v-on:click="cleansearch()">Limpiar Busqueda</a>
+						<div class="row">
 
-								</div>
+							<div class="input-field col s6">
+								<label for="searchInput" >Buscar: {{ message }}</label>
+
+								<br>
+								<input id="searchInput" v-on:keyup.13="search(message)" type="text" v-model="message" placeholder="Buscar">
 
 							</div>
-						</form>
+							<div class="input-field col s6">
+
+								<a class="waves-effect waves-light btn blue darken-4" title="Buscar..." v-on:click="search(message)"><i class="large material-icons">search</i></a>
+								<a class="waves-effect waves-light btn red darken-4" title="Limpiar la busqueda"  v-on:click="cleansearch()">Limpiar Busqueda</a>
+
+							</div>
+
+						</div>
+						
+
 					</div>
 				</div>
 				<div id="map" class="map"></div>
@@ -73,6 +81,9 @@
 
 		},
 		methods: {
+			lala: function () {
+
+			},
 			cleansearch: function () {
 
 				location.reload();
@@ -89,11 +100,16 @@
 							map.removeLayer(gpsP[i][0]);
 						}
 
-
 						for (var i = 0; i < polydep.length; i++) {
 							map.removeLayer(polydep[i]);
 						}
 						polydep=[];
+						var i=0;
+								map.eachLayer(function (layer) {
+									i++;
+									console.log(i)
+									console.log(layer);
+								});
 						for (var i = 0; i < gps.length; i++) {
 							for (var j = 0; j < gps[i].length; j++) {
 
@@ -127,8 +143,8 @@
 
 
 				for (var i = 0; i < gpsP.length; i++) {
-					console.log(this.message)
-					console.log(gpsP[i][2].name)
+					//console.log(this.message)
+					//console.log(gpsP[i][2].name)
 					if (this.message == gpsP[i][2].name || this.message.toLowerCase() == gpsP[i][2].name) {
 						gpsP[i][0].addTo(map);
 						this.addPoly(gpsP[i][2]);
@@ -138,22 +154,17 @@
 				}
 				
 			}
-			console.log(polydep.length)
-			for (var i = 0; i < polydep.length; i++) {
-				console.log(polydep[i])
-			}
+
 		}
 		catch(err) {
 			console.log(err);
-			map.remove();
-			this.initMap();
-			swal('Error', 'Error, intente buscar otro parametro.', 'error');
+
 			location.reload();
 
 
 		}
 
-
+		
 
 
 	},
@@ -315,23 +326,22 @@
 
 		for (var i = 0; i < this.allprojects.length; i++) {
 			for (var j = 0; j < this.organizations.length; j++) {
-						//console.log(this.organizations[j]._id);
-						if (this.allprojects[i].organizationId==this.organizations[j]._id){
-							var lat = this.strtoGps(this.organizations[j].latitude);
-							var longi = this.strtoGps(this.organizations[j].longitude);
-							if(!isNaN(lat) && !isNaN(longi)){
-								var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">'+this.organizations[j].orgName+'</a>')[0] );
-								LamMarker.on('mouseover', function (e) {
-									this.openPopup();
-								});
-								gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
-							}
-
-						}
+				if (this.allprojects[i].organizationId==this.organizations[j]._id){
+					var lat = this.strtoGps(this.organizations[j].latitude);
+					var longi = this.strtoGps(this.organizations[j].longitude);
+					if(!isNaN(lat) && !isNaN(longi)){
+						var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">'+this.organizations[j].orgName+'</a>')[0] );
+						LamMarker.on('mouseover', function (e) {
+							this.openPopup();
+						});
+						gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
 					}
 
-
 				}
+			}
+
+
+		}
 
 
 /*

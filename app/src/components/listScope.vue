@@ -75,6 +75,7 @@
 						closeOnConfirm: true 
 					}, function(){
 						component.$http.delete(config.baseUrl() + '/v1/scope/' + scope._id).then(function(response){
+							this.createLog("Eliminó Rol "+scope.scope);
 							this.getScopes();
 							swal.close();
 						},function(error){

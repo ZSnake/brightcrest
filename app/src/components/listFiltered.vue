@@ -6,12 +6,12 @@
         </div>
         <form>
 
-          <div class="input-field col s12">
+          <div class="row">
 
-            <a class="waves-effect waves-light btn blue darken-4 col s3" title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
-            <a class="waves-effect waves-light btn red darken-4 col s3" title="Buscar..." v-on:click="cleansearch()" >Limpiar Filtros</a>
-            <a class="waves-effect waves-light btn green darken-4 col s3" title="Crea Archivo compatible con Excel" v-on:click="makeCSV()">CSV</a>
-            <a class="waves-effect waves-light btn green darken-4 col s3" title="Crea Archivo PDF" v-on:click="makePDF()">PDF</a>
+            <a class="waves-effect waves-light btn blue darken-4 col s2 " title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
+            <a class="waves-effect waves-light btn red darken-4 col s2 offset-s1" title="Buscar..." v-on:click="cleansearch()" >Limpiar Filtros</a>
+            <a class="waves-effect waves-light btn green darken-4 col s2 offset-s1" title="Crea Archivo compatible con Excel" v-on:click="makeCSV()">CSV</a>
+            <a class="waves-effect waves-light btn green darken-4 col s2 offset-s1" title="Crea Archivo PDF" v-on:click="makePDF()">PDF</a>
 
           </div>
           <div> 
@@ -166,10 +166,11 @@
                 <b>
                   <div class="row">
 
+                    <div class="col s3">Nombre del Programa</div>
                     <div class="col s3">Nombre de ONG</div>
-                    <div class="col s3">Director/a</div>
+                    <div class="col s2">Director/a</div>
                     <div class="col s3">Objetivo</div>
-                    <div class="col s3">Poblacion Atendida</div>
+                    <div class="col s1">Poblacion Atendida</div>
 
                   </div>
                 </b>
@@ -177,14 +178,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="organization in filteredorganizations">
+              <tr v-for="project in filteredorganizations">
 
                 <div class="row">
                   <td>
-
-
-                    <div class="col s3"><br>{{organization[1].orgName}}</div>
-                    <div class="col s3"><br>{{organization[1].directorName}}</div>
+                    <div class="col s3"><br>{{project[1].name}}</div>
+                    <div class="col s3"><br>{{project[1].organizationId}}</div>
+                    <div class="col s2"><br>{{project[1].coordinatorName}}</div>
+                    <div class="col s3"><br>{{project[1].description}}</div>
+                    <div class="col s1"><br>{{project[1].totalSpace}}</div>
+                    
+                    
+                    
                     
                   </td>
                 </tr>
@@ -250,93 +255,147 @@
           },
           methods: {
             makePDF: function () {
-              var source = document.getElementById("customers");
-              tbl  = document.createElement('table');
-              tbl.style.width  = '100px';
-              tbl.style.border = '1px solid black';
+              try {
 
-              for(var i = 0; i < this.sourceorganizations.length; i++){
-                var tr = tbl.insertRow();
-                if (i==0) {
-                  var td = tr.insertCell();
-                  td.appendChild(document.createTextNode('ONG'));
-                  td.style.border = '1px solid black';
+                var source = document.getElementById("customers");
+                tbl  = document.createElement('table');
+                tbl.style.width  = '100px';
+                tbl.style.border = '1px solid black';
 
-                  var td = tr.insertCell();
-                  td.appendChild(document.createTextNode('Director'));
-                  td.style.border = '1px solid black';
 
-                  
-                  
-
+                for(var i = 0; i < this.sourceorganizations.length; i++){
                   var tr = tbl.insertRow();
-                  var td = tr.insertCell();
-                  s1 = this.sourceorganizations[i][1].orgName;
-                  td.appendChild(document.createTextNode(s1));
-                  td.style.border = '1px solid black';
-
-                  var td = tr.insertCell();
-                  s1 = this.sourceorganizations[i][1].directorName;
-                  td.appendChild(document.createTextNode(s1));
-                  td.style.border = '1px solid black';
-
-                 
                   
-                } else {
-                  var td = tr.insertCell();
-                  s1 = this.sourceorganizations[i][1].orgName;
-                  td.appendChild(document.createTextNode(s1));
-                  td.style.border = '1px solid black';
+                  if (i==0) {
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('ONG'));
+                    td.style.border = '1px solid black';
 
-                  var td = tr.insertCell();
-                  s1 = this.sourceorganizations[i][1].directorName;
-                  td.appendChild(document.createTextNode(s1));
-                  td.style.border = '1px solid black';
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Programa'));
+                    td.style.border = '1px solid black';
 
-                  
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Director/a'));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Objetivo'));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Poblacion'));
+                    td.style.border = '1px solid black';
+
+
+
+
+
+                    var tr = tbl.insertRow();
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].organizationId;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].name;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].coordinatorName;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].description;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].totalSpace;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+
+
+
+                  } else {
+                                        var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].organizationId;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].name;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].coordinatorName;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].description;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].totalSpace;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                  }
+
                 }
 
+
+                source.appendChild(tbl);
+                source.style.display == "none"
+
+                var pdf = new P('p', 'pt', 'letter');
+                source = $('#customers')[0];
+                specialElementHandlers = {
+                  '#bypassme': function (element, renderer) {
+                    return true
+                  }
+                };
+                margins = {
+                  top: 80,
+                  bottom: 60,
+                  left: 40,
+                  width: 522
+                };
+                pdf.fromHTML(
+                  source, 
+                  margins.left, 
+                  margins.top, { 
+                    'width': margins.width, 
+                    'elementHandlers': specialElementHandlers
+                  },
+
+                  function (dispose) {
+                    pdf.save('Reporte.pdf');
+                  }, margins);
+                source.removeChild(tbl);
+                console.log(tbl);
+              }
+              catch(err) {
+                console.log("shit son");
+                location.reload();
               }
 
-
-              source.appendChild(tbl);
-              source.style.display == "none"
-
-              var pdf = new P('p', 'pt', 'letter');
-              source = $('#customers')[0];
-              specialElementHandlers = {
-                '#bypassme': function (element, renderer) {
-                  return true
-                }
-              };
-              margins = {
-                top: 80,
-                bottom: 60,
-                left: 40,
-                width: 522
-              };
-              pdf.fromHTML(
-                source, 
-                margins.left, 
-                margins.top, { 
-                  'width': margins.width, 
-                  'elementHandlers': specialElementHandlers
-                },
-
-                function (dispose) {
-                  pdf.save('Reporte.pdf');
-                }, margins);
-              console.log(source)
-              source.removeChild(tbl);
-              console.log(source)
             },
+
             makeCSV: function () {
               var word='';
+              word = word.concat("Nombre de Organizacion,Nombre de Programa,Nombre de Coordinador/a,Objetivo,Poblacion Atendida\r\n")
               for (var i = 0; i < this.sourceorganizations.length; i++) {
 
-                word = word.concat(this.sourceorganizations[i][1].orgName+','+this.sourceorganizations[i][1].directorName+'\r\n')
+                word = word.concat(this.sourceorganizations[i][1].organizationId+','+this.sourceorganizations[i][1].name+','+this.sourceorganizations[i][1].coordinatorName+','+this.sourceorganizations[i][1].description+','+this.sourceorganizations[i][1].totalSpace+'\r\n')
               }
-              console.log(word)
+              //console.log(word)
               var a = window.document.createElement('a');
               
               a.href = window.URL.createObjectURL(new Blob([word], {type: 'text/csv'}));
@@ -354,7 +413,7 @@
                 this.scopes=response.json();
 
               },function(error){
-                console.log(error);
+                //console.log(error);
               });
             },
             checkPermissionEdit: function() {
@@ -398,15 +457,15 @@
                 timestamp: new Date().toString(),
                 userId: this.currentUser.username
               };
-              console.log(this.currentUser);
-              console.log(log);
+              //console.log(this.currentUser);
+              //console.log(log);
 
               this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
-                console.log("huh?");
-                console.log(response.body.message);
+                //console.log("huh?");
+                //console.log(response.body.message);
               }, function(error){
-                console.log(":(")
-                console.log(error.body.message);
+                //console.log(":(")
+                //console.log(error.body.message);
               });
             },
             initPagin: function(index){
@@ -455,7 +514,7 @@
               this.$compile(element.get(0));
             },
             cleansearch: function(){
-              this.popsource(this.organizations);
+              this.popsource(this.allprojects);
               this.initPagin(0);
               this.toSearch=[];
               for (var prop in this.project) {
@@ -464,187 +523,190 @@
                 }
               }
             },
+
+
             search: function() {
               var orgwhile  = [];
               this.toSearch=[];
-              for (var i = 0; i < this.organizations.length; i++) {
-                this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName]);
-                for (var j = 0; j < this.allprojects.length; j++) {
-                  if (this.allprojects[j].organizationId==this.organizations[i]._id) {
-                    this.toSearch[i].push(this.allprojects[j]);
-                  }
-                }
-
+              
+              for (var i = 0; i < this.allprojects.length; i++) {
+               if (this.allprojects[i].abandonment==this.project.abandonment && this.project.abandonment==true) {
+                orgwhile.push(this.allprojects[i]);
               }
-              console.log(this.toSearch);
-              for (var i = 0; i < this.toSearch.length; i++) {
-                for (var j = 2; j < this.toSearch[i].length; j++) {
-                  console.log(this.toSearch[i][j].abandonment)
-                  console.log(this.project.abandonment)
-                  if (this.toSearch[i][j].abandonment==this.project.abandonment && this.project.abandonment==true) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].sexualFreedomVictims==this.project.sexualFreedomVictims && this.project.sexualFreedomVictims) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].legalRepresentativeAbsence==this.project.legalRepresentativeAbsence && this.project.legalRepresentativeAbsence) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].sexualHarassmentVictims==this.project.sexualHarassmentVictims && this.project.sexualHarassmentVictims) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].abuseByOmission==this.project.abuseByOmission && this.project.abuseByOmission) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].procuring==this.project.procuring && this.project.procuring) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].abuseBySupression==this.project.abuseBySupression && this.project.abuseBySupression) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].trafficking==this.project.trafficking && this.project.trafficking) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].abuseByTransgression==this.project.abuseByTransgression && this.project.abuseByTransgression) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].publicSexualExposure==this.project.publicSexualExposure && this.project.publicSexualExposure) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].lackOfBasicNeeds==this.project.lackOfBasicNeeds && this.project.lackOfBasicNeeds) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].pornography==this.project.pornography && this.project.pornography) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].threatToHeritage==this.project.threatToHeritage && this.project.threatToHeritage)  {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].sexualTurism==this.project.sexualTurism && this.project.sexualTurism) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].addiction==this.project.addiction && this.project.addiction) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].criminalRecruitmentRisk==this.project.criminalRecruitmentRisk && this.project.criminalRecruitmentRisk) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].begging==this.project.begging && this.project.begging) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].economicExploitation==this.project.economicExploitation && this.project.economicExploitation) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].childAbduction==this.project.childAbduction && this.project.childAbduction) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].childrenDinning==this.project.childrenDinning && this.project.childrenDinning) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].initialEducationAndEarlyEstimulationCenter==this.project.initialEducationAndEarlyEstimulationCenter && this.project.initialEducationAndEarlyEstimulationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].preBasicEducationCenter==this.project.preBasicEducationCenter && this.project.preBasicEducationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].artisticFormationCenter==this.project.artisticFormationCenter && this.project.artisticFormationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].sportEducationCenter==this.project.sportEducationCenter && this.project.sportEducationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].vocationalEducationCenter==this.project.vocationalEducationCenter && this.project.vocationalEducationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].alternativeEducationCenter==this.project.alternativeEducationCenter && this.project.alternativeEducationCenter) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                  if (this.toSearch[i][j].others==this.project.others && this.project.others) {
-                    orgwhile.push(this.organizations[i]);
-                  }
-                }
+              if (this.allprojects[i].sexualFreedomVictims==this.project.sexualFreedomVictims && this.project.sexualFreedomVictims) {
+                orgwhile.push(this.allprojects[i]);
               }
-              this.popsource(this.uniq(orgwhile));
-              this.initPagin(0);
-
-            },
-            sortName: function () {
-              this.organizations.sort(function(a, b){ 
-                var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
-                if (nameA < nameB) 
-                  return -1 
-                if (nameA > nameB)
-                  return 1
-                return 0 
-              });
-            },
-            getOrganizations: function(){
-              this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
-                this.allprojects = responsep.json();
-
-                this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
-
-                  this.organizations = response.json();
-
-                  this.sortName();
-                  this.popsource(this.organizations);
-                  this.initPagin(0);
-                }, function(error){
-                  swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
-                });
-              }, function(errorp){
-                swal('Error', 'Error obteniendo los projects del servidor', 'errorp');
-              });
-            },
-            popsource: function(array) {
-              this.sourceorganizations=[];
-              for (var i = 1; i <= array.length; i++) {
-                this.sourceorganizations.push([i,array[i-1]]);
-
+              if (this.allprojects[i].legalRepresentativeAbsence==this.project.legalRepresentativeAbsence && this.project.legalRepresentativeAbsence) {
+                orgwhile.push(this.allprojects[i]);
               }
-            },
-            deleteOrganization: function(id){
-              var component = this;
-              swal({   
-                title: "¿Está seguro?",   
-                text: "¡Si eliminas esta organización, no se podrá recuperar!",   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Si, eliminar",
-                cancelButtonText: "No, cancelar",   
-                closeOnConfirm: true 
-              }, function(){
-                component.$http.delete(config.baseUrl() + '/v1/organization/' + id._id).then(function(response){
-                  component.getOrganizations();
-                  swal.close();
-                  this.createLog("Eliminó la organización: "+id.orgName);
-                },function(error){
-
-                });
-
-              });
+              if (this.allprojects[i].sexualHarassmentVictims==this.project.sexualHarassmentVictims && this.project.sexualHarassmentVictims) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].abuseByOmission==this.project.abuseByOmission && this.project.abuseByOmission) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].procuring==this.project.procuring && this.project.procuring) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].abuseBySupression==this.project.abuseBySupression && this.project.abuseBySupression) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].trafficking==this.project.trafficking && this.project.trafficking) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].abuseByTransgression==this.project.abuseByTransgression && this.project.abuseByTransgression) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].publicSexualExposure==this.project.publicSexualExposure && this.project.publicSexualExposure) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].lackOfBasicNeeds==this.project.lackOfBasicNeeds && this.project.lackOfBasicNeeds) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].pornography==this.project.pornography && this.project.pornography) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].threatToHeritage==this.project.threatToHeritage && this.project.threatToHeritage)  {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].sexualTurism==this.project.sexualTurism && this.project.sexualTurism) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].addiction==this.project.addiction && this.project.addiction) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].criminalRecruitmentRisk==this.project.criminalRecruitmentRisk && this.project.criminalRecruitmentRisk) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].begging==this.project.begging && this.project.begging) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].economicExploitation==this.project.economicExploitation && this.project.economicExploitation) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].childAbduction==this.project.childAbduction && this.project.childAbduction) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].childrenDinning==this.project.childrenDinning && this.project.childrenDinning) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].initialEducationAndEarlyEstimulationCenter==this.project.initialEducationAndEarlyEstimulationCenter && this.project.initialEducationAndEarlyEstimulationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].preBasicEducationCenter==this.project.preBasicEducationCenter && this.project.preBasicEducationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].artisticFormationCenter==this.project.artisticFormationCenter && this.project.artisticFormationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].sportEducationCenter==this.project.sportEducationCenter && this.project.sportEducationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].vocationalEducationCenter==this.project.vocationalEducationCenter && this.project.vocationalEducationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].alternativeEducationCenter==this.project.alternativeEducationCenter && this.project.alternativeEducationCenter) {
+                orgwhile.push(this.allprojects[i]);
+              }
+              if (this.allprojects[i].others==this.project.others && this.project.others) {
+                orgwhile.push(this.allprojects[i]);
+              }
             }
+            this.popsource(this.uniq(orgwhile));
+            this.initPagin(0);
+
+          },
+          sortName: function () {
+            this.organizations.sort(function(a, b){ 
+              var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
+              if (nameA < nameB) 
+                return -1 
+              if (nameA > nameB)
+                return 1
+              return 0 
+            });
+          },
+          getOrganizations: function(){
+            this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
+              this.allprojects = responsep.json();
+
+              this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
+
+                this.organizations = response.json();
+
+                for (var i = 0; i < this.organizations.length; i++) {
+                  for (var j = 0; j < this.allprojects.length; j++) {
+                    if (this.allprojects[j].organizationId==this.organizations[i]._id) {
+                      this.allprojects[j].organizationId=this.organizations[i].orgName;
+                      if (parseInt(this.allprojects[j].totalSpace)-parseInt(this.allprojects[j].availableSpace)) {
+                        this.allprojects[j].totalSpace=parseInt(this.allprojects[j].totalSpace)-parseInt(this.allprojects[j].availableSpace);
+                      }
+                    }
+                  }
+                }
+                //console.log(this.allprojects);
+
+
+
+                this.sortName();
+                this.popsource(this.allprojects);
+                this.initPagin(0);
+              }, function(error){
+                swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
+              });
+            }, function(errorp){
+              swal('Error', 'Error obteniendo los projects del servidor', 'errorp');
+            });
+          },
+          popsource: function(array) {
+            this.sourceorganizations=[];
+            for (var i = 1; i <= array.length; i++) {
+              this.sourceorganizations.push([i,array[i-1]]);
+
+            }
+          },
+          deleteOrganization: function(id){
+            var component = this;
+            swal({   
+              title: "¿Está seguro?",   
+              text: "¡Si eliminas esta organización, no se podrá recuperar!",   
+              type: "warning",   
+              showCancelButton: true,   
+              confirmButtonColor: "#DD6B55",   
+              confirmButtonText: "Si, eliminar",
+              cancelButtonText: "No, cancelar",   
+              closeOnConfirm: true 
+            }, function(){
+              component.$http.delete(config.baseUrl() + '/v1/organization/' + id._id).then(function(response){
+                component.getOrganizations();
+                swal.close();
+                this.createLog("Eliminó la organización: "+id.orgName);
+              },function(error){
+
+              });
+
+            });
           }
-        };
+        }
+      };
 
-      </script>
+    </script>
 
-      <style>
-        .modal { width: 80% !important  }  
-        #test .item{
-          margin: 3px;
-        }
-        #test .item img{
-          display: block;
-          width: 100%;
-          height: auto;
-        }
-        #container {
-          overflow: scroll;
-          height: 100%;
-        }
-        .list-logo {
-          height: 80px;
-        }
-      </style>
+    <style>
+      .modal { width: 80% !important  }  
+      #test .item{
+        margin: 3px;
+      }
+      #test .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      #container {
+        overflow: scroll;
+        height: 100%;
+      }
+      .list-logo {
+        height: 80px;
+      }
+    </style>

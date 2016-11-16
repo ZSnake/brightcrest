@@ -101,6 +101,7 @@
         this.scope.views=JSON.stringify(this.views);
         console.log(this.scope);
         this.$http.post(config.baseUrl() + '/v1/createScope', this.scope).then(function(response){
+          this.createLog("Creó Rol "+this.scope.scope);
           location.reload();
         }, function(error){
           

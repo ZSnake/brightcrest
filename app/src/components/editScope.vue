@@ -136,6 +136,7 @@
         console.log(this.scope);
         this.scope.views=JSON.stringify(this.scope.views);
         this.$http.put(config.baseUrl() + '/v1/scope/'+this.$route.params.scopeId, this.scope).then(function(response){
+            this.createLog("Editó Rol "+this.scope.scope);
             this.$route.router.go('/listScope');
         }, function(error){
             swal('Error', 'Error modificando projecto', 'error');

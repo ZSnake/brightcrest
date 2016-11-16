@@ -31,7 +31,7 @@
         </div>
         <edit-user :user-to-edit="userToEdit"></edit-user>
     </div>
-    
+
 </template>
 <script>
     var swal = require('sweetalert');
@@ -39,91 +39,98 @@
     var editUserComp = require('./editUser.vue');
 
     module.exports = {
-      name: 'userManagement',
-      props: ['currentUser'],
-      ready: function() {
-       $('select').material_select();
-       this.getUsers();
-   },
-   methods: {
-    refreshUser: function(){
-        this.currentUser = {
-            userId: window.sessionStorage.getItem('userId'),
-            username: window.sessionStorage.getItem('username'),
-            scope: window.sessionStorage.getItem('scope')
-        }
-    },
-    createLog: function (action) {
-        this.refreshUser();
-        var log={
-            action: action,
-            timestamp: new Date().toString(),
-            userId: this.currentUser.username
-        };
-        console.log(this.currentUser);
-        console.log(log);
+        name: 'userManagement',
+        props: ['currentUser'],
+        ready: function() {
+            $('select').material_select();
+            this.getUsers();
+        },
+        methods: {
+            refreshUser: function(){
+                this.currentUser = {
+                    userId: window.sessionStorage.getItem('userId'),
+                    username: window.sessionStorage.getItem('username'),
+                    scope: window.sessionStorage.getItem('scope')
+                }
+            },
+            createLog: function (action) {
+                this.refreshUser();
+                var log={
+                    action: action,
+                    timestamp: new Date().toString(),
+                    userId: this.currentUser.username
+                };
+                //console.log.log(this.currentUser);
+                //console.log.log(log);
 
-        this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
-            console.log("huh?");
-            console.log(response.body.message);
-        }, function(error){
-            console.log(":(")
-            console.log(error.body.message);
-        })
+                this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
+                    //console.log.log("huh?");
+                    //console.log.log(response.body.message);
+                }, function(error){
+                    //console.log.log(":(")
+                    //console.log.log(error.body.message);
+                })
 
-    },
-    getUsers: function(){
-        this.$http.get(config.baseUrl() + '/v1/users').then(function(response){
-         this.users=response.json();
-     },function(error){
-         console.log(error);
-     });
-    },
-    deleteUser: function(id,username){
-        if(id != window.sessionStorage.getItem('userId')){
-            var component = this;
-            swal({   
-                title: "¿Está seguro?",   
-                text: "¡Si eliminas este usuario, no se podrá recuperar!",   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: "Si, eliminar",
-                cancelButtonText: "No, cancelar",   
-                closeOnConfirm: true 
-            }, function(){
-                component.$http.delete(config.baseUrl() + '/v1/user/' + id).then(function(response){
-                    component.getUsers();
-                    this.createLog("Eliminó usuario "+username);
-                    swal.close();
+            },
+            getUsers: function(){
+                this.$http.get(config.baseUrl() + '/v1/users').then(function(response){
+                    this.users=response.json();
                 },function(error){
-                    console.log(error);
+                    //console.log.log(error);
                 });
+            },
+            deleteUser: function(id,username){
+                if(id != window.sessionStorage.getItem('userId')){
+                    var component = this;
+                    swal({   
+                        title: "¿Está seguro?",   
+                        text: "¡Si eliminas este usuario, no se podrá recuperar!",   
+                        type: "warning",   
+                        showCancelButton: true,   
+                        confirmButtonColor: "#DD6B55",   
+                        confirmButtonText: "Si, eliminar",
+                        cancelButtonText: "No, cancelar",   
+                        closeOnConfirm: true 
+                    }, function(){
+                        component.$http.delete(config.baseUrl() + '/v1/user/' + id).then(function(response){
+                            component.getUsers();
+                            this.createLog("Eliminó usuario "+username);
+                            swal.close();
+                        },function(error){
+                            //console.log.log(error);
+                        });
 
-            });
-        }else{
-            swal('Error', 'No puede eliminar su propio usuario', 'error');
+                    });
+                }else{
+                    swal('Error', 'No puede eliminar su propio usuario', 'error');
+                }
+            },
+            editUser: function(user){
+                //console.log.log(user);
+                var user2 = {
+                    username: user.username,
+                    userId: user._id,
+                    scope:  user.scope,
+                    flog: true
+                }
+                this.userToEdit = user2;
+                $('#editUser').openModal();
+            }		
+
+        },
+        data: function(){
+            return {
+                users: [],
+                userToEdit: {}
+            }
+        },
+        events: {
+            'reload-users': function(){
+                this.getUsers();
+            }
+        },
+        components: {
+            'edit-user': editUserComp
         }
-    },
-    editUser: function(user){
-        this.userToEdit = user;
-        $('#editUser').openModal();
-    }		
-
-},
-data: function(){
-   return {
-    users: [],
-    userToEdit: {}
-}
-},
-events: {
-    'reload-users': function(){
-        this.getUsers();
     }
-},
-components: {
-    'edit-user': editUserComp
-}
-}
 </script>

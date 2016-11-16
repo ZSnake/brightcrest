@@ -143,51 +143,54 @@
                 break;
               }
             }
-            if (controlPermissions.editOrganization==true) {
-              return true;
-            } else  {
-              return false;
-            }
+            if (controlPermissions) {
+              if (controlPermissions.editOrganization==true) {
+                return true;
+              } else  {
+                return false;
+              }}else return false;
 
-          },
-          checkPermissionDelete: function() {
-            var userScope = window.sessionStorage.getItem('scope');
-            var controlPermissions=null;
-            
-            for (var i = 0; i<this.scopes.length; i++) {
-              if (userScope === this.scopes[i].scope) {
-                controlPermissions = JSON.parse(this.scopes[i].views);
-                break;
+            },
+            checkPermissionDelete: function() {
+              var userScope = window.sessionStorage.getItem('scope');
+              var controlPermissions=null;
+              
+              for (var i = 0; i<this.scopes.length; i++) {
+                if (userScope === this.scopes[i].scope) {
+                  controlPermissions = JSON.parse(this.scopes[i].views);
+                  break;
+                }
               }
-            }
-            if (controlPermissions.deleteOrganization==true) {
-              return true;
-            } else  {
-              return false;
-            }
+              if (controlPermissions) {
+                if (controlPermissions.deleteOrganization==true) {
+                  return true;
+                } else  {
+                  return false;
+                }
+              }else return false;
 
-          },
-          createLog: function (action) {
-            var log={
-              action: action,
-              timestamp: new Date().toString(),
-              userId: this.currentUser.username
-            };
-            console.log(this.currentUser);
-            console.log(log);
+            },
+            createLog: function (action) {
+              var log={
+                action: action,
+                timestamp: new Date().toString(),
+                userId: this.currentUser.username
+              };
+              console.log(this.currentUser);
+              console.log(log);
 
-            this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
-              console.log("huh?");
-              console.log(response.body.message);
-            }, function(error){
-              console.log(":(")
-              console.log(error.body.message);
-            });
+              this.$http.post(config.baseUrl() + '/v1/createLog', log).then(function(response){
+                console.log("huh?");
+                console.log(response.body.message);
+              }, function(error){
+                console.log(":(")
+                console.log(error.body.message);
+              });
 
-          },
-          initPagin: function(index){
+            },
+            initPagin: function(index){
 
-           this.makepagList(this.sourceorganizations);
+             this.makepagList(this.sourceorganizations);
           //  console.log(this.makepagList);
            // console.log("works");
            this.renderPagin(index);
