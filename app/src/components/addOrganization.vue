@@ -238,7 +238,7 @@
                             selectMonths: true,
                             selectYears: 100,
                             max: new Date(),
-                            /*
+                            
                             labelMonthNext: 'Mes siguiente',
                             labelMonthPrev: 'Mes anterior',
 
@@ -255,7 +255,7 @@
                             today: 'Hoy',
                             clear: 'Limpiar',
                             close: 'Cerrar',
-                            */
+                            
                         });
 
                         this.formData = new FormData();
@@ -270,6 +270,62 @@
                                 username: window.sessionStorage.getItem('username'),
                                 scope: window.sessionStorage.getItem('scope')
                             }
+                        },
+                        monthtoEnglish: function (date) {
+                            console.log("date");
+                            var inEnglish="";
+                            if (date.search("Enero")>-1) {
+                                inEnglish= "".concat(date.substring(0,1)+" January,"+date.substring(date.length-5,date.length));
+                                return inEnglish;
+                            } else 
+                            if (date.search("Febrero")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" February,"+date.substring(date.length-5,date.length)); 
+                                  return inEnglish;  
+                            } else
+                            if (date.search("Marzo")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" March"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Abril")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" April,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Mayo")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" May,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Junio")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" June,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Julio")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" July,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Agosto")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" August,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Septiembre")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" September,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Octubre")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" October,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Noviembre")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" November,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else
+                            if (date.search("Diciembre")>-1) {
+                                  inEnglish= "".concat(date.substring(0,1)+" December,"+date.substring(date.length-5,date.length));
+                                  return inEnglish;
+                            } else {
+                                return -1;
+                            }
+
+
                         },
                         createOrganization: function(evt){
 
@@ -296,20 +352,21 @@
                                 this.formData.append("directorCelPhone", $('#directorCelPhone').val());
                                 this.formData.append("directorEmail", $('#directorEmail').val());
                                 this.formData.append("orgResolutionNumber", $('#orgResolutionNumber').val());
-                                this.formData.append("orgResolutionDate", $('#orgResolutionDate').val());
+
+                                this.formData.append("orgResolutionDate",  this.monthtoEnglish($('#orgResolutionDate').val()));
                                 this.formData.append("legalRepresentativeName", $('#legalRepresentativeName').val());
                                 this.formData.append("ursacRegistrationNumber", $('#ursacRegistrationNumber').val());
-                                this.formData.append("ursacRegistrationDate", $('#ursacRegistrationDate').val());
+                                this.formData.append("ursacRegistrationDate", this.monthtoEnglish($('#ursacRegistrationDate').val()));
                                 this.formData.append("latitude", $('#latitude').val());
                                 this.formData.append("longitude", $('#longitude').val());
                                 this.formData.append("intervieweeName", $('#intervieweeName').val());
-                                this.formData.append("interviewDate", $('#interviewDate').val());
+                                this.formData.append("interviewDate", this.monthtoEnglish($('#interviewDate').val()));
                                 this.formData.append("interviewTime", $('#interviewTime').val());
                                 this.formData.append("otherOrgsInRegion", $('#otherOrgsInRegion').val());
                                 this.formData.append("observations", $('#observations').val());
 
-                                
-                                console.log($('#orgResolutionDate').val());
+                               
+                                var d1 = new Date();
                                 console.log($('#ursacRegistrationDate').val());
                                 console.log($('#interviewDate').val());
                                 

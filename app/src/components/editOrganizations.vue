@@ -548,10 +548,29 @@
 			d.setFullYear( d.getFullYear() - 100 );
 			$('.datepicker').pickadate(
 			{
-				selectMonths: true,
-				selectYears: 100,
-				max: new Date()
-			});
+
+                            selectMonths: true,
+                            selectYears: 100,
+                            max: new Date(),
+                            
+                            labelMonthNext: 'Mes siguiente',
+                            labelMonthPrev: 'Mes anterior',
+
+                            labelMonthSelect: 'Selecciona un mes',
+                            labelYearSelect: 'Selecciona un año',
+
+                            monthsFull: [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ],
+                            monthsShort: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
+                            weekdaysFull: [ 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado' ],
+                            weekdaysShort: [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ],
+
+                            weekdaysLetter: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+
+                            today: 'Hoy',
+                            clear: 'Limpiar',
+                            close: 'Cerrar',
+                            
+                        });
 			$(document).ready(function(){
 				$('.modal-trigger').leanModal();
 			});
@@ -623,14 +642,14 @@
 				if(this.organization.directorCelPhone){this.formData.append("directorCelPhone", this.organization.directorCelPhone);}
 				if(this.organization.directorEmail){this.formData.append("directorEmail", this.organization.directorEmail);}
 				if(this.organization.orgResolutionNumber){this.formData.append("orgResolutionNumber", this.organization.orgResolutionNumber);}
-				if(this.organization.orgResolutionDate){this.formData.append("orgResolutionDate", this.organization.orgResolutionDate);}
+				if(this.organization.orgResolutionDate){this.formData.append("orgResolutionDate", this.monthtoEnglish($('#orgResolutionDate').val()));}
 				if(this.organization.legalRepresentativeName){this.formData.append("legalRepresentativeName", this.organization.legalRepresentativeName);}
 				if(this.organization.ursacRegistrationNumber){this.formData.append("ursacRegistrationNumber", this.organization.ursacRegistrationNumber);}
-				if(this.organization.ursacRegistrationDate){this.formData.append("ursacRegistrationDate", this.organization.ursacRegistrationDate);}
+				if(this.organization.ursacRegistrationDate){this.formData.append("ursacRegistrationDate", this.monthtoEnglish($('#ursacRegistrationDate').val()));}
 				if(this.organization.latitude){this.formData.append("latitude", this.organization.latitude);}
 				if(this.organization.longitude){this.formData.append("longitude", this.organization.longitude);}
 				if(this.organization.intervieweeName){this.formData.append("intervieweeName", this.organization.intervieweeName);}
-				if(this.organization.interviewDate){this.formData.append("interviewDate", this.organization.interviewDate);}
+				if(this.organization.interviewDate){this.formData.append("interviewDate", this.monthtoEnglish($('#interviewDate').val()));}
 				if(this.organization.interviewTime){this.formData.append("interviewTime", this.organization.interviewTime);}
 				if(this.organization.otherOrgsInRegion){this.formData.append("otherOrgsInRegion", this.organization.otherOrgsInRegion);}
 				if(this.organization.observations){this.formData.append("observations", this.organization.observations);}
@@ -705,6 +724,62 @@
 
 					}
 				}
+			},
+			monthtoEnglish: function (date) {
+				console.log("date");
+				var inEnglish="";
+				if (date.search("Enero")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" January,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else 
+				if (date.search("Febrero")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" February,"+date.substring(date.length-5,date.length)); 
+					return inEnglish;  
+				} else
+				if (date.search("Marzo")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" March"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Abril")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" April,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Mayo")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" May,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Junio")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" June,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Julio")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" July,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Agosto")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" August,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Septiembre")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" September,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Octubre")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" October,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Noviembre")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" November,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else
+				if (date.search("Diciembre")>-1) {
+					inEnglish= "".concat(date.substring(0,1)+" December,"+date.substring(date.length-5,date.length));
+					return inEnglish;
+				} else {
+					return -1;
+				}
+
+
 			},
 			getOrganization: function(){
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){

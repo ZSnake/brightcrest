@@ -4,8 +4,8 @@
 			<div class="row">
 				<div class="card blue lighten-5 col m10 s12 offset-m1">
 					<div class="card-content">
-					
-					<a class="waves-effect waves-light btn red darken-1 right-align col m2 s2 offset-m10" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
+
+						<a class="waves-effect waves-light btn red darken-1 right-align col m2 s2 offset-m10" v-link="{name: 'viewOrganization', params: {organizationId: $route.params.organizationId}}">Regresar</a>
 						<div class="row">
 							<form class="col s12">
 								<h5 class="condensed light">Datos generales del programa</h5>
@@ -68,7 +68,7 @@
 										<label class="active" for="availableSpace">Cupos disponibles</label>
 									</div>
 								</div>
-								<h5 class="condensed light">Contacto del coordinador(a)</h5>
+								<h5 class="condensed light" v-if="checkPermission()">Contacto del coordinador(a)</h5>
 								<div class="row">
 									<div class="input-field col s6">
 										<p id="coordinatorName" type="text" class="validate">{{project.coordinatorName}}</p>
@@ -285,16 +285,32 @@
 
 	module.exports = {
 		name: 'viewProject',
-
+		props: ['currentUser'],
 		ready: function() {
-		
+
 			$('select').material_select();
 			this.getProject();
 			$("html, body").animate({ scrollTop: 0 }, "slow");
-						
+
 		},
 		methods: {
+			checkPermission: function() {
+				var userScope = window.sessionStorage.getItem('scope');
+				var controlPermissions=null;
 
+				for (var i = 0; i<this.scopes.length; i++) {
+					if (userScope === this.scopes[i].scope) {
+						controlPermissions = JSON.parse(this.scopes[i].views);
+						break;
+					}
+				}
+				if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
+					return true;
+				} else  {
+					return false;
+				}
+
+			},
 			getProject: function(){
 				'/v1/organization/{organizationId}/project/{projectId}'
 				this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId+'/project/'+this.$route.params.projectId).then(function(response){

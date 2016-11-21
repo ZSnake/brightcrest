@@ -290,6 +290,12 @@
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
           }
+          if (this.organizations[i].market!=null) {
+          for (var k = 0; k < this.organizations[i].market.split(" ").length; k++) {
+            //  console.log()
+            this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.split(" ")[k]);
+            this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.toLowerCase().split(" ")[k]);
+          }}
           for (var j = 0; j < this.allprojects.length; j++) {
             if (this.allprojects[j].organizationId==this.organizations[i]._id) {
 

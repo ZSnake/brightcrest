@@ -93,17 +93,17 @@
                                         <label class="active" for="market" ">Orientación principal de atención (rubro)</label>
                                     </div>
                                 </div>
-                                <span class="card-title">Contacto de la ONG</span>
+                                <span class="card-title" >Contacto de la ONG</span>
                                 <div class="row">
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4" >
                                         <p id="webPage">{{organization.webPage}}</p>
                                         <label class="active" for="webPage" ">Página web</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4" v-if="checkPermission()">
                                         <p id="orgPhone">{{organization.orgPhone}}</p>
                                         <label class="active" for="orgPhone" ">Número de teléfono fijo</label>
                                     </div>
-                                    <div class="input-field col s4">
+                                    <div class="input-field col s4" v-if="checkPermission()">
                                         <p id="orgCelPhone">{{organization.orgCelPhone}}</p>
                                         <label class="active" for="orgCelPhone" ">Número de celular</label>
                                     </div>
@@ -324,17 +324,19 @@
                         break;
                     }
                 }
-                if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
-                    return true;
-                } else  {
-                    return false;
+                if (controlPermissions!=null) {
+                    if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
+                        return true;
+                    } else  {
+                        return false;
+                    }
                 }
 
             },
             getOrganization: function(){
                 this.$http.get(config.baseUrl() + '/v1/organization/'+this.$route.params.organizationId).then(function(response){
                     this.organization=response.json()[0];
-
+                    console.log(this.organization);
                     var month = new Array(12);
                     month[0] = "Enero";
                     month[1] = "Febrero";
@@ -349,20 +351,21 @@
                     month[10] = "Noviembre";
                     month[11] = "Diciembre";
 
-                    if (this.organization.orgResolutionDate) {
+                    console.log(this.organization.orgResolutionDate);
+                    if (this.organization.orgResolutionDate && this.organization.orgResolutionDate.toString()!="1970-01-01T00:00:00.000Z") {
                         var d1 = new Date(this.organization.orgResolutionDate); 
                         this.organization.orgResolutionDate = d1.getUTCDate()+" "+month[d1.getUTCMonth()]+", "+d1.getUTCFullYear();
-                    }
+                    } else this.organization.orgResolutionDate = "No Aplica";
 
-                    if (this.organization.ursacRegistrationDate) {
+                    if (this.organization.ursacRegistrationDate && this.organization.ursacRegistrationDate.toString()!="1970-01-01T00:00:00.000Z") {
                         var d2 = new Date(this.organization.ursacRegistrationDate); 
                         this.organization.ursacRegistrationDate = d2.getUTCDate()+" "+month[d2.getUTCMonth()]+", "+d2.getUTCFullYear();
-                    }
+                    } else this.organization.ursacRegistrationDate = "No Aplica";
 
-                    if (this.organization.interviewDate) {
+                    if (this.organization.interviewDate && this.organization.ursacRegistrationDate.toString()!="1970-01-01T00:00:00.000Z") {
                         var d3 = new Date(this.organization.interviewDate); 
                         this.organization.interviewDate = d3.getUTCDate()+" "+month[d3.getUTCMonth()]+", "+d3.getUTCFullYear();
-                    }
+                    } else this.organization.ursacRegistrationDate = "No Aplica";
 
 
 
