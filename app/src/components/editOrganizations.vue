@@ -531,6 +531,7 @@
 	var config = require('../../config.js');
 	var editProject = require('./editProject.vue')
 	var listProjects = require('./listProjects.vue');
+
 	module.exports = {
 
 		name: 'editOrganization',

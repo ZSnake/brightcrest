@@ -4,35 +4,57 @@
       <div class="card blue lighten-5 col m10 s12 offset-m1">
         <div class="card-content" >
           <div class="input-field col s6">
-            <label for="searchInput">Buscar: {{ keyword }}</label>
+<!--
+            <vue-autocomplete
+            name="orgName"
+            url="http://localhost:8000/v1/organizations"
+            anchor="orgName"
+            label="label"
+            model="keyword">
+          </vue-autocomplete>
+       
+        <vue-autocomplete
+        id="auto"
+        name="orgName"
+        placeholder="Type Here"
+        url="http://localhost:8000/v1/organizations"
+        param="q"
+        limit="5"
+        anchor="orgName"
+        label="label"
+        model="keyword">
+      </vue-autocomplete>
+ -->
+ 
+      <label for="searchInput">Buscar: {{ keyword }}</label>
 
-            
-            <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
 
+      <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
+
+    </div>
+
+    <div class="input-field col s6">
+
+     <a class="waves-effect waves-light btn blue darken-4" title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
+
+
+     <a class="waves-effect waves-light btn red darken-4" title="Limpiar Busqueda" v-on:click="cleansearch(message)">Limpiar Busqueda</a>
+   </div>
+
+
+   <div class="row"></div>
+   <table> 
+    <thead>
+      <tr>
+        <b>
+          <div class="row">
+            <div class="col s1">#</div>
+            <div class="col s2">Logo</div>
+            <div class="col s5">Nombre de ONG</div>
+            <div class="col s2">Departamento</div>
+            <div class="col s2">Acción</div>
           </div>
-
-          <div class="input-field col s6">
-
-           <a class="waves-effect waves-light btn blue darken-4" title="Buscar..." v-on:click="search(keyword)" ><i class="large material-icons">search</i></a>
-
-
-           <a class="waves-effect waves-light btn red darken-4" title="Limpiar Busqueda" v-on:click="cleansearch(message)">Limpiar Busqueda</a>
-         </div>
-
-
-         <div class="row"></div>
-         <table> 
-          <thead>
-            <tr>
-              <b>
-                <div class="row">
-                  <div class="col s1">#</div>
-                  <div class="col s2">Logo</div>
-                  <div class="col s5">Nombre de ONG</div>
-                  <div class="col s2">Departamento</div>
-                  <div class="col s2">Acción</div>
-                </div>
-              </b>
+        </b>
             <!--
               <th data-field="number">#</th>
               <th data-field="logoUrl">Logo</th>
@@ -93,6 +115,8 @@
   var swal = require('sweetalert');
   var config = require('../../config.js');
   var Vue = require('vue');
+  var vueAutocomplete = require('./vue-autocomplete.vue');
+  
 
   var list;
   module.exports = {
@@ -124,6 +148,10 @@
             scopes: []
           }
         },
+        components: {
+          'vue-autocomplete': vueAutocomplete
+        },
+
         methods: {
           getScopes: function(){
             this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
@@ -291,7 +319,7 @@
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
           }
           if (this.organizations[i].market!=null) {
-          for (var k = 0; k < this.organizations[i].market.split(" ").length; k++) {
+            for (var k = 0; k < this.organizations[i].market.split(" ").length; k++) {
             //  console.log()
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.split(" ")[k]);
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.toLowerCase().split(" ")[k]);

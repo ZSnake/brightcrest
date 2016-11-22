@@ -69,7 +69,7 @@
 									</div>
 								</div>
 								<h5 class="condensed light" v-if="checkPermission()">Contacto del coordinador(a)</h5>
-								<div class="row">
+								<div class="row" v-if="checkPermission()">
 									<div class="input-field col s6">
 										<p id="coordinatorName" type="text" class="validate">{{project.coordinatorName}}</p>
 
@@ -81,13 +81,13 @@
 										<label class="active" for="coordinatorPhone">Teléfono fijo</label>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" v-if="checkPermission()">
 									<div class="input-field col s6">
 										<p id="coordinatorEmail" type="text" class="validate">{{project.coordinatorEmail}}</p>
 
 										<label class="active" for="coordinatorEmail">Email</label>
 									</div>
-									<div class="input-field col s6">
+									<div class="input-field col s6" >
 										<p id="coordinatorCelPhone" type="text" class="validate">{{project.coordinatorCelPhone}}</p>
 
 										<label class="active" for="coordinatorCelPhone">Teléfono celular</label>
@@ -287,15 +287,25 @@
 		name: 'viewProject',
 		props: ['currentUser'],
 		ready: function() {
-
+			this.getScopes();
 			$('select').material_select();
 			this.getProject();
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 
 		},
 		methods: {
+			getScopes: function(){
+				this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){
+					this.scopes=response.json();
+
+				},function(error){
+					console.log(error);
+				});
+			},
 			checkPermission: function() {
+
 				var userScope = window.sessionStorage.getItem('scope');
+				console.log(userScope)
 				var controlPermissions=null;
 
 				for (var i = 0; i<this.scopes.length; i++) {
@@ -304,10 +314,12 @@
 						break;
 					}
 				}
-				if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
-					return true;
-				} else  {
-					return false;
+				if (controlPermissions!=null) {
+					if (controlPermissions.addOrganization==true || controlPermissions.editOrganization==true || controlPermissions.deleteOrganization==true) {
+						return true;
+					} else  {
+						return false;
+					}
 				}
 
 			},
@@ -327,6 +339,7 @@
 		data: function(){
 			return {
 				project: {},
+				scopes: []
 			}
 		}
 	}

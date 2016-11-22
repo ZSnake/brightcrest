@@ -273,7 +273,7 @@
 <script>
 	var swal = require('sweetalert');
 	var config = require('../../config.js');
-
+	
 	module.exports = {
 		name: 'editProject',
 
