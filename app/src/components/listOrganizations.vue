@@ -24,7 +24,7 @@
         label="label"
         model="keyword">
       </vue-autocomplete>-->
- 
+
       <div class="ui-widget">
         <label for="searchInput">Buscar: {{ keyword }}</label>
 
@@ -317,191 +317,144 @@
         var orgwhile  = [];
         for (var i = 0; i < this.organizations.length; i++) {
           this.toSearch.push([this.organizations[i]._id, this.accent_fold(this.organizations[i].orgName.toLowerCase()), this.organizations[i].orgNumber, this.organizations[i].acronym ? this.organizations[i].acronym.toLowerCase() : '', 
-          this.organizations[i].postal ? this.organizations[i].postal.toLowerCase() : '' , this.organizations[i].department ? this.accent_fold(this.organizations[i].department.toLowerCase()) : '',
-          this.organizations[i].municipality ? this.organizations[i].municipality.toLowerCase() : '', this.organizations[i].village ? this.organizations[i].village.toLowerCase() : '', 
-          this.organizations[i].community ? this.organizations[i].community.toLowerCase() : '', 
-          this.organizations[i].sector ? this.organizations[i].sector.toLowerCase() : '', this.organizations[i].market ? this.organizations[i].market.toLowerCase() : '',this.organizations[i]]);
+            this.organizations[i].postal ? this.organizations[i].postal.toLowerCase() : '' , this.organizations[i].department ? this.accent_fold(this.organizations[i].department.toLowerCase()) : '',
+            this.organizations[i].municipality ? this.organizations[i].municipality.toLowerCase() : '', this.organizations[i].village ? this.organizations[i].village.toLowerCase() : '', 
+            this.organizations[i].community ? this.organizations[i].community.toLowerCase() : '', 
+            this.organizations[i].sector ? this.organizations[i].sector.toLowerCase() : '', this.organizations[i].market ? this.organizations[i].market.toLowerCase() : '',this.organizations[i]]);
           for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
           }
           if (this.organizations[i].market!=null) {
             for (var k = 0; k < this.organizations[i].market.split(" ").length; k++) {
-            this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.split(" ")[k]);
-            this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.toLowerCase().split(" ")[k]);
-          }}
-          for (var j = 0; j < this.allprojects.length; j++) {
-            if (this.allprojects[j].organizationId==this.organizations[i]._id) {
-              this.toSearch[i].push(this.allprojects[j].name);
+              this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.split(" ")[k]);
+              this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.toLowerCase().split(" ")[k]);
+            }}
+            for (var j = 0; j < this.allprojects.length; j++) {
+              if (this.allprojects[j].organizationId==this.organizations[i]._id) {
+                this.toSearch[i].push(this.allprojects[j].name);
+              }
             }
           }
-        }
-        for (var i = 0; i < this.toSearch.length; i++) {
-          for (var j = 0; j < this.toSearch[i].length; j++) {
-            if (typeof this.toSearch[i][j] === 'string'   ) {
-              if (this.toSearch[i][j].includes(searchKeyword) || this.toSearch[i][j].includes(searchKeyword.toLowerCase())) {
-                orgwhile.push(this.organizations[i]);
+          for (var i = 0; i < this.toSearch.length; i++) {
+            for (var j = 0; j < this.toSearch[i].length; j++) {
+              if (typeof this.toSearch[i][j] === 'string'   ) {
+                if (this.toSearch[i][j].includes(this.accent_fold(searchKeyword)) || this.toSearch[i][j].includes(this.accent_fold(searchKeyword.toLowerCase()))) {
+                  orgwhile.push(this.organizations[i]);
+                }
               }
+            }
           }
-        }
-      }
-      //  console.log(orgwhile);
-          //this.filteredorganizations = orgwhile;
 
-         // this.popsource(orgwhile);
-         this.popsource(this.uniq(orgwhile));
-         this.initPagin(0);
-         if (this.keyword == "") {
-          this.popsource(this.organizations);
+          this.popsource(this.uniq(orgwhile));
           this.initPagin(0);
-        }
+          if (this.keyword == "") {
+            this.popsource(this.organizations);
+            this.initPagin(0);
+          }
 
 
-            /*
-            this.listNumber=0;
-            console.log("is it working?");
-            this.toSearch=[];
-            var orgwhile  = [];
-            k = 0;
-            for (var i = 0; i < this.organizations.length; i++) {
-              for (var j = 0; j < this.allprojects.length; j++) {
-                if (this.allprojects[j]==this.organizations[i]) {
-                  orgwhile.push(this.organizations[i]);
-                }
-              }
-              this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName.trim(), this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()])
+        },
+        accent_fold: function(s) {
+          var accentMap = {
+            'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u'
+          }
+          if (!s) { return ''; }
+          var ret = '';
+          for (var i = 0; i < s.length; i++) {
+            ret += accentMap[s.charAt(i)] || s.charAt(i);
+          }
+          return ret;
+        },
+        sortName: function () {
+          this.organizations.sort(function(a, b){ 
+            var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
+            if (nameA < nameB) 
+              return -1 
+            if (nameA > nameB)
+              return 1
+            return 0 
+          });
+        },
 
-              
-              for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
-                console.log()
-               this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
-              }
-             
+        getOrganizations: function(){
+          this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
+            this.allprojects = responsep.json();
 
-              for (var j = 0; j < this.allprojects.length; j++) {
-                if (this.allprojects[j].organizationId==this.organizations[i]._id) {
+            this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
 
-                  this.toSearch[i].push(this.allprojects[j].name);
-                  
-                }
-              }
-              for (var j = 0; j < this.toSearch[i].length; j++) {
-                if (this.keyword == this.toSearch[i][j]) {
-                  orgwhile.push(this.organizations[i]);
-                }
-              }
-            }
-            this.filteredorganizations = orgwhile;
-            if (this.keyword == "") {
-              this.filteredorganizations=this.organizations;
-            }
+              this.organizations = response.json();
+              this.keywords = _.map(this.organizations, function(org){
+                return org.orgName;
+              });
+              this.keywords.concat(_.map(this.organizations, function(org){
+                return org.department;
+              }));
 
-            for (var i = 0; i < this.filteredorganizations.length; i++) {
-              console.log(this.filteredorganizations[i].orgName)
-            }
-            */
-
-          },
-          accent_fold: function(s) {
-            var accentMap = {
-              'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u'
-            }
-            if (!s) { return ''; }
-            var ret = '';
-            for (var i = 0; i < s.length; i++) {
-              ret += accentMap[s.charAt(i)] || s.charAt(i);
-            }
-            return ret;
-          },
-          sortName: function () {
-            this.organizations.sort(function(a, b){ 
-              var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
-              if (nameA < nameB) 
-                return -1 
-              if (nameA > nameB)
-                return 1
-              return 0 
-            });
-          },
-          
-          getOrganizations: function(){
-            this.$http.get(config.baseUrl() + '/v1/projects').then(function(responsep){
-              this.allprojects = responsep.json();
-
-              this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
-
-                this.organizations = response.json();
-                this.keywords = _.map(this.organizations, function(org){
-                  return org.orgName;
-                });
-                this.keywords.concat(_.map(this.organizations, function(org){
-                  return org.department;
-                }));
-
-                this.sortName();
+              this.sortName();
                 //this.filteredorganizations = this.organizations;
                 this.popsource(this.organizations);
                 this.initPagin(0);
               }, function(error){
                 swal('Error', 'Error obteniendo las organizaciones del servidor', 'error');
               });
-            }, function(errorp){
-              swal('Error', 'Error obteniendo los projects del servidor', 'errorp');
-            });
-          },
+          }, function(errorp){
+            swal('Error', 'Error obteniendo los projects del servidor', 'errorp');
+          });
+        },
 
-          popsource: function(array) {
-            this.sourceorganizations=[];
-            for (var i = 1; i <= array.length; i++) {
-              this.sourceorganizations.push([i,array[i-1]]);
-              
-            }
-          },
+        popsource: function(array) {
+          this.sourceorganizations=[];
+          for (var i = 1; i <= array.length; i++) {
+            this.sourceorganizations.push([i,array[i-1]]);
 
-
-          deleteOrganization: function(id){
-            var component = this;
-            swal({   
-              title: "¿Está seguro?",   
-              text: "¡Si eliminas esta organización, no se podrá recuperar!",   
-              type: "warning",   
-              showCancelButton: true,   
-              confirmButtonColor: "#DD6B55",   
-              confirmButtonText: "Si, eliminar",
-              cancelButtonText: "No, cancelar",   
-              closeOnConfirm: true 
-            }, function(){
-              component.$http.delete(config.baseUrl() + '/v1/organization/' + id._id).then(function(response){
-                component.getOrganizations();
-                this.cleansearch();
-                swal.close();
-                this.createLog("Eliminó la organización: "+id.orgName);
-              },function(error){
-
-              });
-
-            });
           }
+        },
+
+
+        deleteOrganization: function(id){
+          var component = this;
+          swal({   
+            title: "¿Está seguro?",   
+            text: "¡Si eliminas esta organización, no se podrá recuperar!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Si, eliminar",
+            cancelButtonText: "No, cancelar",   
+            closeOnConfirm: true 
+          }, function(){
+            component.$http.delete(config.baseUrl() + '/v1/organization/' + id._id).then(function(response){
+              component.getOrganizations();
+              this.cleansearch();
+              swal.close();
+              this.createLog("Eliminó la organización: "+id.orgName);
+            },function(error){
+
+            });
+
+          });
         }
-      };
+      }
+    };
 
-    </script>
+  </script>
 
-    <style>
-      .modal { width: 80% !important  }  /* increase the width as per you desire */
-      #test .item{
-        margin: 3px;
-      }
-      #test .item img{
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      #container {
-        overflow: scroll;
-        height: 100%;
-      }
-      .list-logo {
-        height: 80px;
-      }
-    </style>
+  <style>
+    .modal { width: 80% !important  }  /* increase the width as per you desire */
+    #test .item{
+      margin: 3px;
+    }
+    #test .item img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #container {
+      overflow: scroll;
+      height: 100%;
+    }
+    .list-logo {
+      height: 80px;
+    }
+  </style>
