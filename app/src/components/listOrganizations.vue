@@ -4,8 +4,8 @@
       <div class="card blue lighten-5 col m10 s12 offset-m1">
         <div class="card-content" >
           <div class="input-field col s6">
-<!--
-            <vue-autocomplete
+
+            <!--<vue-autocomplete
             name="orgName"
             url="http://localhost:8000/v1/organizations"
             anchor="orgName"
@@ -23,14 +23,14 @@
         anchor="orgName"
         label="label"
         model="keyword">
-      </vue-autocomplete>
- -->
+      </vue-autocomplete>-->
  
-      <label for="searchInput">Buscar: {{ keyword }}</label>
+      <div class="ui-widget">
+        <label for="searchInput">Buscar: {{ keyword }}</label>
 
 
-      <input id="searchInput" v-on:keyup.13="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
-
+        <input id="searchInput" v-on:keyup="search(keyword)" type="text" v-model="keyword" placeholder="Buscar" >
+      </div>
     </div>
 
     <div class="input-field col s6">
@@ -116,9 +116,11 @@
   var config = require('../../config.js');
   var Vue = require('vue');
   var vueAutocomplete = require('./vue-autocomplete.vue');
+  var _ = require('lodash');
   
-
+  // var $ = require('jquery');
   var list;
+
   module.exports = {
 
     name: 'listOrganizations',
@@ -128,10 +130,10 @@
       $("html, body").animate({ scrollTop: 0 }, "slow");
       this.keyword = "";
       this.getOrganizations();
-      
-
-
-    },
+      $('#searchInput').autocomplete({
+        lookup: this.keywords
+      });
+    },  
 
     data: function(){
       return {
@@ -145,7 +147,8 @@
             keyword: {},
             allprojects: [],
             paginatedList: [],
-            scopes: []
+            scopes: [],
+            keywords: []
           }
         },
         components: {
@@ -308,42 +311,38 @@
       },
 
       search: function() {
-        this.keyword=this.keyword.trim();
+        var searchKeyword = this.keyword.trim();
+        
         this.toSearch=[];
         var orgwhile  = [];
         for (var i = 0; i < this.organizations.length; i++) {
-          this.toSearch.push([this.organizations[i]._id, this.organizations[i].orgName, this.organizations[i].orgNumber, this.organizations[i].acronym, this.organizations[i].postal , this.organizations[i].department, this.organizations[i].municipality, this.organizations[i].village, this.organizations[i].community, this.organizations[i].sector, this.organizations[i].market,this.organizations[i], this.organizations[i].orgName.toLowerCase()]);
+          this.toSearch.push([this.organizations[i]._id, this.accent_fold(this.organizations[i].orgName.toLowerCase()), this.organizations[i].orgNumber, this.organizations[i].acronym ? this.organizations[i].acronym.toLowerCase() : '', 
+          this.organizations[i].postal ? this.organizations[i].postal.toLowerCase() : '' , this.organizations[i].department ? this.accent_fold(this.organizations[i].department.toLowerCase()) : '',
+          this.organizations[i].municipality ? this.organizations[i].municipality.toLowerCase() : '', this.organizations[i].village ? this.organizations[i].village.toLowerCase() : '', 
+          this.organizations[i].community ? this.organizations[i].community.toLowerCase() : '', 
+          this.organizations[i].sector ? this.organizations[i].sector.toLowerCase() : '', this.organizations[i].market ? this.organizations[i].market.toLowerCase() : '',this.organizations[i]]);
           for (var k = 0; k < this.organizations[i].orgName.split(" ").length; k++) {
-            //  console.log()
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.split(" ")[k]);
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].orgName.toLowerCase().split(" ")[k]);
           }
           if (this.organizations[i].market!=null) {
             for (var k = 0; k < this.organizations[i].market.split(" ").length; k++) {
-            //  console.log()
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.split(" ")[k]);
             this.toSearch[this.toSearch.length-1].push(this.organizations[i].market.toLowerCase().split(" ")[k]);
           }}
           for (var j = 0; j < this.allprojects.length; j++) {
             if (this.allprojects[j].organizationId==this.organizations[i]._id) {
-
               this.toSearch[i].push(this.allprojects[j].name);
-
-
             }
           }
-
         }
         for (var i = 0; i < this.toSearch.length; i++) {
           for (var j = 0; j < this.toSearch[i].length; j++) {
             if (typeof this.toSearch[i][j] === 'string'   ) {
-
-              if (this.keyword == this.toSearch[i][j] || this.keyword.toLowerCase() == this.toSearch[i][j] ||
-                this.keyword == this.toSearch[i][j].toLowerCase() || this.keyword.toLowerCase() == this.toSearch[i][j].toLowerCase() ) {
+              if (this.toSearch[i][j].includes(searchKeyword) || this.toSearch[i][j].includes(searchKeyword.toLowerCase())) {
                 orgwhile.push(this.organizations[i]);
-            }
+              }
           }
-
         }
       }
       //  console.log(orgwhile);
@@ -403,6 +402,17 @@
             */
 
           },
+          accent_fold: function(s) {
+            var accentMap = {
+              'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u'
+            }
+            if (!s) { return ''; }
+            var ret = '';
+            for (var i = 0; i < s.length; i++) {
+              ret += accentMap[s.charAt(i)] || s.charAt(i);
+            }
+            return ret;
+          },
           sortName: function () {
             this.organizations.sort(function(a, b){ 
               var nameA=a.orgName.toLowerCase(), nameB=b.orgName.toLowerCase()
@@ -421,6 +431,12 @@
               this.$http.get(config.baseUrl() + '/v1/organizations').then(function(response){
 
                 this.organizations = response.json();
+                this.keywords = _.map(this.organizations, function(org){
+                  return org.orgName;
+                });
+                this.keywords.concat(_.map(this.organizations, function(org){
+                  return org.department;
+                }));
 
                 this.sortName();
                 //this.filteredorganizations = this.organizations;
