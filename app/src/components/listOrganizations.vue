@@ -117,7 +117,7 @@
   var Vue = require('vue');
   var vueAutocomplete = require('./vue-autocomplete.vue');
   var _ = require('lodash');
-  var jquery = require('jquery-ui');
+  
   // var $ = require('jquery');
   var list;
 
@@ -316,7 +316,7 @@
         this.toSearch=[];
         var orgwhile  = [];
         for (var i = 0; i < this.organizations.length; i++) {
-          this.toSearch.push([this.organizations[i]._id, this.accent_fold(this.organizations[i].orgName.toLowerCase()), this.organizations[i].orgNumber, this.organizations[i].acronym.toLowerCase(), 
+          this.toSearch.push([this.organizations[i]._id, this.accent_fold(this.organizations[i].orgName.toLowerCase()), this.organizations[i].orgNumber, this.organizations[i].acronym ? this.organizations[i].acronym.toLowerCase() : '', 
           this.organizations[i].postal ? this.organizations[i].postal.toLowerCase() : '' , this.organizations[i].department ? this.accent_fold(this.organizations[i].department.toLowerCase()) : '',
           this.organizations[i].municipality ? this.organizations[i].municipality.toLowerCase() : '', this.organizations[i].village ? this.organizations[i].village.toLowerCase() : '', 
           this.organizations[i].community ? this.organizations[i].community.toLowerCase() : '', 

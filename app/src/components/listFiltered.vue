@@ -382,7 +382,7 @@
                 console.log(tbl);
               }
               catch(err) {
-                console.log("shit son");
+                
                 location.reload();
               }
 
