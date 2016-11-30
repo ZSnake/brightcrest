@@ -15,7 +15,7 @@
 
                         </li>
                         <li>
-                        <a v-link="'/listFiltered'" title="Lista Filtrada">Lista Filtrada</a>
+                            <a v-link="'/listFiltered'" title="Lista Filtrada">Lista Filtrada</a>
                         </li>
                         <li>
                             <a v-link="'/organization/map'" title="ir a Mapa">Mapa de organizaciones</a>
@@ -54,6 +54,9 @@
                         </li>
                         <li v-if="checkUser()">
                             <a v-on:click="openAddUser">Agregar Usuario</a>
+                        </li>
+                        <li>
+                            <a v-link="'/listFiltered'" title="Lista Filtrada">Lista Filtrada</a>
                         </li>
                         <li  v-if="!currentUser.userId || currentUser.userId === ''">
                             <a v-link="{path: '/login'}">Login</a>
