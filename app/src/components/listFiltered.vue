@@ -222,8 +222,6 @@
       var Vue = require('vue');
         //var P = require('../../lib/jsPDF/jspdf.debug.js');
         var P = require('jspdf');
-        var T = require('jspdf-autotable');
-        
         var list;
         module.exports = {
 
@@ -234,7 +232,7 @@
             $("html, body").animate({ scrollTop: 0 }, "slow");
             this.keyword = "";
             this.getOrganizations();
-            console.log(T);
+
 
           },
 
@@ -242,7 +240,6 @@
             return {
               order : 1, 
               P : {},
-              T : {},
               listNumber: [],
               organizations: [],
               filteredorganizations: [],
@@ -257,176 +254,147 @@
             }
           },
           methods: {
-            makePDF: function () {  var tipo="";
-            var title="Reporte de busqueda segun tipologias de:\n"
-            var tipo="";
-            var kl=0;
-            if (true==this.project.abandonment) {
-              tipo = tipo.concat(" Abandono,");
-              kl++;
-            }
-            if (true==this.project.sexualFreedomVictims ) {
-              tipo = tipo.concat(" Víctima de delitos contra la libertad sexual,");
-              kl++;
-            }
-            if (true==this.project.legalRepresentativeAbsence ) {
-              tipo = tipo.concat(" Ausencia de representante legal,");
-              kl++;
-            }
-            if (true==this.project.sexualHarassmentVictims ) {
-              tipo = tipo.concat(" Víctima de hostigamiento sexual,");
-              kl++;
-            }
-            if (true==this.project.abuseByOmission ) {
-              tipo = tipo.concat(" Abuso por Omisión,");
-              kl++;
-            }
-            if (true==this.project.procuring ) {
-              tipo = tipo.concat(" Proxenetismo,");
-              kl++;
-            }
-            if (true==this.project.abuseBySupression ) {
-              tipo = tipo.concat(" Maltrato por supresión,");
-              kl++;
-            }
-            if (true==this.project.trafficking ) {
-              tipo = tipo.concat(" Trata de personas,");
-              kl++;
-            }
-            if (true==this.project.abuseByTransgression ) {
-              tipo = tipo.concat(" Maltrato por transgresión,");
-              kl++;
-            }
-            if (true==this.project.publicSexualExposure ) {
-              tipo = tipo.concat(" Espectáculos públicos de naturaleza sexual,");
-              kl++;
-            }
-            if (true==this.project.lackOfBasicNeeds ) {
-              tipo = tipo.concat(" Carencia de atención suficiente para satisfacer sus necesidades básicas,");
-              kl++;
-            }
-            if (true==this.project.pornography ) {
-              tipo = tipo.concat(" Pornografía,");
-              kl++;
-            }
-            if (true==this.project.threatToHeritage )  {
-              tipo = tipo.concat(" Amenazas a su patrimonio,");
-            }
-            if (true==this.project.sexualTurism ) {
-              tipo = tipo.concat(" Turismo sexual,");
-              kl++;
-            }
-            if (true==this.project.addiction ) {
-              tipo = tipo.concat(" Adicción a sustancias que producen dependencia,");
-              kl++;
-            }
-            if (true==this.project.criminalRecruitmentRisk ) {
-              tipo = tipo.concat(" Riesgo de reclutamiento por organizaciones criminales,");
-              kl++;
-            }
-            if (true==this.project.begging ) {
-              tipo = tipo.concat(" Víctimas de mendicidad,");
-              kl++;
-            }
-            if (true==this.project.economicExploitation ) {
-              tipo = tipo.concat(" Explotación económica,");
-              kl++;
-            }
-            if (true==this.project.childAbduction ) {
-              tipo = tipo.concat(" Sustracción de menores,");
-              kl++;
-            }
-            if (true==this.project.childrenDinning ) {
-              tipo = tipo.concat(" Comedores infantiles,");
-              kl++;
-            }
-            if (true==this.project.initialEducationAndEarlyEstimulationCenter ) {
-              tipo = tipo.concat(" Centro de educación inicial y/o estimulación temprana,");
-              kl++;
-            }
-            if (true==this.project.preBasicEducationCenter ) {
-              tipo = tipo.concat(" Centro de educación prebásica,");
-              kl++;
-            }
-            if (true==this.project.artisticFormationCenter ) {
-              tipo = tipo.concat(" Centro de formación artística,");
-              kl++;
-            }
-            if (true==this.project.sportEducationCenter ) {
-              tipo = tipo.concat(" Centro de formación deportiva,");
-              kl++;
-            }
-            if (true==this.project.vocationalEducationCenter ) {
-              tipo = tipo.concat(" Centro de educación vocacional,");
-              kl++;
-            }
-            if (true==this.project.alternativeEducationCenter ) {
-              tipo = tipo.concat(" Centro de educación alternativa no formal,");
-              kl++;
-            }
-            if (true==this.project.others ) {
-              tipo = tipo.concat(" Otros,");
-              kl++;
-            }
+            makePDF: function () {
+              try {
 
-            console.log(title+tipo.substring(1, tipo.length-1));
-
-            var columns = ["#","ONG", "Programa", "Director/a", "Objetivo","Poblacion"];
-            var data=[];
-            console.log(this.sourceorganizations);
-            for(var i = 0; i < this.sourceorganizations.length; i++){
-              data.push([this.sourceorganizations[i][0],this.sourceorganizations[i][1].organizationId, this.sourceorganizations[i][1].name, this.sourceorganizations[i][1].coordinatorName, this.sourceorganizations[i][1].description, this.sourceorganizations[i][1].totalSpace]);
-            }
-            var doc = new P('p', 'pt');
-
-            var header = function (doc, pageCount, options) {
-              doc.setFontSize(20);
-              doc.text(title, options.margins.horizontal, 30);
-              doc.setFontSize(options.fontSize);
-            };
-
-            var cell = function (x, y, width, height, key, value, row, settings) {
-              var style = 'S';
-
-              doc.setLineWidth(0.1);
-              doc.setDrawColor(240);
-
-              doc.rect(x, y, width, height, style);
-
-              y += settings.lineHeight / 2 + doc.internal.getLineHeight() / 2 - 2.5;
-
-              doc.text(value, x + settings.padding, y);
-
-              doc.setTextColor(50);
-            };
-
-            var totalPagesExpression = "{total_pages_count_string}"
-
-            var footer = function (doc, lastCellPos, pageCount, options) {
-              var footerText = "Página " + pageCount + " de " + totalPagesExpression;
-              doc.text(footerText, options.margins.horizontal, doc.internal.pageSize.height - 10);
-            };
-            doc.setFontSize(15);
-            var splitTitle = doc.splitTextToSize(title+tipo.substring(1, tipo.length-1), 500);
-            doc.text(splitTitle, 40, 48);
-            var int = (20*(kl/2));
-            doc.autoTable(columns, data, { margin: {horizontal: 40, top: 60+int, bottom: 40}, renderHeader: header, renderCell: cell, renderFooter: footer, styles: {lineHeight: 12,
-              fontSize: 8,
-              overflow: 'linebreak'
-            }   });
-            doc.putTotalPages(totalPagesExpression);
-            doc.save("Reporte de Busqueda" + '.pdf');
+                var source = document.getElementById("customers");
+                tbl  = document.createElement('table');
+                tbl.style.width  = '100px';
+                tbl.style.border = '1px solid black';
 
 
-          },
+                for(var i = 0; i < this.sourceorganizations.length; i++){
+                  var tr = tbl.insertRow();
+                  
+                  if (i==0) {
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('ONG'));
+                    td.style.border = '1px solid black';
 
-          makeCSV: function () {
-            var word='';
-            word = word.concat("Nombre de Organizacion,Nombre de Programa,Nombre de Coordinador/a,Objetivo,Poblacion Atendida\r\n")
-            for (var i = 0; i < this.sourceorganizations.length; i++) {
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Programa'));
+                    td.style.border = '1px solid black';
 
-              word = word.concat(this.sourceorganizations[i][1].organizationId+','+this.sourceorganizations[i][1].name+','+this.sourceorganizations[i][1].coordinatorName+','+this.sourceorganizations[i][1].description+','+this.sourceorganizations[i][1].totalSpace+'\r\n')
-            }
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Director/a'));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Objetivo'));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    td.appendChild(document.createTextNode('Poblacion'));
+                    td.style.border = '1px solid black';
+
+
+
+
+
+                    var tr = tbl.insertRow();
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].organizationId;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].name;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].coordinatorName;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].description;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].totalSpace;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+
+
+
+                  } else {
+                                        var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].organizationId;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].name;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].coordinatorName;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].description;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                    var td = tr.insertCell();
+                    s1 = this.sourceorganizations[i][1].totalSpace;
+                    td.appendChild(document.createTextNode(s1));
+                    td.style.border = '1px solid black';
+
+                  }
+
+                }
+
+
+                source.appendChild(tbl);
+                source.style.display == "none"
+
+                var pdf = new P('p', 'pt', 'letter');
+                source = $('#customers')[0];
+                specialElementHandlers = {
+                  '#bypassme': function (element, renderer) {
+                    return true
+                  }
+                };
+                margins = {
+                  top: 80,
+                  bottom: 60,
+                  left: 40,
+                  width: 522
+                };
+                pdf.fromHTML(
+                  source, 
+                  margins.left, 
+                  margins.top, { 
+                    'width': margins.width, 
+                    'elementHandlers': specialElementHandlers
+                  },
+
+                  function (dispose) {
+                    pdf.save('Reporte.pdf');
+                  }, margins);
+                source.removeChild(tbl);
+                console.log(tbl);
+              }
+              catch(err) {
+                
+                location.reload();
+              }
+
+            },
+
+            makeCSV: function () {
+              var word='';
+              word = word.concat("Nombre de Organizacion,Nombre de Programa,Nombre de Coordinador/a,Objetivo,Poblacion Atendida\r\n")
+              for (var i = 0; i < this.sourceorganizations.length; i++) {
+
+                word = word.concat(this.sourceorganizations[i][1].organizationId+','+this.sourceorganizations[i][1].name+','+this.sourceorganizations[i][1].coordinatorName+','+this.sourceorganizations[i][1].description+','+this.sourceorganizations[i][1].totalSpace+'\r\n')
+              }
               //console.log(word)
               var a = window.document.createElement('a');
               
