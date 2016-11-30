@@ -38,7 +38,6 @@
 
 		</div>
 
-		<a class="btn" v-on:click="toast('I am a toast', 4000)">Toast!</a>
 	</div>
 
 
@@ -90,13 +89,6 @@
 
 			search: function () {
 				if (this.cleancontrol==false) {
-
-
-					var mat = new M();
-					console.log(mat)
-					console.log(M)
-					M('I am a toast!', 4000);
-
 					this.searchKeyword=this.accent_fold(this.message.trim());
 					var placeholder=this.message.trim();
 					try{
@@ -244,7 +236,6 @@
 
 												}
 
-
 												gps[i][0] = LamMarker;
 
 											}
@@ -254,14 +245,16 @@
 
 								}
 
-
+								console.log("se queda en otro lado no")
 								for (var i = 0; i < gpsP.length; i++) {
-
-									if (gpsP[i][2].name.includes(this.searchKeyword) || gpsP[i][2].name.includes(this.searchKeyword.toLowerCase())) {
-										gpsP[i][0].addTo(map);
-										this.addPoly(gpsP[i][2]);
+									
+									if (gpsP[i][2].name!=null) {
+										gpsP[i][2].name = this.accent_fold(gpsP[i][2].name).toLowerCase();
+										if (gpsP[i][2].name.includes(this.searchKeyword) || gpsP[i][2].name.includes(this.searchKeyword.toLowerCase())) {
+											gpsP[i][0].addTo(map);
+											this.addPoly(gpsP[i][2]);
+										}
 									}
-
 								}
 
 							}
@@ -269,13 +262,16 @@
 					}
 					catch(err) {
 						console.log(err);
-
-
-
 					}
 					this.cleancontrol=true;
+					$("#searchInput").prop('disabled', true);
 				} else{
-
+					swal({
+						title: "¡Limpia la busqueda!",
+						text: "Para seguir buscando dale clic en \"Limpiar Busqueda\".",
+						timer: 5000,
+						showConfirmButton: true
+					});	
 				}
 
 			},
@@ -343,7 +339,7 @@
 					
 				}
 				catch(err) {
-					console.log(err);
+					//console.log(err);
 				}
 			},
 
@@ -468,7 +464,7 @@
 							var longi = this.strtoGps(this.organizations[i].longitude);
 						}
 						catch(err) {
-							console.log(err);
+							//console.log(err);
 						}
 
 
@@ -539,25 +535,39 @@
 				L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
 				
 
+				console.log(this.organizations.length+" dasdaslength")
 				for (var i = 0; i < this.allprojects.length; i++) {
 					for (var j = 0; j < this.organizations.length; j++) {
-						if (this.allprojects[i].organizationId==this.organizations[j]._id){
-							var lat = this.strtoGps(this.organizations[j].latitude);
-							var longi = this.strtoGps(this.organizations[j].longitude);
-							if(!isNaN(lat) && !isNaN(longi)){
-								var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">'+this.organizations[j].orgName+'</a>')[0] );
-								LamMarker.on('mouseover', function (e) {
-									this.openPopup();
-								});
-								gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
-							}
+						try{
+							if (this.allprojects[i].organizationId==this.organizations[j]._id){
+								if (this.organizations[j].latitude!=null && this.organizations[j].longitude!=null) {
+									try {
+										var lat = this.strtoGps(this.organizations[j].latitude);
+										var longi = this.strtoGps(this.organizations[j].longitude);
+									}
+									catch(err) {
+										//console.log(err)
+									}
+								}
 
+
+
+								if(!isNaN(lat) && !isNaN(longi)){
+									var LamMarker = L.marker([lat, -1*longi]).bindPopup($('<a href="#/organization/view/'+this.organizations[j]._id+'" class="speciallink">'+this.organizations[j].orgName+'</a>')[0] );
+									LamMarker.on('mouseover', function (e) {
+										this.openPopup();
+									});
+									gpsP.push([LamMarker,this.organizations[j],this.allprojects[i]]);
+								}
+
+							}
+						}catch(err) {
+							console.log(err)
 						}
 					}
 
 
 				}
-
 
 
 

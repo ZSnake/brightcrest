@@ -333,6 +333,7 @@
             for (var j = 0; j < this.allprojects.length; j++) {
               if (this.allprojects[j].organizationId==this.organizations[i]._id) {
                 this.toSearch[i].push(this.allprojects[j].name);
+                this.toSearch[i].push(this.accent_fold(this.allprojects[j].name));
               }
             }
           }
