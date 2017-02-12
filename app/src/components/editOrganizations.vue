@@ -596,7 +596,7 @@
 					this.eoa = index;
 					this.project=pro;
 					
-					$('#addProjectModal').openModal();
+					$('#addProjectModal')..modal('open');
 					$('#addProjectModal').animate({ scrollTop: 0 }, 'slow');
 					
 				} else	{

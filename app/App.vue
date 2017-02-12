@@ -262,7 +262,7 @@
                 ////console.log(this.$children);
             },
             openAddUser: function(){
-                $('#createUser').openModal();
+                $('#createUser').modal('open');
             }
         },
         data: function(){

@@ -50,7 +50,7 @@
             },
             editUser: function(user){
                 this.userToEdit = user;
-                $('#editUser').openModal();
+                $('#editUser').modal('open');
             },
             logIn: function(){
                 //console.log.log("YAY")
