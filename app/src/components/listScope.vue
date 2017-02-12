@@ -105,11 +105,11 @@
 					"viewLogs" : scope.views.viewLogs
 				},
 
-				$('#editScope').modal('open');
+				$('#editScope').openModal();
 
 			},
 			openAddScope: function(){
-				$('#createScope').modal('open');
+				$('#createScope').openModal();
 			},
 			getScopes: function(){
 				this.$http.get(config.baseUrl() + '/v1/scopes').then(function(response){

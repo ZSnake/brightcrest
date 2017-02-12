@@ -573,7 +573,7 @@
                             
                         });
 			$(document).ready(function(){
-				$('.modal-trigger').modal();
+				$('.modal-trigger').leanModal();
 			});
 			this.getOrganization();
 			this.getProjects();
@@ -596,7 +596,7 @@
 					this.eoa = index;
 					this.project=pro;
 					
-					$('#addProjectModal').modal('open');
+					$('#addProjectModal').openModal();
 					$('#addProjectModal').animate({ scrollTop: 0 }, 'slow');
 					
 				} else	{

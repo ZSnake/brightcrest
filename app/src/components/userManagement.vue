@@ -114,7 +114,7 @@
                     flog: true
                 }
                 this.userToEdit = user2;
-                $('#editUser').modal('open');
+                $('#editUser').openModal();
             }		
 
         },

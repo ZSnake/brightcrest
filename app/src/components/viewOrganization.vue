@@ -299,7 +299,7 @@
                 max: new Date()
             });
             $(document).ready(function(){
-                $('.modal-trigger').modal();
+                $('.modal-trigger').leanModal();
             });
             this.getOrganization();
             this.getProjects();
