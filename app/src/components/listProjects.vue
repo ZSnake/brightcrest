@@ -301,7 +301,7 @@
             $("html, body").animate({ scrollTop: 0 }, "slow");
             $('select').material_select();
             $(document).ready(function(){
-                $('.modal-trigger').leanModal();
+                $('.modal-trigger').modal('open');
             });
             
         },
