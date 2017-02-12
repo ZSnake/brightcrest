@@ -573,7 +573,7 @@
                             
                         });
 			$(document).ready(function(){
-				$('.modal-trigger').modal('open');
+				$('.modal-trigger').modal();
 			});
 			this.getOrganization();
 			this.getProjects();
