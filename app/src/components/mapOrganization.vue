@@ -455,7 +455,7 @@
 
 				map = L.map('map').setView([14.70, -86.20], 8);
 				L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-					attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+					attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
 				}).addTo(map);
 				for (var i = 0; i < this.organizations.length; i++) {
 					if (this.organizations[i].latitude!=null && this.organizations[i].longitude!=null) {
@@ -520,7 +520,7 @@
 
 						}
 					}
-
+ 
 				};
 				var redIcon = L.icon({
 					iconUrl: '/lib/leaflet/images/dinafm-icon.png',
